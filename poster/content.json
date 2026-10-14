@@ -65,6 +65,52 @@
     ]
   },
   {
+    "topic": "JavaScript",
+    "title": "Stop firing an API call on every keystroke",
+    "lang": "js",
+    "code": "function debounce(fn, ms = 300) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}\n\ninput.oninput = debounce(search);",
+    "note": "The search only runs once the user pauses typing.",
+    "caption": "A search box that calls the API on every keystroke wastes requests and can show results out of order. Debounce it.",
+    "tags": [
+      "javascript",
+      "frontend",
+      "performance"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "The event loop in one picture",
+    "type": "fact",
+    "stat": "Microtasks first",
+    "note": "Promises and queueMicrotask always run before the next setTimeout, even setTimeout(fn, 0). That's why a resolved promise logs before a zero-delay timer.",
+    "caption": "The call stack clears, then ALL queued microtasks run, then one macrotask (like a timer or I/O callback) runs. Mixing these up causes some of the gnarliest async bugs.",
+    "tags": [
+      "javascript",
+      "eventloop",
+      "computerscience"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Closures vs. memory leaks",
+    "type": "comparison",
+    "left": {
+      "label": "Leaky",
+      "body": "A closure captures a huge array just to read one field from it. The whole array stays alive as long as the closure does."
+    },
+    "right": {
+      "label": "Fixed",
+      "body": "Extract only the value you need before creating the closure. The large object can then be garbage collected."
+    },
+    "note": "Closures keep their entire outer scope alive, not just the variables you use. In long-running apps that adds up.",
+    "caption": "A closure doesn't just remember the variable you reference — it keeps the whole enclosing scope reachable. In long-lived listeners or timers, that's a classic memory leak source.",
+    "tags": [
+      "javascript",
+      "memoryleaks",
+      "performance"
+    ]
+  },
+  {
     "topic": "TypeScript",
     "title": "Use satisfies, not type annotations",
     "lang": "ts",
@@ -88,6 +134,19 @@
       "typescript",
       "ts",
       "cleancode"
+    ]
+  },
+  {
+    "topic": "TypeScript",
+    "title": "Narrow types without a library",
+    "lang": "ts",
+    "code": "function isError(x: unknown): x is Error {\n  return x instanceof Error;\n}\n\ntry {\n  risky();\n} catch (e) {\n  if (isError(e)) console.log(e.message);\n}",
+    "note": "catch clauses are typed unknown. A type predicate narrows it safely.",
+    "caption": "e.message on a catch variable is a type error in strict mode because catch values are unknown. A small type guard fixes it without any casts.",
+    "tags": [
+      "typescript",
+      "ts",
+      "errorhandling"
     ]
   },
   {
@@ -143,6 +202,26 @@
     ]
   },
   {
+    "topic": "React",
+    "title": "useMemo vs useCallback, pick right",
+    "type": "comparison",
+    "left": {
+      "label": "useMemo",
+      "body": "Caches a computed VALUE between renders. Use it for expensive calculations like filtering a big list."
+    },
+    "right": {
+      "label": "useCallback",
+      "body": "Caches a FUNCTION reference between renders. Use it so child components don't re-render from a new prop identity."
+    },
+    "note": "useCallback(fn, deps) is really just useMemo(() => fn, deps) under the hood.",
+    "caption": "Both exist to stop unnecessary work, but they cache different things. Reaching for the wrong one is a common React code review comment.",
+    "tags": [
+      "reactjs",
+      "react",
+      "hooks"
+    ]
+  },
+  {
     "topic": "Next.js",
     "title": "Fetch data directly in Server Components",
     "lang": "tsx",
@@ -166,19 +245,6 @@
       "nextjs",
       "seo",
       "webdev"
-    ]
-  },
-  {
-    "topic": "Next.js",
-    "title": "Fix font layout shift for free",
-    "lang": "tsx",
-    "code": "import { Inter } from \"next/font/google\";\n\nconst inter = Inter({ subsets: [\"latin\"] });\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang=\"en\" className={inter.className}>\n      <body>{children}</body>\n    </html>\n  );\n}",
-    "note": "next/font self-hosts the font and sizes the fallback to prevent CLS.",
-    "caption": "Text jumping when your web font loads is layout shift. next/font removes it and drops the external Google Fonts request.",
-    "tags": [
-      "nextjs",
-      "webperf",
-      "corewebvitals"
     ]
   },
   {
@@ -209,19 +275,6 @@
   },
   {
     "topic": "CSS",
-    "title": "Stop using the padding-top hack",
-    "lang": "css",
-    "code": "/* old */\n.video { padding-top: 56.25%; }\n\n/* new */\n.video {\n  aspect-ratio: 16 / 9;\n  width: 100%;\n}",
-    "note": "aspect-ratio keeps the box proportional and reserves space before media loads.",
-    "caption": "Reserving space for images and embeds prevents layout shift. aspect-ratio does it cleanly.",
-    "tags": [
-      "css",
-      "webdev",
-      "frontend"
-    ]
-  },
-  {
-    "topic": "CSS",
     "title": "CSS finally has a parent selector",
     "lang": "css",
     "code": "/* style the card only if it has an image */\n.card:has(img) {\n  grid-template-rows: 200px auto;\n}\n\n/* highlight a field with an error */\nlabel:has(+ input:invalid) {\n  color: crimson;\n}",
@@ -248,15 +301,15 @@
   },
   {
     "topic": "CSS",
-    "title": "One line for full overlays",
-    "lang": "css",
-    "code": "/* old */\n.overlay {\n  top: 0; right: 0;\n  bottom: 0; left: 0;\n}\n\n/* new */\n.overlay { position: absolute; inset: 0; }",
-    "note": "inset is shorthand for top, right, bottom and left.",
-    "caption": "Four properties become one. inset: 0 stretches an element over its positioned parent.",
+    "title": "Specificity: the part everyone skips",
+    "type": "fact",
+    "stat": "0,1,0 beats 0,0,9",
+    "note": "One class selector always outranks any number of element/tag selectors. An id (1,0,0) beats any number of classes. !important beats all of it and should be avoided.",
+    "caption": "CSS specificity is a 4-part score: inline styles, ids, classes/attributes/pseudo-classes, then elements. More specific always wins, no matter the order in the file.",
     "tags": [
       "css",
-      "webdev",
-      "cssTips"
+      "frontend",
+      "webdev"
     ]
   },
   {
@@ -281,32 +334,6 @@
     "caption": "Running GSAP inside a plain useEffect often leaves animations behind when components unmount. The official useGSAP hook cleans up for you.",
     "tags": [
       "gsap",
-      "reactjs",
-      "webanimation"
-    ]
-  },
-  {
-    "topic": "GSAP",
-    "title": "Respect reduced motion users",
-    "lang": "js",
-    "code": "const mm = gsap.matchMedia();\n\nmm.add(\"(prefers-reduced-motion: no-preference)\",\n  () => {\n    gsap.from(\".card\", { y: 80, stagger: 0.1 });\n  }\n);",
-    "note": "Animations only run for users who haven't asked their OS to reduce motion.",
-    "caption": "Big motion can make some people feel sick. gsap.matchMedia makes accessible animation easy.",
-    "tags": [
-      "gsap",
-      "a11y",
-      "webanimation"
-    ]
-  },
-  {
-    "topic": "Framer Motion",
-    "title": "Animate on scroll into view",
-    "lang": "jsx",
-    "code": "<motion.div\n  initial={{ opacity: 0, y: 40 }}\n  whileInView={{ opacity: 1, y: 0 }}\n  viewport={{ once: true, amount: 0.3 }}\n  transition={{ duration: 0.6 }}\n/>",
-    "note": "once: true plays it a single time. amount controls how much must be visible.",
-    "caption": "Reveal-on-scroll without writing an IntersectionObserver yourself.",
-    "tags": [
-      "framermotion",
       "reactjs",
       "webanimation"
     ]
@@ -338,7 +365,53 @@
     ]
   },
   {
-    "topic": "SQL",
+    "topic": "Node.js",
+    "title": "Single-threaded, but not what you think",
+    "type": "fact",
+    "stat": "1 thread, 4+ in the pool",
+    "note": "Your JS code runs on one thread, but Node offloads file I/O, DNS and crypto to a libuv thread pool (4 threads by default) so the main thread isn't blocked.",
+    "caption": "\"Node is single-threaded\" is only half true. The event loop is single-threaded, but heavy I/O work happens on background threads you never see. That's why Node handles thousands of connections fine but chokes on CPU-bound loops.",
+    "tags": [
+      "nodejs",
+      "backend",
+      "computerscience"
+    ]
+  },
+  {
+    "topic": "System Design",
+    "title": "Cache invalidation, the two options",
+    "type": "comparison",
+    "left": {
+      "label": "TTL expiry",
+      "body": "Simple: set a time limit and let the cache go stale automatically. Risk: users can see outdated data until it expires."
+    },
+    "right": {
+      "label": "Explicit invalidation",
+      "body": "Accurate: delete or update the cache entry the moment the source data changes. Risk: easy to miss a code path and leave stale entries."
+    },
+    "note": "Most production systems use both: a short TTL as a safety net plus explicit invalidation for the common update paths.",
+    "caption": "\"There are only two hard things in computer science: cache invalidation and naming things.\" Here's the actual tradeoff behind that joke.",
+    "tags": [
+      "systemdesign",
+      "backend",
+      "caching"
+    ]
+  },
+  {
+    "topic": "System Design",
+    "title": "Why rate limiting uses token buckets",
+    "lang": "js",
+    "code": "function allow(bucket) {\n  const now = Date.now();\n  const elapsed = (now - bucket.last) / 1000;\n  bucket.tokens = Math.min(\n    bucket.cap,\n    bucket.tokens + elapsed * bucket.rate\n  );\n  bucket.last = now;\n  if (bucket.tokens < 1) return false;\n  bucket.tokens -= 1;\n  return true;\n}",
+    "note": "Allows short bursts up to the bucket size while still enforcing a steady average rate.",
+    "caption": "A fixed-window counter resets unfairly at the boundary and allows 2x the limit right at the edge. Token bucket smooths that out and still allows bursts.",
+    "tags": [
+      "systemdesign",
+      "backend",
+      "api"
+    ]
+  },
+  {
+    "topic": "Databases",
     "title": "Find out why your query is slow",
     "lang": "sql",
     "code": "EXPLAIN ANALYZE\nSELECT * FROM orders\nWHERE customer_id = 42;\n\n-- \"Seq Scan\"? add an index:\nCREATE INDEX idx_orders_customer\n  ON orders (customer_id);",
@@ -348,6 +421,91 @@
       "sql",
       "postgresql",
       "backend"
+    ]
+  },
+  {
+    "topic": "Databases",
+    "title": "An index can make writes slower",
+    "type": "fact",
+    "stat": "Every INSERT touches every index",
+    "note": "Each index on a table has to be updated on every insert/update/delete. 10 indexes on a write-heavy table means 10x the index maintenance work per write.",
+    "caption": "Indexes aren't free. They speed up reads but slow down writes, since the database has to maintain every index's structure on each change. Index what you actually query, not everything.",
+    "tags": [
+      "sql",
+      "databases",
+      "backend"
+    ]
+  },
+  {
+    "topic": "Databases",
+    "title": "SQL vs NoSQL isn't the real question",
+    "type": "comparison",
+    "left": {
+      "label": "Relational (SQL)",
+      "body": "Strong consistency, joins, and schema enforcement. Best when relationships between data matter and correctness is critical."
+    },
+    "right": {
+      "label": "Document (NoSQL)",
+      "body": "Flexible schema, fast at scale for simple lookups by key. Best when data is naturally nested and read patterns are predictable."
+    },
+    "note": "The real question is your access pattern: how will you query this data, and how often does the shape change?",
+    "caption": "Pick based on your actual read/write patterns, not hype. A lot of \"NoSQL\" problems are really just denormalized SQL problems in disguise.",
+    "tags": [
+      "databases",
+      "sql",
+      "systemdesign"
+    ]
+  },
+  {
+    "topic": "Networking",
+    "title": "Why your API call is slower than it looks",
+    "type": "fact",
+    "stat": "3 round trips before any data",
+    "note": "DNS lookup, TCP handshake, then TLS handshake — all happen before your request even reaches the server. HTTP/2 and connection reuse help, but the first request always pays this cost.",
+    "caption": "A \"100ms API\" can easily take 300-400ms on a cold connection because of DNS + TCP + TLS setup. Keep-alive and HTTP/2 multiplexing are why reusing connections matters so much.",
+    "tags": [
+      "networking",
+      "webperf",
+      "backend"
+    ]
+  },
+  {
+    "topic": "Networking",
+    "title": "Put the cache header on the right thing",
+    "lang": "bash",
+    "code": "# static assets: cache hard, bust via filename\nCache-Control: public, max-age=31536000, immutable\n\n# API responses that change often\nCache-Control: no-cache\n\n# user-specific pages\nCache-Control: private, max-age=0",
+    "note": "immutable only works if the filename changes on every deploy (hashed filenames).",
+    "caption": "The most common cache-control mistake: caching an HTML page for a year, or never caching a hashed JS bundle at all. Match the header to how often the content actually changes.",
+    "tags": [
+      "webperf",
+      "backend",
+      "networking"
+    ]
+  },
+  {
+    "topic": "Debugging",
+    "title": "console.log isn't your only tool",
+    "lang": "js",
+    "code": "console.table(users);        // readable array/object view\nconsole.time(\"fetch\");\nawait fetchData();\nconsole.timeEnd(\"fetch\");     // logs elapsed ms\nconsole.trace(\"called from\"); // prints the call stack",
+    "note": "All four are built into every browser and Node — no imports needed.",
+    "caption": "console has more than .log(). table() formats arrays into readable grids, time()/timeEnd() measures duration, and trace() shows you exactly who called this line.",
+    "tags": [
+      "debugging",
+      "javascript",
+      "devtools"
+    ]
+  },
+  {
+    "topic": "Debugging",
+    "title": "Binary search your bug, not just your array",
+    "type": "fact",
+    "stat": "log₂(n) commits to find it",
+    "note": "git bisect runs a binary search over your commit history. For 1000 commits, that's about 10 tests instead of checking every commit one by one.",
+    "caption": "When a bug appeared somewhere in the last N commits and you don't know where, don't scroll through history manually. git bisect start, mark a good and bad commit, and it binary-searches for the exact commit that broke it.",
+    "tags": [
+      "git",
+      "debugging",
+      "developer"
     ]
   },
   {
@@ -364,16 +522,16 @@
     ]
   },
   {
-    "topic": "JavaScript",
-    "title": "Stop firing an API call on every keystroke",
-    "lang": "js",
-    "code": "function debounce(fn, ms = 300) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}\n\ninput.oninput = debounce(search);",
-    "note": "The search only runs once the user pauses typing.",
-    "caption": "A search box that calls the API on every keystroke wastes requests and can show results out of order. Debounce it.",
+    "topic": "Git",
+    "title": "Rewrite history without losing work",
+    "lang": "bash",
+    "code": "# squash the last 3 commits into one\ngit rebase -i HEAD~3\n\n# safer than --force after a rebase:\ngit push --force-with-lease",
+    "note": "--force-with-lease fails if someone else pushed in the meantime, unlike plain --force.",
+    "caption": "Interactive rebase lets you clean up messy commit history before a PR. --force-with-lease protects you from overwriting a teammate's work by accident.",
     "tags": [
-      "javascript",
-      "frontend",
-      "performance"
+      "git",
+      "github",
+      "developer"
     ]
   },
   {
@@ -387,6 +545,77 @@
       "tailwindcss",
       "css",
       "frontend"
+    ]
+  },
+  {
+    "topic": "Security",
+    "title": "Where should you store a JWT?",
+    "type": "comparison",
+    "left": {
+      "label": "localStorage",
+      "body": "Easy to use from JS, but readable by any script on the page. A single XSS bug leaks every user's token."
+    },
+    "right": {
+      "label": "httpOnly cookie",
+      "body": "Invisible to JavaScript entirely, so XSS can't steal it. Needs CSRF protection since the browser sends it automatically."
+    },
+    "note": "httpOnly cookies trade an XSS risk for a CSRF risk — but CSRF is far easier to defend against with a SameSite flag and a token.",
+    "caption": "Storing auth tokens in localStorage is one of the most common security mistakes in frontend apps. httpOnly cookies plus SameSite=Strict close that door.",
+    "tags": [
+      "security",
+      "webdev",
+      "api"
+    ]
+  },
+  {
+    "topic": "Security",
+    "title": "Quick quiz: which request is vulnerable?",
+    "type": "quiz",
+    "question": "Your API builds a query like this from user input: `\"SELECT * FROM users WHERE name = '\" + name + \"'\"`. What's this vulnerable to?",
+    "options": [
+      "CSRF",
+      "SQL injection",
+      "Clickjacking"
+    ],
+    "note": "Think you know? Answer is in the caption.",
+    "caption": "Answer: B, SQL injection. String-concatenated SQL lets an attacker pass name = \"' OR '1'='1\" and return every row. Parameterized queries fix it. Classic one, but still shows up in real codebases through ORMs with a raw-query escape hatch.",
+    "tags": [
+      "security",
+      "sql",
+      "backend"
+    ]
+  },
+  {
+    "topic": "Career",
+    "title": "The habit that actually speeds up PR reviews",
+    "type": "fact",
+    "stat": "1 self-review before you ask",
+    "note": "Reading your own diff top to bottom before requesting review catches typos, leftover console.logs and unclear naming — the stuff reviewers flag that slows everything down.",
+    "caption": "Reviewers remember who sends clean, self-reviewed PRs versus who sends a first draft every time. A 2-minute self-review before requesting one often saves a full review round-trip.",
+    "tags": [
+      "career",
+      "codereview",
+      "developer"
+    ]
+  },
+  {
+    "topic": "Career",
+    "title": "Estimate like a senior, not a hero",
+    "type": "comparison",
+    "left": {
+      "label": "Best case",
+      "body": "\"This will take 2 days\" assumes no blockers, no surprises, and no context switching. It's almost never what actually happens."
+    },
+    "right": {
+      "label": "Realistic estimate",
+      "body": "Add time for review cycles, unknowns in the codebase, and meetings. A senior engineer pads for reality, not optimism."
+    },
+    "note": "Track your own estimate-vs-actual over a few sprints. Most people are consistently optimistic by a predictable factor — learn yours.",
+    "caption": "Underestimating isn't a skill gap, it's a habit. The fix is tracking your own estimate accuracy over time and adjusting, not trying to \"estimate better\" from scratch each time.",
+    "tags": [
+      "career",
+      "softwareengineering",
+      "developer"
     ]
   }
 ]

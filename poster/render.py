@@ -109,36 +109,38 @@ def lexer_for(lang: str):
     return get_lexer_by_name("text")
 
 
-def render(tip: dict, number: int, handle: str, out_path: str) -> str:
-    img = Image.new("RGB", (W, H), BG)
-    # Content is drawn on its own layer first, then centered above the footer.
-    layer = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(layer)
-    content_w = W - 2 * MARGIN
-    y = 0
-
-    # Pill: topic + tip number
+def draw_pill(d: ImageDraw.ImageDraw, topic: str, number: int, y: int) -> int:
     pill_font = font("bold", 26)
-    pill_text = f"{tip['topic'].upper()}  ·  TIP #{number}"
+    pill_text = f"{topic.upper()}  ·  TIP #{number}"
     pw = d.textlength(pill_text, font=pill_font) + 44
     d.rounded_rectangle([MARGIN, y, MARGIN + pw, y + 52], radius=26, outline=ACCENT, width=2)
     d.text((MARGIN + 22, y + 26), pill_text, font=pill_font, fill=ACCENT, anchor="lm")
-    y += 52 + 44
+    return y + 52 + 44
 
-    # Title (shrinks if it would need more than 3 lines)
+
+def draw_title(d: ImageDraw.ImageDraw, title: str, content_w: int, y: int) -> int:
     for size in (68, 60, 54, 48):
         title_font = font("bold", size)
-        title_lines = wrap(d, tip["title"], title_font, content_w)
+        title_lines = wrap(d, title, title_font, content_w)
         if len(title_lines) <= 3:
             break
     lh = int(size * 1.18)
     for line in title_lines:
         d.text((MARGIN, y), line, font=title_font, fill=TEXT)
         y += lh
-    y += 40
+    return y + 40
 
-    # Code card: pick the largest mono size where every line fits
-    code_lines = tip["code"].rstrip("\n").split("\n")
+
+def draw_note(d: ImageDraw.ImageDraw, note: str, content_w: int, y: int) -> int:
+    note_font = font("regular", 34)
+    for line in wrap(d, note, note_font, content_w)[:4]:
+        d.text((MARGIN, y), line, font=note_font, fill=MUTED)
+        y += 46
+    return y
+
+
+def draw_code_card(d: ImageDraw.ImageDraw, code: str, lang: str, content_w: int, y: int) -> int:
+    code_lines = code.rstrip("\n").split("\n")
     inner_w = content_w - 2 * 40
     for size in (32, 30, 28, 26, 24, 22, 20):
         mono = font("mono", size)
@@ -153,7 +155,7 @@ def render(tip: dict, number: int, handle: str, out_path: str) -> str:
 
     cx0, cy = MARGIN + 40, y + 76
     cx = cx0
-    for ttype, value in lex(tip["code"].rstrip("\n"), lexer_for(tip.get("lang", "js"))):
+    for ttype, value in lex(code.rstrip("\n"), lexer_for(lang)):
         parts = value.split("\n")
         for j, part in enumerate(parts):
             if j > 0:
@@ -162,13 +164,109 @@ def render(tip: dict, number: int, handle: str, out_path: str) -> str:
             if part:
                 d.text((cx, cy), part, font=mono, fill=color_for(ttype))
                 cx += d.textlength(part, font=mono)
-    y += card_h + 44
+    return y + card_h + 44
 
-    # Note
-    note_font = font("regular", 34)
-    for line in wrap(d, tip["note"], note_font, content_w)[:4]:
-        d.text((MARGIN, y), line, font=note_font, fill=MUTED)
-        y += 46
+
+def render_code(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
+    y = draw_code_card(d, tip["code"], tip.get("lang", "js"), content_w, y)
+    return draw_note(d, tip["note"], content_w, y)
+
+
+def render_fact(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
+    for size in (120, 100, 84, 70, 58):
+        stat_font = font("bold", size)
+        if d.textlength(tip["stat"], font=stat_font) <= content_w:
+            break
+    d.text((MARGIN, y), tip["stat"], font=stat_font, fill=ACCENT)
+    y += int(size * 1.1) + 36
+    return draw_note(d, tip["note"], content_w, y)
+
+
+def render_comparison(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
+    col_w = (content_w - 32) // 2
+    heading_font = font("bold", 32)
+    body_font = font("regular", 30)
+    cols = [("left", (240, 113, 120)), ("right", (130, 220, 150))]
+    max_h = 0
+    col_heights = []
+    for key, _ in cols:
+        side = tip[key]
+        lines = wrap(d, side["body"], body_font, col_w - 48)
+        h = 56 + 44 + len(lines) * 40 + 36
+        col_heights.append((lines, h))
+        max_h = max(max_h, h)
+
+    for i, (key, accent) in enumerate(cols):
+        x0 = MARGIN + i * (col_w + 32)
+        side = tip[key]
+        lines, _ = col_heights[i]
+        d.rounded_rectangle([x0, y, x0 + col_w, y + max_h], radius=20, fill=CARD, outline=CARD_BORDER, width=2)
+        d.text((x0 + 24, y + 28), side["label"].upper(), font=heading_font, fill=accent)
+        ty = y + 28 + 56
+        for line in lines:
+            d.text((x0 + 24, ty), line, font=body_font, fill=TEXT)
+            ty += 40
+    y += max_h + 44
+    return draw_note(d, tip["note"], content_w, y)
+
+
+def render_quiz(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
+    q_font = font("regular", 38)
+    opt_label_font = font("bold", 30)
+    opt_font = font("regular", 30)
+
+    question_lines = wrap(d, tip["question"], q_font, content_w - 80)
+    option_lines = [wrap(d, opt, opt_font, content_w - 140) for opt in tip["options"]]
+
+    card_top = y
+    inner_y = card_top + 48
+    for _ in question_lines:
+        inner_y += 50
+    inner_y += 20
+    for lines in option_lines:
+        inner_y += len(lines) * 42 + 14
+    card_bottom = inner_y + 28
+
+    d.rounded_rectangle([MARGIN, card_top, W - MARGIN, card_bottom], radius=24, fill=CARD, outline=CARD_BORDER, width=2)
+
+    ty = card_top + 48
+    for line in question_lines:
+        d.text((MARGIN + 40, ty), line, font=q_font, fill=TEXT)
+        ty += 50
+    ty += 20
+    for i, lines in enumerate(option_lines):
+        letter = chr(65 + i)
+        d.text((MARGIN + 40, ty), f"{letter}.", font=opt_label_font, fill=ACCENT)
+        for line in lines:
+            d.text((MARGIN + 90, ty), line, font=opt_font, fill=TEXT)
+            ty += 42
+        ty += 14
+
+    y = card_bottom + 44
+    return draw_note(d, tip.get("note", "Answer in the caption."), content_w, y)
+
+
+RENDERERS = {
+    "code": render_code,
+    "fact": render_fact,
+    "comparison": render_comparison,
+    "quiz": render_quiz,
+}
+
+
+def render(tip: dict, number: int, handle: str, out_path: str) -> str:
+    img = Image.new("RGB", (W, H), BG)
+    # Content is drawn on its own layer first, then centered above the footer.
+    layer = Image.new("RGB", (W, H), BG)
+    d = ImageDraw.Draw(layer)
+    content_w = W - 2 * MARGIN
+    y = 0
+
+    y = draw_pill(d, tip["topic"], number, y)
+    y = draw_title(d, tip["title"], content_w, y)
+
+    kind = tip.get("type", "code")
+    y = RENDERERS.get(kind, render_code)(d, tip, content_w, y)
 
     # Center the content block between the top edge and the footer
     foot_y = H - 96
