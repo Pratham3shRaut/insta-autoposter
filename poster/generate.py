@@ -1,4 +1,4 @@
-"""Optional: generate a fresh tip with Gemini once the built-in content bank runs out."""
+"""Optional: generate a fresh carousel lesson with Gemini once the content bank runs out."""
 from __future__ import annotations
 
 import json
@@ -6,75 +6,58 @@ import os
 
 import requests
 
-PROMPT = """You write daily Instagram posts for intermediate-to-senior developers.
-Topics can span JavaScript, TypeScript, React, Next.js, CSS, GSAP, Node.js, SQL,
-databases, system design, networking, debugging, git, security, and developer
-career advice. Go beyond basic syntax — prefer internals, tradeoffs, performance,
-and "most people don't know this" angles over beginner syntax tips.
+PROMPT = """You write educational Instagram carousel posts that explain a software
+development concept simply, in the style of a "swipe to learn" explainer thread.
+Topics can span web development, backend, databases, system design, networking,
+security, git, and general computer science. Aim for clarity a junior developer
+can follow, broken into 3-6 distinct sub-topics (one per slide).
 
-Write ONE new post that is NOT about any of these already-posted titles:
+Write ONE new lesson that is NOT about any of these already-posted titles:
 {recent}
 
-Pick ONE "type" and return ONLY JSON matching that type's shape:
+Return ONLY JSON matching this shape:
+{{
+  "topic": str (short category label, e.g. "APIs", "Databases", "Git"),
+  "title": str (the carousel's title-slide headline, max 50 characters),
+  "intro": str (1-2 sentences introducing the topic, for the caption),
+  "slides": [
+    {{
+      "heading": str (max 20 characters, the sub-topic name),
+      "subtitle": str (max 60 characters, one-line description),
+      "points": [2-4 short bullet strings, each max 60 characters],
+      "examples": [2-3 short real-world example strings, each max 30 characters]
+    }}
+    // 3 to 6 of these
+  ],
+  "cta": str (a question for the caption to invite comments, 1 sentence),
+  "tags": [3 lowercase hashtags, no # sign]
+}}
 
-type "code" (a before/after or illustrative snippet):
-{{"type": "code", "topic": str, "title": str (max 45 chars), "lang": one of
-  js/ts/jsx/tsx/css/html/bash/sql, "code": str (\\n-joined, max 10 lines, each
-  line max 46 chars), "note": str (max 95 chars), "caption": str (1-2 sentences),
-  "tags": [3 lowercase hashtags, no #]}}
+Content must be accurate and current. No emojis in heading/subtitle/points."""
 
-type "fact" (one striking number or short phrase + explanation, no code):
-{{"type": "fact", "topic": str, "title": str (max 45 chars), "stat": str (max 24
-  chars, the big headline number/phrase), "note": str (max 220 chars, explains
-  the stat), "caption": str (2-3 sentences), "tags": [3 lowercase hashtags]}}
-
-type "comparison" (two-sided tradeoff):
-{{"type": "comparison", "topic": str, "title": str (max 45 chars),
-  "left": {{"label": str (max 16 chars), "body": str (max 140 chars)}},
-  "right": {{"label": str (max 16 chars), "body": str (max 140 chars)}},
-  "note": str (max 160 chars), "caption": str (1-2 sentences),
-  "tags": [3 lowercase hashtags]}}
-
-type "quiz" (a question with options; the image must NOT reveal the answer,
-only the caption does — so people engage before scrolling to the answer):
-{{"type": "quiz", "topic": str, "title": str (max 45 chars),
-  "question": str (max 160 chars), "options": [2-4 short strings],
-  "note": str (max 60 chars, a neutral prompt like "Answer in the caption",
-  must NOT contain the answer), "caption": str (starts with "Answer: X, ..."
-  and explains why), "tags": [3 lowercase hashtags]}}
-
-Vary which type you pick across requests. The content must be accurate and
-current. No emojis."""
-
-REQUIRED_BY_TYPE = {
-    "code": {"topic", "title", "lang", "code", "note", "caption", "tags"},
-    "fact": {"topic", "title", "stat", "note", "caption", "tags"},
-    "comparison": {"topic", "title", "left", "right", "note", "caption", "tags"},
-    "quiz": {"topic", "title", "question", "options", "note", "caption", "tags"},
-}
+REQUIRED_LESSON = {"topic", "title", "intro", "slides", "cta", "tags"}
+REQUIRED_SLIDE = {"heading", "subtitle", "points", "examples"}
 
 
-def valid(tip: dict) -> bool:
-    kind = tip.get("type", "code")
-    required = REQUIRED_BY_TYPE.get(kind)
-    if not required or not required <= tip.keys():
+def valid(lesson: dict) -> bool:
+    if not REQUIRED_LESSON <= lesson.keys():
         return False
-    if len(tip["title"]) > 60 or not isinstance(tip["tags"], list):
+    if len(lesson["title"]) > 70 or not isinstance(lesson["tags"], list):
         return False
-    if kind == "code":
-        lines = tip["code"].split("\n")
-        return 1 <= len(lines) <= 12 and all(len(l) <= 52 for l in lines) and len(tip["note"]) <= 130
-    if kind == "fact":
-        return len(tip["stat"]) <= 40 and len(tip["note"]) <= 260
-    if kind == "comparison":
-        sides = tip["left"], tip["right"]
-        return all(isinstance(s, dict) and "label" in s and "body" in s for s in sides) and len(tip["note"]) <= 200
-    if kind == "quiz":
-        return isinstance(tip["options"], list) and 2 <= len(tip["options"]) <= 4 and len(tip["note"]) <= 200
-    return False
+    slides = lesson["slides"]
+    if not isinstance(slides, list) or not 3 <= len(slides) <= 6:
+        return False
+    for s in slides:
+        if not isinstance(s, dict) or not REQUIRED_SLIDE <= s.keys():
+            return False
+        if not isinstance(s["points"], list) or not isinstance(s["examples"], list):
+            return False
+        if len(s["heading"]) > 30:
+            return False
+    return True
 
 
-def generate_tip(recent_titles: list[str]) -> dict | None:
+def generate_lesson(recent_titles: list[str]) -> dict | None:
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
         return None
@@ -91,12 +74,12 @@ def generate_tip(recent_titles: list[str]) -> dict | None:
                 print(f"gemini error {r.status_code}: {r.text[:300]}")
                 continue
             text = r.json()["candidates"][0]["content"]["parts"][0]["text"]
-            tip = json.loads(text)
-            if isinstance(tip, list):
-                tip = tip[0]
-            if valid(tip):
-                return tip
-            print("generated tip failed validation, retrying")
+            lesson = json.loads(text)
+            if isinstance(lesson, list):
+                lesson = lesson[0]
+            if valid(lesson):
+                return lesson
+            print("generated lesson failed validation, retrying")
         except Exception as e:  # network/format issues: fall back to the bank
             print(f"gemini generation failed: {e}")
     return None

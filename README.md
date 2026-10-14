@@ -1,12 +1,12 @@
 # Insta Auto-Poster
 
-Posts a new web dev tip to Instagram every day, automatically.
+Posts a new educational carousel to Instagram every day, automatically.
 
 Each day a GitHub Action:
-1. picks the next tip (30 hand-written tips included, then optional AI-generated ones),
-2. renders it as a 1080×1350 code-card image,
-3. commits the image to this repo so Instagram can fetch it,
-4. publishes it through the official Instagram Graph API,
+1. picks the next lesson (hand-written lessons included, then optional AI-generated ones),
+2. renders it as a swipeable carousel of 1080×1350 explainer slides,
+3. commits the images to this repo so Instagram can fetch them,
+4. publishes the carousel through the official Instagram Graph API,
 5. refreshes your access token so it never expires.
 
 No servers, no cost. Runs on GitHub Actions' free tier.
@@ -33,7 +33,7 @@ The app can stay in development mode: it works for your own account because you'
 pip install -r requirements.txt
 $env:IG_ACCESS_TOKEN = "paste-token-here"
 python -m poster whoami          # should print your username
-python -m poster preview --count 5   # renders sample images into .\preview
+python -m poster preview --count 3   # renders sample carousels into .\preview
 ```
 
 ### 4. Put it on GitHub
@@ -49,7 +49,7 @@ python -m poster preview --count 5   # renders sample images into .\preview
 | Variable | `IG_HANDLE` | your Instagram username without @ (shown on the image and caption) |
 
 ### 5. First run
-1. Repo → **Actions → Daily Instagram post → Run workflow** with **dry run ✅**. Download the `post-preview` artifact to see the image.
+1. Repo → **Actions → Daily Instagram post → Run workflow** with **dry run ✅**. Download the `post-preview` artifact to see the carousel slides.
 2. Run it again with **dry run unchecked**. This publishes your first post.
 3. From then on it posts automatically every day at **6:53 PM IST**.
 
@@ -58,8 +58,8 @@ python -m poster preview --count 5   # renders sample images into .\preview
 ## Customizing
 
 - **Posting time:** edit the `cron` line in `.github/workflows/daily-post.yml` (it's in UTC; IST = UTC + 5:30).
-- **Tips:** edit `poster/content.json`. Keep code lines under ~46 characters so the text stays large.
-- **Design:** colors and layout are at the top of `poster/render.py`. Drop `bold.ttf`, `regular.ttf`, `mono.ttf` into a `fonts/` folder to use your own fonts.
+- **Lessons:** edit `poster/content.json`. Each entry is a carousel: a `title`, an `intro`, 3-6 `slides` (each with a `heading`, `subtitle`, `points`, and optional `examples`), a `cta`, and `tags`.
+- **Design:** colors and layout are at the top of `poster/render.py`. Drop `bold.ttf`/`regular.ttf` into a `fonts/` folder to use your own fonts.
 - **Pause posting:** Actions → Daily Instagram post → **⋯ → Disable workflow**.
 - **Facebook Login instead of Instagram Login:** set variable `GRAPH_HOST=graph.facebook.com` and secrets `IG_USER_ID` (Instagram business account id) and `IG_ACCESS_TOKEN` (a non-expiring Page or System User token). Token refresh is skipped in that mode.
 

@@ -1,621 +1,405 @@
 [
   {
-    "topic": "JavaScript",
-    "title": "Stop writing long null checks",
-    "lang": "js",
-    "code": "// before\nconst city = user && user.address\n  && user.address.city || \"Unknown\";\n\n// after\nconst city = user?.address?.city ?? \"Unknown\";",
-    "note": "Optional chaining stops at null/undefined. ?? only falls back on null/undefined, so 0 and \"\" survive.",
-    "caption": "Optional chaining + nullish coalescing replace a whole chain of && checks. Bonus: ?? won't throw away valid falsy values like 0 or an empty string.",
-    "tags": [
-      "javascript",
-      "js",
-      "es2020"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "Deep copy without JSON hacks",
-    "lang": "js",
-    "code": "const original = {\n  date: new Date(),\n  tags: new Set([\"a\", \"b\"]),\n};\n\nconst copy = structuredClone(original);\n// Date and Set survive. JSON.parse would not.",
-    "note": "structuredClone is built into browsers and Node 17+. No lodash needed.",
-    "caption": "JSON.parse(JSON.stringify(obj)) silently breaks Dates, Maps, Sets and undefined. structuredClone handles them properly.",
-    "tags": [
-      "javascript",
-      "webdev",
-      "nodejs"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "Get the last item the clean way",
-    "lang": "js",
-    "code": "const items = [10, 20, 30];\n\nitems[items.length - 1]; // 30\nitems.at(-1);             // 30\nitems.at(-2);             // 20",
-    "note": "Array.prototype.at() accepts negative indexes. Works on strings too.",
-    "caption": "Small one, but it reads so much better. .at(-1) gives you the last element without the length math.",
-    "tags": [
-      "javascript",
-      "js",
-      "codingtips"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "Your awaits might be slow for no reason",
-    "lang": "js",
-    "code": "// sequential: ~600ms\nconst user = await getUser();\nconst posts = await getPosts();\n\n// parallel: ~300ms\nconst [user, posts] = await Promise.all([\n  getUser(),\n  getPosts(),\n]);",
-    "note": "If two requests don't depend on each other, start them together.",
-    "caption": "Back-to-back awaits run one after another. When the calls are independent, Promise.all runs them at the same time and cuts the wait.",
-    "tags": [
-      "javascript",
-      "async",
-      "performance"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "Group arrays in one line",
-    "lang": "js",
-    "code": "const orders = [\n  { id: 1, status: \"paid\" },\n  { id: 2, status: \"pending\" },\n  { id: 3, status: \"paid\" },\n];\n\nObject.groupBy(orders, (o) => o.status);\n// { paid: [...], pending: [...] }",
-    "note": "Native Object.groupBy. Supported in all modern browsers and Node 21+.",
-    "caption": "No more reduce() boilerplate to group data. Object.groupBy is now built into the language.",
-    "tags": [
-      "javascript",
-      "es2024",
-      "webdev"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "Stop firing an API call on every keystroke",
-    "lang": "js",
-    "code": "function debounce(fn, ms = 300) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}\n\ninput.oninput = debounce(search);",
-    "note": "The search only runs once the user pauses typing.",
-    "caption": "A search box that calls the API on every keystroke wastes requests and can show results out of order. Debounce it.",
-    "tags": [
-      "javascript",
-      "frontend",
-      "performance"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "The event loop in one picture",
-    "type": "fact",
-    "stat": "Microtasks first",
-    "note": "Promises and queueMicrotask always run before the next setTimeout, even setTimeout(fn, 0). That's why a resolved promise logs before a zero-delay timer.",
-    "caption": "The call stack clears, then ALL queued microtasks run, then one macrotask (like a timer or I/O callback) runs. Mixing these up causes some of the gnarliest async bugs.",
-    "tags": [
-      "javascript",
-      "eventloop",
-      "computerscience"
-    ]
-  },
-  {
-    "topic": "JavaScript",
-    "title": "Closures vs. memory leaks",
-    "type": "comparison",
-    "left": {
-      "label": "Leaky",
-      "body": "A closure captures a huge array just to read one field from it. The whole array stays alive as long as the closure does."
-    },
-    "right": {
-      "label": "Fixed",
-      "body": "Extract only the value you need before creating the closure. The large object can then be garbage collected."
-    },
-    "note": "Closures keep their entire outer scope alive, not just the variables you use. In long-running apps that adds up.",
-    "caption": "A closure doesn't just remember the variable you reference — it keeps the whole enclosing scope reachable. In long-lived listeners or timers, that's a classic memory leak source.",
-    "tags": [
-      "javascript",
-      "memoryleaks",
-      "performance"
-    ]
-  },
-  {
-    "topic": "TypeScript",
-    "title": "Use satisfies, not type annotations",
-    "lang": "ts",
-    "code": "type Theme = Record<string, string>;\n\nconst colors = {\n  primary: \"#a3e635\",\n  bg: \"#0f1117\",\n} satisfies Theme;\n\ncolors.primary; // still autocompletes",
-    "note": "satisfies checks the shape but keeps the exact inferred type.",
-    "caption": "Annotating with : Theme widens your object and you lose autocomplete on keys. satisfies validates it and keeps the precise type.",
-    "tags": [
-      "typescript",
-      "ts",
-      "webdev"
-    ]
-  },
-  {
-    "topic": "TypeScript",
-    "title": "Turn arrays into union types",
-    "lang": "ts",
-    "code": "const ROLES = [\"admin\", \"editor\", \"viewer\"] as const;\n\ntype Role = (typeof ROLES)[number];\n// \"admin\" | \"editor\" | \"viewer\"\n\nfunction can(role: Role) { /* ... */ }",
-    "note": "One source of truth for runtime values and types.",
-    "caption": "Define your options once with as const, then derive the type from it. Add a role to the array and the type updates automatically.",
-    "tags": [
-      "typescript",
-      "ts",
-      "cleancode"
-    ]
-  },
-  {
-    "topic": "TypeScript",
-    "title": "Narrow types without a library",
-    "lang": "ts",
-    "code": "function isError(x: unknown): x is Error {\n  return x instanceof Error;\n}\n\ntry {\n  risky();\n} catch (e) {\n  if (isError(e)) console.log(e.message);\n}",
-    "note": "catch clauses are typed unknown. A type predicate narrows it safely.",
-    "caption": "e.message on a catch variable is a type error in strict mode because catch values are unknown. A small type guard fixes it without any casts.",
-    "tags": [
-      "typescript",
-      "ts",
-      "errorhandling"
-    ]
-  },
-  {
-    "topic": "React",
-    "title": "Never use index as a key",
-    "lang": "jsx",
-    "code": "// buggy when the list reorders\n{todos.map((t, i) => <Todo key={i} {...t} />)}\n\n// stable identity\n{todos.map((t) => <Todo key={t.id} {...t} />)}",
-    "note": "Index keys make React reuse the wrong component state after sorts or deletes.",
-    "caption": "If inputs in your list start showing the wrong values after deleting an item, check your keys. Use a stable id, not the array index.",
-    "tags": [
-      "reactjs",
-      "react",
-      "frontend"
-    ]
-  },
-  {
-    "topic": "React",
-    "title": "You don't need useEffect for this",
-    "lang": "jsx",
-    "code": "// extra render + extra state\nconst [full, setFull] = useState(\"\");\nuseEffect(() => {\n  setFull(first + \" \" + last);\n}, [first, last]);\n\n// just compute it\nconst full = first + \" \" + last;",
-    "note": "If a value can be calculated from props or state, calculate it during render.",
-    "caption": "Syncing derived values with useEffect causes an extra render and bugs. Compute it directly instead.",
-    "tags": [
-      "reactjs",
-      "react",
-      "hooks"
-    ]
-  },
-  {
-    "topic": "React",
-    "title": "The setState bug that hides in plain sight",
-    "lang": "jsx",
-    "code": "// adds 1, not 3\nsetCount(count + 1);\nsetCount(count + 1);\nsetCount(count + 1);\n\n// adds 3\nsetCount((c) => c + 1);\nsetCount((c) => c + 1);\nsetCount((c) => c + 1);",
-    "note": "Use the updater function when new state depends on the previous state.",
-    "caption": "count is a snapshot from the current render. The updater form always gets the latest value.",
-    "tags": [
-      "reactjs",
-      "react",
-      "javascript"
-    ]
-  },
-  {
-    "topic": "React",
-    "title": "Expensive initial state? Make it lazy",
-    "lang": "jsx",
-    "code": "// runs on EVERY render\nuseState(parseBigList(raw));\n\n// runs once\nuseState(() => parseBigList(raw));",
-    "note": "Pass a function to useState and React only calls it on the first render.",
-    "caption": "A tiny change that can save real work on every re-render: pass an initializer function instead of the computed value.",
-    "tags": [
-      "reactjs",
-      "performance",
-      "react"
-    ]
-  },
-  {
-    "topic": "React",
-    "title": "useMemo vs useCallback, pick right",
-    "type": "comparison",
-    "left": {
-      "label": "useMemo",
-      "body": "Caches a computed VALUE between renders. Use it for expensive calculations like filtering a big list."
-    },
-    "right": {
-      "label": "useCallback",
-      "body": "Caches a FUNCTION reference between renders. Use it so child components don't re-render from a new prop identity."
-    },
-    "note": "useCallback(fn, deps) is really just useMemo(() => fn, deps) under the hood.",
-    "caption": "Both exist to stop unnecessary work, but they cache different things. Reaching for the wrong one is a common React code review comment.",
-    "tags": [
-      "reactjs",
-      "react",
-      "hooks"
-    ]
-  },
-  {
-    "topic": "Next.js",
-    "title": "Fetch data directly in Server Components",
-    "lang": "tsx",
-    "code": "// app/posts/page.tsx\nexport default async function Page() {\n  const res = await fetch(API_URL);\n  const posts = await res.json();\n\n  return <PostList posts={posts} />;\n}",
-    "note": "No useEffect, no loading spinner flash, and the data never ships as client JS.",
-    "caption": "In the Next.js App Router, components are server components by default. You can make them async and fetch right inside.",
-    "tags": [
-      "nextjs",
-      "react",
-      "webdev"
-    ]
-  },
-  {
-    "topic": "Next.js",
-    "title": "Dynamic SEO titles per page",
-    "lang": "tsx",
-    "code": "export async function generateMetadata(\n  { params }\n) {\n  const { slug } = await params;\n  const post = await getPost(slug);\n  return {\n    title: post.title,\n    description: post.excerpt,\n  };\n}",
-    "note": "Each dynamic route gets its own title, description and OG tags.",
-    "caption": "Every blog post or product page sharing one generic title hurts SEO. generateMetadata gives each route its own.",
-    "tags": [
-      "nextjs",
-      "seo",
-      "webdev"
-    ]
-  },
-  {
-    "topic": "Next.js",
-    "title": "Forms without an API route",
-    "lang": "tsx",
-    "code": "async function subscribe(formData) {\n  \"use server\";\n  await db.insert({\n    email: formData.get(\"email\"),\n  });\n}\n\n<form action={subscribe}>...</form>",
-    "note": "Server Actions run on the server. Always validate input inside them.",
-    "caption": "With Server Actions, a form can call a server function directly. Less boilerplate than writing a separate API route.",
-    "tags": [
-      "nextjs",
-      "react",
-      "fullstack"
-    ]
-  },
-  {
-    "topic": "CSS",
-    "title": "Responsive font size, zero media queries",
-    "lang": "css",
-    "code": "h1 {\n  /* min, preferred, max */\n  font-size: clamp(2rem, 5vw + 1rem, 4.5rem);\n}",
-    "note": "The heading scales with the viewport but never goes below or above your limits.",
-    "caption": "clamp() gives you fluid typography in one line. No more stacking breakpoints just for font sizes.",
-    "tags": [
-      "css",
-      "frontend",
-      "responsivedesign"
-    ]
-  },
-  {
-    "topic": "CSS",
-    "title": "CSS finally has a parent selector",
-    "lang": "css",
-    "code": "/* style the card only if it has an image */\n.card:has(img) {\n  grid-template-rows: 200px auto;\n}\n\n/* highlight a field with an error */\nlabel:has(+ input:invalid) {\n  color: crimson;\n}",
-    "note": ":has() is supported in all modern browsers.",
-    "caption": "Things that used to need JavaScript, like styling a parent based on its children, now work in pure CSS.",
-    "tags": [
-      "css",
-      "frontend",
-      "webdesign"
-    ]
-  },
-  {
-    "topic": "CSS",
-    "title": "Components that respond to their container",
-    "lang": "css",
-    "code": ".sidebar { container-type: inline-size; }\n\n@container (min-width: 400px) {\n  .card {\n    display: flex;\n    gap: 1rem;\n  }\n}",
-    "note": "The card adapts to the space it gets, not the whole screen width.",
-    "caption": "Media queries look at the viewport. Container queries look at the parent, which is what reusable components actually need.",
-    "tags": [
-      "css",
-      "responsivedesign",
-      "frontend"
-    ]
-  },
-  {
-    "topic": "CSS",
-    "title": "Specificity: the part everyone skips",
-    "type": "fact",
-    "stat": "0,1,0 beats 0,0,9",
-    "note": "One class selector always outranks any number of element/tag selectors. An id (1,0,0) beats any number of classes. !important beats all of it and should be avoided.",
-    "caption": "CSS specificity is a 4-part score: inline styles, ids, classes/attributes/pseudo-classes, then elements. More specific always wins, no matter the order in the file.",
-    "tags": [
-      "css",
-      "frontend",
-      "webdev"
-    ]
-  },
-  {
-    "topic": "GSAP",
-    "title": "Scroll-linked zoom effect with GSAP",
-    "lang": "js",
-    "code": "gsap.registerPlugin(ScrollTrigger);\n\ngsap.to(\".hero-img\", {\n  scale: 1.2,\n  scrollTrigger: {\n    trigger: \".hero\",\n    start: \"top top\",\n    end: \"bottom top\",\n    scrub: true,\n  },\n});",
-    "note": "scrub ties the animation progress to the scrollbar position.",
-    "caption": "The classic zoom-on-scroll hero effect. scrub: true makes it follow your scroll instead of playing once.",
-    "tags": [
-      "gsap",
-      "webanimation",
-      "creativecoding"
-    ]
-  },
-  {
-    "topic": "GSAP",
-    "title": "Use GSAP in React without memory leaks",
-    "lang": "jsx",
-    "code": "import { useGSAP } from \"@gsap/react\";\n\nfunction Hero() {\n  const ref = useRef(null);\n  useGSAP(() => {\n    gsap.from(\".title\", { y: 50, opacity: 0 });\n  }, { scope: ref });\n  return <section ref={ref}>...</section>;\n}",
-    "note": "useGSAP scopes selectors to the ref and reverts animations on unmount.",
-    "caption": "Running GSAP inside a plain useEffect often leaves animations behind when components unmount. The official useGSAP hook cleans up for you.",
-    "tags": [
-      "gsap",
-      "reactjs",
-      "webanimation"
-    ]
-  },
-  {
-    "topic": "Node.js",
-    "title": "Add a timeout to fetch in one line",
-    "lang": "js",
-    "code": "try {\n  const res = await fetch(url, {\n    signal: AbortSignal.timeout(5000),\n  });\n} catch (err) {\n  if (err.name === \"TimeoutError\") {\n    console.log(\"took longer than 5s\");\n  }\n}",
-    "note": "Works in Node 18+ and all modern browsers.",
-    "caption": "fetch has no timeout by default, so a slow server can hang your request forever. AbortSignal.timeout fixes that.",
-    "tags": [
-      "nodejs",
-      "javascript",
-      "backend"
-    ]
-  },
-  {
-    "topic": "Node.js",
-    "title": "You may not need nodemon anymore",
-    "lang": "bash",
-    "code": "# restarts on file changes\nnode --watch server.js\n\n# load .env without dotenv\nnode --env-file=.env server.js",
-    "note": "Both flags are built into modern Node versions.",
-    "caption": "Two dev dependencies you can often drop: nodemon and dotenv. Node does both natively now.",
-    "tags": [
-      "nodejs",
-      "backend",
-      "javascript"
-    ]
-  },
-  {
-    "topic": "Node.js",
-    "title": "Single-threaded, but not what you think",
-    "type": "fact",
-    "stat": "1 thread, 4+ in the pool",
-    "note": "Your JS code runs on one thread, but Node offloads file I/O, DNS and crypto to a libuv thread pool (4 threads by default) so the main thread isn't blocked.",
-    "caption": "\"Node is single-threaded\" is only half true. The event loop is single-threaded, but heavy I/O work happens on background threads you never see. That's why Node handles thousands of connections fine but chokes on CPU-bound loops.",
-    "tags": [
-      "nodejs",
-      "backend",
-      "computerscience"
-    ]
-  },
-  {
-    "topic": "System Design",
-    "title": "Cache invalidation, the two options",
-    "type": "comparison",
-    "left": {
-      "label": "TTL expiry",
-      "body": "Simple: set a time limit and let the cache go stale automatically. Risk: users can see outdated data until it expires."
-    },
-    "right": {
-      "label": "Explicit invalidation",
-      "body": "Accurate: delete or update the cache entry the moment the source data changes. Risk: easy to miss a code path and leave stale entries."
-    },
-    "note": "Most production systems use both: a short TTL as a safety net plus explicit invalidation for the common update paths.",
-    "caption": "\"There are only two hard things in computer science: cache invalidation and naming things.\" Here's the actual tradeoff behind that joke.",
-    "tags": [
-      "systemdesign",
-      "backend",
-      "caching"
-    ]
-  },
-  {
-    "topic": "System Design",
-    "title": "Why rate limiting uses token buckets",
-    "lang": "js",
-    "code": "function allow(bucket) {\n  const now = Date.now();\n  const elapsed = (now - bucket.last) / 1000;\n  bucket.tokens = Math.min(\n    bucket.cap,\n    bucket.tokens + elapsed * bucket.rate\n  );\n  bucket.last = now;\n  if (bucket.tokens < 1) return false;\n  bucket.tokens -= 1;\n  return true;\n}",
-    "note": "Allows short bursts up to the bucket size while still enforcing a steady average rate.",
-    "caption": "A fixed-window counter resets unfairly at the boundary and allows 2x the limit right at the edge. Token bucket smooths that out and still allows bursts.",
-    "tags": [
-      "systemdesign",
-      "backend",
-      "api"
-    ]
-  },
-  {
-    "topic": "Databases",
-    "title": "Find out why your query is slow",
-    "lang": "sql",
-    "code": "EXPLAIN ANALYZE\nSELECT * FROM orders\nWHERE customer_id = 42;\n\n-- \"Seq Scan\"? add an index:\nCREATE INDEX idx_orders_customer\n  ON orders (customer_id);",
-    "note": "A sequential scan on a big table usually means a missing index.",
-    "caption": "Don't guess at SQL performance. EXPLAIN ANALYZE shows exactly how Postgres runs your query.",
-    "tags": [
-      "sql",
-      "postgresql",
-      "backend"
-    ]
-  },
-  {
-    "topic": "Databases",
-    "title": "An index can make writes slower",
-    "type": "fact",
-    "stat": "Every INSERT touches every index",
-    "note": "Each index on a table has to be updated on every insert/update/delete. 10 indexes on a write-heavy table means 10x the index maintenance work per write.",
-    "caption": "Indexes aren't free. They speed up reads but slow down writes, since the database has to maintain every index's structure on each change. Index what you actually query, not everything.",
-    "tags": [
-      "sql",
-      "databases",
-      "backend"
-    ]
-  },
-  {
-    "topic": "Databases",
-    "title": "SQL vs NoSQL isn't the real question",
-    "type": "comparison",
-    "left": {
-      "label": "Relational (SQL)",
-      "body": "Strong consistency, joins, and schema enforcement. Best when relationships between data matter and correctness is critical."
-    },
-    "right": {
-      "label": "Document (NoSQL)",
-      "body": "Flexible schema, fast at scale for simple lookups by key. Best when data is naturally nested and read patterns are predictable."
-    },
-    "note": "The real question is your access pattern: how will you query this data, and how often does the shape change?",
-    "caption": "Pick based on your actual read/write patterns, not hype. A lot of \"NoSQL\" problems are really just denormalized SQL problems in disguise.",
-    "tags": [
-      "databases",
-      "sql",
-      "systemdesign"
-    ]
-  },
-  {
-    "topic": "Networking",
-    "title": "Why your API call is slower than it looks",
-    "type": "fact",
-    "stat": "3 round trips before any data",
-    "note": "DNS lookup, TCP handshake, then TLS handshake — all happen before your request even reaches the server. HTTP/2 and connection reuse help, but the first request always pays this cost.",
-    "caption": "A \"100ms API\" can easily take 300-400ms on a cold connection because of DNS + TCP + TLS setup. Keep-alive and HTTP/2 multiplexing are why reusing connections matters so much.",
-    "tags": [
-      "networking",
-      "webperf",
-      "backend"
-    ]
-  },
-  {
-    "topic": "Networking",
-    "title": "Put the cache header on the right thing",
-    "lang": "bash",
-    "code": "# static assets: cache hard, bust via filename\nCache-Control: public, max-age=31536000, immutable\n\n# API responses that change often\nCache-Control: no-cache\n\n# user-specific pages\nCache-Control: private, max-age=0",
-    "note": "immutable only works if the filename changes on every deploy (hashed filenames).",
-    "caption": "The most common cache-control mistake: caching an HTML page for a year, or never caching a hashed JS bundle at all. Match the header to how often the content actually changes.",
-    "tags": [
-      "webperf",
-      "backend",
-      "networking"
-    ]
-  },
-  {
-    "topic": "Debugging",
-    "title": "console.log isn't your only tool",
-    "lang": "js",
-    "code": "console.table(users);        // readable array/object view\nconsole.time(\"fetch\");\nawait fetchData();\nconsole.timeEnd(\"fetch\");     // logs elapsed ms\nconsole.trace(\"called from\"); // prints the call stack",
-    "note": "All four are built into every browser and Node — no imports needed.",
-    "caption": "console has more than .log(). table() formats arrays into readable grids, time()/timeEnd() measures duration, and trace() shows you exactly who called this line.",
-    "tags": [
-      "debugging",
-      "javascript",
-      "devtools"
-    ]
-  },
-  {
-    "topic": "Debugging",
-    "title": "Binary search your bug, not just your array",
-    "type": "fact",
-    "stat": "log₂(n) commits to find it",
-    "note": "git bisect runs a binary search over your commit history. For 1000 commits, that's about 10 tests instead of checking every commit one by one.",
-    "caption": "When a bug appeared somewhere in the last N commits and you don't know where, don't scroll through history manually. git bisect start, mark a good and bad commit, and it binary-searches for the exact commit that broke it.",
-    "tags": [
-      "git",
-      "debugging",
-      "developer"
-    ]
-  },
-  {
-    "topic": "Git",
-    "title": "Clearer git commands you should use",
-    "lang": "bash",
-    "code": "git switch -c feature/login   # new branch\ngit switch main               # change branch\n\ngit restore app.js            # discard edits\ngit restore --staged app.js   # unstage",
-    "note": "switch and restore split up the many jobs of git checkout.",
-    "caption": "git checkout does too many things. switch handles branches and restore handles files, so mistakes are harder to make.",
-    "tags": [
-      "git",
-      "github",
-      "developer"
-    ]
-  },
-  {
-    "topic": "Git",
-    "title": "Rewrite history without losing work",
-    "lang": "bash",
-    "code": "# squash the last 3 commits into one\ngit rebase -i HEAD~3\n\n# safer than --force after a rebase:\ngit push --force-with-lease",
-    "note": "--force-with-lease fails if someone else pushed in the meantime, unlike plain --force.",
-    "caption": "Interactive rebase lets you clean up messy commit history before a PR. --force-with-lease protects you from overwriting a teammate's work by accident.",
-    "tags": [
-      "git",
-      "github",
-      "developer"
-    ]
-  },
-  {
-    "topic": "Tailwind CSS",
-    "title": "Style children on parent hover",
-    "lang": "html",
-    "code": "<a class=\"group rounded-xl p-6\">\n  <h3 class=\"group-hover:text-lime-400\">\n    Project\n  </h3>\n  <span class=\"opacity-0 group-hover:opacity-100\">\n    View →\n  </span>\n</a>",
-    "note": "Mark the parent with group, then use group-hover: on any child.",
-    "caption": "Hovering a card and changing several elements inside it needs no JavaScript in Tailwind. Just group and group-hover.",
-    "tags": [
-      "tailwindcss",
-      "css",
-      "frontend"
-    ]
-  },
-  {
-    "topic": "Security",
-    "title": "Where should you store a JWT?",
-    "type": "comparison",
-    "left": {
-      "label": "localStorage",
-      "body": "Easy to use from JS, but readable by any script on the page. A single XSS bug leaks every user's token."
-    },
-    "right": {
-      "label": "httpOnly cookie",
-      "body": "Invisible to JavaScript entirely, so XSS can't steal it. Needs CSRF protection since the browser sends it automatically."
-    },
-    "note": "httpOnly cookies trade an XSS risk for a CSRF risk — but CSRF is far easier to defend against with a SameSite flag and a token.",
-    "caption": "Storing auth tokens in localStorage is one of the most common security mistakes in frontend apps. httpOnly cookies plus SameSite=Strict close that door.",
-    "tags": [
-      "security",
-      "webdev",
-      "api"
-    ]
-  },
-  {
-    "topic": "Security",
-    "title": "Quick quiz: which request is vulnerable?",
-    "type": "quiz",
-    "question": "Your API builds a query like this from user input: `\"SELECT * FROM users WHERE name = '\" + name + \"'\"`. What's this vulnerable to?",
-    "options": [
-      "CSRF",
-      "SQL injection",
-      "Clickjacking"
+    "topic": "APIs",
+    "title": "Types of APIs Explained Simply",
+    "intro": "APIs are the backbone of modern applications. They help different software systems communicate and share data seamlessly.",
+    "slides": [
+      {
+        "heading": "REST API",
+        "subtitle": "The most widely used API type.",
+        "points": [
+          "Uses HTTP methods (GET, POST, PUT, DELETE)",
+          "Lightweight and easy to use",
+          "Returns data mostly in JSON format"
+        ],
+        "examples": ["Social media apps", "Weather apps", "E-commerce websites"]
+      },
+      {
+        "heading": "SOAP API",
+        "subtitle": "A protocol for secure, structured communication.",
+        "points": [
+          "Uses XML format for messages",
+          "Highly secure with built-in error handling",
+          "Common in enterprise applications"
+        ],
+        "examples": ["Banking systems", "Payment gateways", "Government services"]
+      },
+      {
+        "heading": "GraphQL API",
+        "subtitle": "Ask for exactly the data you need.",
+        "points": [
+          "Single endpoint for all queries",
+          "Client decides the response shape",
+          "Avoids over-fetching and under-fetching"
+        ],
+        "examples": ["GitHub API", "Shopify storefronts", "Mobile apps with limited bandwidth"]
+      },
+      {
+        "heading": "WebSocket API",
+        "subtitle": "Two-way communication that stays open.",
+        "points": [
+          "Persistent connection between client and server",
+          "Server can push data without a new request",
+          "Much lower latency than polling"
+        ],
+        "examples": ["Chat apps", "Live sports scores", "Multiplayer games"]
+      },
+      {
+        "heading": "gRPC API",
+        "subtitle": "Fast, typed communication between services.",
+        "points": [
+          "Uses Protocol Buffers, not JSON",
+          "Much faster than REST for service-to-service calls",
+          "Strict, strongly-typed contracts"
+        ],
+        "examples": ["Microservices", "Internal backend communication"]
+      }
     ],
-    "note": "Think you know? Answer is in the caption.",
-    "caption": "Answer: B, SQL injection. String-concatenated SQL lets an attacker pass name = \"' OR '1'='1\" and return every row. Parameterized queries fix it. Classic one, but still shows up in real codebases through ORMs with a raw-query escape hatch.",
-    "tags": [
-      "security",
-      "sql",
-      "backend"
-    ]
+    "cta": "Which API have you used the most? Let me know in the comments.",
+    "tags": ["api", "webdevelopment", "backend"]
+  },
+  {
+    "topic": "HTTP",
+    "title": "HTTP Status Codes You Must Know",
+    "intro": "Every API response carries a status code. Knowing what they mean saves hours of debugging.",
+    "slides": [
+      {
+        "heading": "2xx Success",
+        "subtitle": "The request worked as expected.",
+        "points": [
+          "200 OK — standard successful response",
+          "201 Created — a new resource was made",
+          "204 No Content — success, nothing to return"
+        ],
+        "examples": ["Successful login", "Resource created", "Delete confirmed"]
+      },
+      {
+        "heading": "3xx Redirection",
+        "subtitle": "The resource moved somewhere else.",
+        "points": [
+          "301 Moved Permanently — update your bookmarks",
+          "302 Found — temporary redirect",
+          "304 Not Modified — use your cached copy"
+        ],
+        "examples": ["Domain migrations", "HTTPS redirects", "Cached assets"]
+      },
+      {
+        "heading": "4xx Client Error",
+        "subtitle": "The request itself was the problem.",
+        "points": [
+          "400 Bad Request — malformed input",
+          "401 Unauthorized — you're not logged in",
+          "403 Forbidden — logged in, but not allowed",
+          "404 Not Found — the resource doesn't exist"
+        ],
+        "examples": ["Expired token", "Missing page", "Invalid form data"]
+      },
+      {
+        "heading": "5xx Server Error",
+        "subtitle": "The request was fine, the server wasn't.",
+        "points": [
+          "500 Internal Server Error — something crashed",
+          "502 Bad Gateway — upstream server failed",
+          "503 Service Unavailable — server is overloaded"
+        ],
+        "examples": ["Unhandled exception", "Database down", "Deployment in progress"]
+      }
+    ],
+    "cta": "Which status code do you see the most in your logs?",
+    "tags": ["http", "webdevelopment", "backend"]
+  },
+  {
+    "topic": "Databases",
+    "title": "SQL JOINs Explained Simply",
+    "intro": "JOINs combine rows from two or more tables. Pick the wrong one and you either lose data or duplicate it.",
+    "slides": [
+      {
+        "heading": "INNER JOIN",
+        "subtitle": "Only rows that match in both tables.",
+        "points": [
+          "Returns rows where the join condition is true in both tables",
+          "Rows with no match on either side are excluded",
+          "The most commonly used join"
+        ],
+        "examples": ["Orders that have a matching customer"]
+      },
+      {
+        "heading": "LEFT JOIN",
+        "subtitle": "Everything from the left table, matched or not.",
+        "points": [
+          "Keeps all rows from the left table",
+          "Unmatched right-side columns come back as NULL",
+          "Useful for finding what's missing"
+        ],
+        "examples": ["All customers, even those with zero orders"]
+      },
+      {
+        "heading": "RIGHT JOIN",
+        "subtitle": "The mirror image of LEFT JOIN.",
+        "points": [
+          "Keeps all rows from the right table",
+          "Unmatched left-side columns come back as NULL",
+          "Rarely used — most people rewrite it as a LEFT JOIN"
+        ],
+        "examples": ["All products, even unordered ones, from the orders table"]
+      },
+      {
+        "heading": "FULL JOIN",
+        "subtitle": "Everything from both tables.",
+        "points": [
+          "Combines LEFT and RIGHT JOIN results",
+          "Unmatched rows from either side get NULLs",
+          "Good for finding mismatches between two tables"
+        ],
+        "examples": ["Reconciling two systems that should be in sync"]
+      }
+    ],
+    "cta": "Which JOIN trips you up the most?",
+    "tags": ["sql", "databases", "backend"]
+  },
+  {
+    "topic": "Git",
+    "title": "Git Commands Every Developer Needs",
+    "intro": "You don't need 100 git commands memorized. These cover 90% of daily work.",
+    "slides": [
+      {
+        "heading": "Starting out",
+        "subtitle": "Get a project under version control.",
+        "points": [
+          "git init — start tracking a new project",
+          "git clone <url> — copy an existing repo",
+          "git status — see what's changed"
+        ],
+        "examples": ["New project setup", "Joining an existing codebase"]
+      },
+      {
+        "heading": "Saving work",
+        "subtitle": "Record changes as commits.",
+        "points": [
+          "git add <file> — stage a change",
+          "git commit -m \"message\" — save staged changes",
+          "git push — send commits to the remote"
+        ],
+        "examples": ["End of a coding session", "Before switching tasks"]
+      },
+      {
+        "heading": "Branching",
+        "subtitle": "Work on features without breaking main.",
+        "points": [
+          "git switch -c <name> — create and move to a new branch",
+          "git switch <name> — move to an existing branch",
+          "git merge <name> — bring a branch's changes in"
+        ],
+        "examples": ["Feature branches", "Bug fix branches"]
+      },
+      {
+        "heading": "Undoing things",
+        "subtitle": "Mistakes happen, git can fix most of them.",
+        "points": [
+          "git restore <file> — discard uncommitted changes",
+          "git reset --soft HEAD~1 — undo last commit, keep changes",
+          "git revert <commit> — safely undo a pushed commit"
+        ],
+        "examples": ["Accidental commit", "Reverting a bad deploy"]
+      }
+    ],
+    "cta": "Which git command took you the longest to actually understand?",
+    "tags": ["git", "github", "developer"]
+  },
+  {
+    "topic": "Security",
+    "title": "Web Security Basics Every Dev Should Know",
+    "intro": "Most breaches don't come from genius hackers — they come from skipped basics. Start here.",
+    "slides": [
+      {
+        "heading": "SQL Injection",
+        "subtitle": "Untrusted input treated as executable SQL.",
+        "points": [
+          "Happens when queries are built with string concatenation",
+          "An attacker can read or delete your entire database",
+          "Fixed with parameterized queries, never string building"
+        ],
+        "examples": ["Login forms", "Search bars", "URL parameters"]
+      },
+      {
+        "heading": "XSS",
+        "subtitle": "Malicious scripts injected into your pages.",
+        "points": [
+          "Happens when user input is rendered as raw HTML",
+          "Can steal cookies, sessions, and user data",
+          "Fixed by escaping output and using a strict CSP"
+        ],
+        "examples": ["Comment sections", "User profile bios", "Chat messages"]
+      },
+      {
+        "heading": "CSRF",
+        "subtitle": "Tricking a logged-in user into an unwanted action.",
+        "points": [
+          "Exploits the browser automatically sending cookies",
+          "Victim's own session is used against them",
+          "Fixed with CSRF tokens and SameSite cookies"
+        ],
+        "examples": ["Fake 'click here' links", "Hidden auto-submit forms"]
+      },
+      {
+        "heading": "Broken Auth",
+        "subtitle": "Weaknesses in login and session handling.",
+        "points": [
+          "Weak password rules make brute-forcing easy",
+          "Tokens that never expire stay valid forever if leaked",
+          "Fixed with rate limiting, hashing, and short-lived tokens"
+        ],
+        "examples": ["Admin panels", "Password reset flows"]
+      }
+    ],
+    "cta": "Which of these have you actually seen in production code?",
+    "tags": ["security", "webdevelopment", "backend"]
+  },
+  {
+    "topic": "System Design",
+    "title": "How Caching Actually Works",
+    "intro": "Caching is the single biggest lever for making an app feel fast. Here's how it's layered in a real system.",
+    "slides": [
+      {
+        "heading": "Browser Cache",
+        "subtitle": "The data never leaves the user's device.",
+        "points": [
+          "Controlled by Cache-Control and ETag headers",
+          "Fastest possible response: zero network time",
+          "Best for static assets like images, CSS, JS"
+        ],
+        "examples": ["Logos", "Fonts", "Hashed JS bundles"]
+      },
+      {
+        "heading": "CDN Cache",
+        "subtitle": "A copy stored close to the user.",
+        "points": [
+          "Edge servers around the world cache responses",
+          "Cuts latency by avoiding your origin server entirely",
+          "Great for content that's the same for every user"
+        ],
+        "examples": ["Public blog pages", "Product images", "Videos"]
+      },
+      {
+        "heading": "Application Cache",
+        "subtitle": "In-memory store like Redis sitting in front of your database.",
+        "points": [
+          "Much faster than querying the database every time",
+          "Needs an invalidation strategy or data goes stale",
+          "Usually has a TTL as a safety net"
+        ],
+        "examples": ["Session data", "Expensive aggregate queries", "Rate limit counters"]
+      },
+      {
+        "heading": "Database Cache",
+        "subtitle": "The database's own internal optimizations.",
+        "points": [
+          "Query plans and recently read pages are kept in memory",
+          "You don't control it directly, but indexes help it a lot",
+          "Still the slowest layer in this whole chain"
+        ],
+        "examples": ["Repeated identical queries", "Hot rows in a popular table"]
+      }
+    ],
+    "cta": "Which caching layer do you rely on most in your stack?",
+    "tags": ["systemdesign", "backend", "caching"]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "The JavaScript Event Loop, Simply",
+    "intro": "JavaScript is single-threaded, yet handles thousands of operations without freezing. This is how.",
+    "slides": [
+      {
+        "heading": "Call Stack",
+        "subtitle": "Where your code actually executes.",
+        "points": [
+          "Functions are pushed on when called, popped off when done",
+          "Only one thing runs at a time here",
+          "A long-running function here blocks everything else"
+        ],
+        "examples": ["A synchronous for-loop", "A recursive function"]
+      },
+      {
+        "heading": "Web APIs",
+        "subtitle": "Where async work actually happens.",
+        "points": [
+          "Timers, network requests and DOM events run outside the stack",
+          "Provided by the browser or Node, not JS itself",
+          "They report back once finished, not immediately"
+        ],
+        "examples": ["setTimeout", "fetch()", "addEventListener"]
+      },
+      {
+        "heading": "Microtask Queue",
+        "subtitle": "The high-priority line for promises.",
+        "points": [
+          "Holds resolved Promise callbacks and queueMicrotask",
+          "Always fully drained before the next macrotask runs",
+          "This is why a resolved promise logs before a timer"
+        ],
+        "examples": [".then() callbacks", "async/await continuations"]
+      },
+      {
+        "heading": "Macrotask Queue",
+        "subtitle": "Where the next 'turn' of work waits.",
+        "points": [
+          "Holds timers, I/O callbacks, and UI events",
+          "Only one macrotask runs per loop iteration",
+          "Runs only after the stack and microtasks are empty"
+        ],
+        "examples": ["setTimeout callbacks", "click event handlers"]
+      }
+    ],
+    "cta": "Did you know microtasks always run before the next timer?",
+    "tags": ["javascript", "eventloop", "webdevelopment"]
   },
   {
     "topic": "Career",
-    "title": "The habit that actually speeds up PR reviews",
-    "type": "fact",
-    "stat": "1 self-review before you ask",
-    "note": "Reading your own diff top to bottom before requesting review catches typos, leftover console.logs and unclear naming — the stuff reviewers flag that slows everything down.",
-    "caption": "Reviewers remember who sends clean, self-reviewed PRs versus who sends a first draft every time. A 2-minute self-review before requesting one often saves a full review round-trip.",
-    "tags": [
-      "career",
-      "codereview",
-      "developer"
-    ]
-  },
-  {
-    "topic": "Career",
-    "title": "Estimate like a senior, not a hero",
-    "type": "comparison",
-    "left": {
-      "label": "Best case",
-      "body": "\"This will take 2 days\" assumes no blockers, no surprises, and no context switching. It's almost never what actually happens."
-    },
-    "right": {
-      "label": "Realistic estimate",
-      "body": "Add time for review cycles, unknowns in the codebase, and meetings. A senior engineer pads for reality, not optimism."
-    },
-    "note": "Track your own estimate-vs-actual over a few sprints. Most people are consistently optimistic by a predictable factor — learn yours.",
-    "caption": "Underestimating isn't a skill gap, it's a habit. The fix is tracking your own estimate accuracy over time and adjusting, not trying to \"estimate better\" from scratch each time.",
-    "tags": [
-      "career",
-      "softwareengineering",
-      "developer"
-    ]
+    "title": "Code Review Habits That Make You Look Senior",
+    "intro": "The difference between a junior and senior PR often isn't the code — it's these habits.",
+    "slides": [
+      {
+        "heading": "Self-review first",
+        "subtitle": "Read your own diff before requesting review.",
+        "points": [
+          "Catches typos and leftover console.logs",
+          "Lets you add context comments on tricky parts",
+          "Shows reviewers you respect their time"
+        ],
+        "examples": ["Before clicking 'Create Pull Request'"]
+      },
+      {
+        "heading": "Small PRs",
+        "subtitle": "Easier to review means faster to merge.",
+        "points": [
+          "Split unrelated changes into separate PRs",
+          "A 100-line PR gets reviewed same-day, a 1000-line one doesn't",
+          "Smaller diffs mean fewer missed bugs"
+        ],
+        "examples": ["One feature per PR", "Refactors separate from features"]
+      },
+      {
+        "heading": "Clear descriptions",
+        "subtitle": "Explain the why, not just the what.",
+        "points": [
+          "Link the ticket or issue being solved",
+          "Mention tradeoffs you considered and rejected",
+          "Add a test plan so reviewers know how to verify it"
+        ],
+        "examples": ["PR template with context + test plan"]
+      },
+      {
+        "heading": "Respond fast",
+        "subtitle": "Momentum matters more than perfection.",
+        "points": [
+          "Reply to review comments within a day, not a week",
+          "Disagree directly in comments, don't go silent",
+          "Thank reviewers for catching real issues"
+        ],
+        "examples": ["Addressing comments same day they're posted"]
+      }
+    ],
+    "cta": "What's one code review habit that changed how people saw your work?",
+    "tags": ["career", "codereview", "softwareengineering"]
   }
 ]

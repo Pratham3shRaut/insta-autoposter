@@ -1,4 +1,8 @@
-"""Render a tip into a 1080x1350 JPEG (Instagram portrait size)."""
+"""Render a lesson into a carousel of 1080x1350 JPEGs (Instagram portrait size).
+
+Light "explainer" style: a title slide followed by one slide per topic point,
+each with a heading, subtitle, checklist bullets and an optional examples box.
+"""
 from __future__ import annotations
 
 import glob
@@ -6,35 +10,19 @@ import os
 from functools import lru_cache
 
 from PIL import Image, ImageDraw, ImageFont
-from pygments import lex
-from pygments.lexers import get_lexer_by_name
-from pygments.token import Token
-from pygments.util import ClassNotFound
 
 W, H = 1080, 1350
-MARGIN = 80
+MARGIN = 72
 
-BG = (15, 17, 23)
-CARD = (26, 29, 39)
-CARD_BORDER = (42, 46, 58)
-TEXT = (240, 240, 244)
-MUTED = (161, 161, 170)
-ACCENT = (163, 230, 53)  # lime
-
-CODE_COLORS = [
-    (Token.Comment, (103, 110, 149)),
-    (Token.Keyword, (199, 146, 234)),
-    (Token.Name.Function, (130, 170, 255)),
-    (Token.Name.Builtin, (255, 203, 107)),
-    (Token.Name.Tag, (240, 113, 120)),
-    (Token.Name.Attribute, (255, 203, 107)),
-    (Token.Name.Class, (255, 203, 107)),
-    (Token.Literal.String, (195, 232, 141)),
-    (Token.Literal.Number, (247, 140, 108)),
-    (Token.Operator, (137, 221, 255)),
-    (Token.Punctuation, (137, 221, 255)),
-]
-CODE_DEFAULT = (230, 230, 235)
+BG = (253, 240, 196)
+BG_ACCENT = (247, 209, 103)
+NAVY = (26, 33, 56)
+MUTED_NAVY = (90, 100, 128)
+ACCENT = (240, 180, 41)
+CHECK_BG = (46, 196, 122)
+CARD_BG = (255, 250, 232)
+CARD_BORDER = (235, 214, 150)
+WHITE = (255, 255, 255)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 FONT_DIR = os.path.join(os.path.dirname(HERE), "fonts")
@@ -55,14 +43,6 @@ FONT_CANDIDATES = {
         "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
         "C:/Windows/Fonts/segoeui.ttf", "C:/Windows/Fonts/arial.ttf",
         "/System/Library/Fonts/Supplemental/Arial.ttf",
-    ],
-    "mono": [
-        f"{FONT_DIR}/mono.ttf", f"{FONT_DIR}/mono.otf",
-        "/usr/share/fonts/truetype/jetbrains-mono/JetBrainsMono-Regular.ttf",
-        "/usr/share/fonts/**/JetBrainsMono-Regular.*",
-        "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
-        "C:/Windows/Fonts/consola.ttf", "C:/Windows/Fonts/cour.ttf",
-        "/System/Library/Fonts/Menlo.ttc",
     ],
 }
 
@@ -93,199 +73,174 @@ def wrap(draw: ImageDraw.ImageDraw, text: str, f, max_w: int) -> list[str]:
     return lines
 
 
-def color_for(ttype) -> tuple[int, int, int]:
-    for base, col in CODE_COLORS:
-        if ttype in base:
-            return col
-    return CODE_DEFAULT
-
-
-def lexer_for(lang: str):
-    for name in (lang, "typescript" if lang in ("ts", "tsx") else "javascript"):
-        try:
-            return get_lexer_by_name(name, stripnl=False, ensurenl=False)
-        except ClassNotFound:
-            continue
-    return get_lexer_by_name("text")
-
-
-def draw_pill(d: ImageDraw.ImageDraw, topic: str, number: int, y: int) -> int:
-    pill_font = font("bold", 26)
-    pill_text = f"{topic.upper()}  ·  TIP #{number}"
-    pw = d.textlength(pill_text, font=pill_font) + 44
-    d.rounded_rectangle([MARGIN, y, MARGIN + pw, y + 52], radius=26, outline=ACCENT, width=2)
-    d.text((MARGIN + 22, y + 26), pill_text, font=pill_font, fill=ACCENT, anchor="lm")
-    return y + 52 + 44
-
-
-def draw_title(d: ImageDraw.ImageDraw, title: str, content_w: int, y: int) -> int:
-    for size in (68, 60, 54, 48):
-        title_font = font("bold", size)
-        title_lines = wrap(d, title, title_font, content_w)
-        if len(title_lines) <= 3:
-            break
-    lh = int(size * 1.18)
-    for line in title_lines:
-        d.text((MARGIN, y), line, font=title_font, fill=TEXT)
-        y += lh
-    return y + 40
-
-
-def draw_note(d: ImageDraw.ImageDraw, note: str, content_w: int, y: int) -> int:
-    note_font = font("regular", 34)
-    for line in wrap(d, note, note_font, content_w)[:4]:
-        d.text((MARGIN, y), line, font=note_font, fill=MUTED)
-        y += 46
-    return y
-
-
-def draw_code_card(d: ImageDraw.ImageDraw, code: str, lang: str, content_w: int, y: int) -> int:
-    code_lines = code.rstrip("\n").split("\n")
-    inner_w = content_w - 2 * 40
-    for size in (32, 30, 28, 26, 24, 22, 20):
-        mono = font("mono", size)
-        if max(d.textlength(l, font=mono) for l in code_lines) <= inner_w:
-            break
-    code_lh = int(size * 1.5)
-    card_h = 64 + len(code_lines) * code_lh + 36
-    d.rounded_rectangle([MARGIN, y, W - MARGIN, y + card_h], radius=24, fill=CARD, outline=CARD_BORDER, width=2)
-    for i, col in enumerate([(255, 95, 87), (254, 188, 46), (40, 200, 64)]):
-        cx = MARGIN + 36 + i * 30
-        d.ellipse([cx - 8, y + 30, cx + 8, y + 46], fill=col)
-
-    cx0, cy = MARGIN + 40, y + 76
-    cx = cx0
-    for ttype, value in lex(code.rstrip("\n"), lexer_for(lang)):
-        parts = value.split("\n")
-        for j, part in enumerate(parts):
-            if j > 0:
-                cy += code_lh
-                cx = cx0
-            if part:
-                d.text((cx, cy), part, font=mono, fill=color_for(ttype))
-                cx += d.textlength(part, font=mono)
-    return y + card_h + 44
-
-
-def render_code(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
-    y = draw_code_card(d, tip["code"], tip.get("lang", "js"), content_w, y)
-    return draw_note(d, tip["note"], content_w, y)
-
-
-def render_fact(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
-    for size in (120, 100, 84, 70, 58):
-        stat_font = font("bold", size)
-        if d.textlength(tip["stat"], font=stat_font) <= content_w:
-            break
-    d.text((MARGIN, y), tip["stat"], font=stat_font, fill=ACCENT)
-    y += int(size * 1.1) + 36
-    return draw_note(d, tip["note"], content_w, y)
-
-
-def render_comparison(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
-    col_w = (content_w - 32) // 2
-    heading_font = font("bold", 32)
-    body_font = font("regular", 30)
-    cols = [("left", (240, 113, 120)), ("right", (130, 220, 150))]
-    max_h = 0
-    col_heights = []
-    for key, _ in cols:
-        side = tip[key]
-        lines = wrap(d, side["body"], body_font, col_w - 48)
-        h = 56 + 44 + len(lines) * 40 + 36
-        col_heights.append((lines, h))
-        max_h = max(max_h, h)
-
-    for i, (key, accent) in enumerate(cols):
-        x0 = MARGIN + i * (col_w + 32)
-        side = tip[key]
-        lines, _ = col_heights[i]
-        d.rounded_rectangle([x0, y, x0 + col_w, y + max_h], radius=20, fill=CARD, outline=CARD_BORDER, width=2)
-        d.text((x0 + 24, y + 28), side["label"].upper(), font=heading_font, fill=accent)
-        ty = y + 28 + 56
-        for line in lines:
-            d.text((x0 + 24, ty), line, font=body_font, fill=TEXT)
-            ty += 40
-    y += max_h + 44
-    return draw_note(d, tip["note"], content_w, y)
-
-
-def render_quiz(d: ImageDraw.ImageDraw, tip: dict, content_w: int, y: int) -> int:
-    q_font = font("regular", 38)
-    opt_label_font = font("bold", 30)
-    opt_font = font("regular", 30)
-
-    question_lines = wrap(d, tip["question"], q_font, content_w - 80)
-    option_lines = [wrap(d, opt, opt_font, content_w - 140) for opt in tip["options"]]
-
-    card_top = y
-    inner_y = card_top + 48
-    for _ in question_lines:
-        inner_y += 50
-    inner_y += 20
-    for lines in option_lines:
-        inner_y += len(lines) * 42 + 14
-    card_bottom = inner_y + 28
-
-    d.rounded_rectangle([MARGIN, card_top, W - MARGIN, card_bottom], radius=24, fill=CARD, outline=CARD_BORDER, width=2)
-
-    ty = card_top + 48
-    for line in question_lines:
-        d.text((MARGIN + 40, ty), line, font=q_font, fill=TEXT)
-        ty += 50
-    ty += 20
-    for i, lines in enumerate(option_lines):
-        letter = chr(65 + i)
-        d.text((MARGIN + 40, ty), f"{letter}.", font=opt_label_font, fill=ACCENT)
-        for line in lines:
-            d.text((MARGIN + 90, ty), line, font=opt_font, fill=TEXT)
-            ty += 42
-        ty += 14
-
-    y = card_bottom + 44
-    return draw_note(d, tip.get("note", "Answer in the caption."), content_w, y)
-
-
-RENDERERS = {
-    "code": render_code,
-    "fact": render_fact,
-    "comparison": render_comparison,
-    "quiz": render_quiz,
-}
-
-
-def render(tip: dict, number: int, handle: str, out_path: str) -> str:
-    img = Image.new("RGB", (W, H), BG)
-    # Content is drawn on its own layer first, then centered above the footer.
-    layer = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(layer)
-    content_w = W - 2 * MARGIN
-    y = 0
-
-    y = draw_pill(d, tip["topic"], number, y)
-    y = draw_title(d, tip["title"], content_w, y)
-
-    kind = tip.get("type", "code")
-    y = RENDERERS.get(kind, render_code)(d, tip, content_w, y)
-
-    # Center the content block between the top edge and the footer
-    foot_y = H - 96
-    top, bottom = 80, foot_y - 70
-    offset = max(top, top + (bottom - top - y) // 2)
-    img.paste(layer.crop((0, 0, W, min(y, H - offset))), (0, offset))
-    y += offset
+def draw_background(img: Image.Image) -> None:
     d = ImageDraw.Draw(img)
+    d.ellipse([-180, -180, 260, 260], fill=BG_ACCENT)
+    d.ellipse([W - 260, H - 260, W + 180, H + 180], fill=BG_ACCENT)
 
-    # Footer
-    d.line([MARGIN, foot_y - 34, W - MARGIN, foot_y - 34], fill=CARD_BORDER, width=2)
-    f_foot = font("bold", 30)
+
+def draw_dots(d: ImageDraw.ImageDraw) -> None:
+    for i in range(6):
+        row, col = divmod(i, 3)
+        cx = W - MARGIN - 70 + col * 24
+        cy = 70 + row * 24
+        d.ellipse([cx - 4, cy - 4, cx + 4, cy + 4], fill=ACCENT)
+
+
+def draw_footer(d: ImageDraw.ImageDraw, handle: str, slide_num: int, total: int) -> None:
+    foot_y = H - 90
+
     if handle:
-        d.text((MARGIN, foot_y), f"@{handle.lstrip('@')}", font=f_foot, fill=TEXT, anchor="lm")
-    d.text((W - MARGIN, foot_y), "Save for later  →", font=font("regular", 30), fill=ACCENT, anchor="rm")
+        follow_font = font("bold", 26)
+        handle_font = font("bold", 22)
+        handle_text = f"@{handle.lstrip('@')}"
+        inner_pad = 24
+        gap = 14
+        logo_w = 38
+        follow_w = d.textlength("Follow", font=follow_font)
+        handle_w = d.textlength(handle_text, font=handle_font)
+        badge_w = inner_pad + follow_w + gap + 16 + gap + logo_w + gap + handle_w + inner_pad
 
-    if y > foot_y - 50:
-        print(f"warning: tip '{tip['title']}' is tall and may overlap the footer")
+        d.rounded_rectangle([MARGIN, foot_y - 10, MARGIN + badge_w, foot_y + 48], radius=28, fill=NAVY)
+        x = MARGIN + inner_pad
+        d.text((x, foot_y + 19), "Follow", font=follow_font, fill=WHITE, anchor="lm")
+        x += follow_w + gap
+        d.line([x, foot_y + 2, x, foot_y + 36], fill=(255, 255, 255), width=2)
+        x += 16 + gap
+        d.rounded_rectangle([x, foot_y, x + logo_w, foot_y + 38], radius=8, fill=ACCENT)
+        d.text((x + logo_w / 2, foot_y + 19), "</>", font=font("bold", 16), fill=NAVY, anchor="mm")
+        x += logo_w + gap
+        d.text((x, foot_y + 19), handle_text, font=handle_font, fill=NAVY, anchor="lm")
 
+    if slide_num < total:
+        d.text((W - MARGIN, foot_y + 19), "Swipe  \u2192", font=font("bold", 28), fill=NAVY, anchor="rm")
+    else:
+        d.text((W - MARGIN, foot_y + 19), "Save this post", font=font("bold", 28), fill=NAVY, anchor="rm")
+
+
+def render_title_slide(out_path: str, title: str, topic: str, handle: str, slide_num: int, total: int) -> str:
+    img = Image.new("RGB", (W, H), BG)
+    draw_background(img)
+    d = ImageDraw.Draw(img)
+    draw_dots(d)
+
+    content_w = W - 2 * MARGIN
+
+    pill_font = font("bold", 24)
+    pill_text = topic.upper()
+    pw = d.textlength(pill_text, font=pill_font) + 44
+    pill_y = 150
+    d.rounded_rectangle([MARGIN, pill_y, MARGIN + pw, pill_y + 48], radius=24, fill=NAVY)
+    d.text((MARGIN + 22, pill_y + 24), pill_text, font=pill_font, fill=ACCENT, anchor="lm")
+
+    for size in (92, 80, 70, 60):
+        title_font = font("bold", size)
+        lines = wrap(d, title, title_font, content_w)
+        if len(lines) <= 4:
+            break
+    lh = int(size * 1.12)
+    total_h = len(lines) * lh
+    y = (H - total_h) // 2
+    for line in lines:
+        d.text((MARGIN, y), line, font=title_font, fill=NAVY)
+        y += lh
+    d.line([MARGIN, y + 16, MARGIN + 220, y + 16], fill=ACCENT, width=8)
+
+    draw_footer(d, handle, slide_num, total)
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
-    img.save(out_path, "JPEG", quality=92, optimize=True)  # Instagram API only accepts JPEG
+    img.save(out_path, "JPEG", quality=92, optimize=True)
     return out_path
+
+
+def render_explainer_slide(
+    out_path: str,
+    heading: str,
+    subtitle: str,
+    points: list[str],
+    examples: list[str],
+    handle: str,
+    slide_num: int,
+    total: int,
+) -> str:
+    img = Image.new("RGB", (W, H), BG)
+    d = ImageDraw.Draw(img)
+    draw_dots(d)
+
+    content_w = W - 2 * MARGIN
+    y = 90
+
+    for size in (56, 48, 42):
+        head_font = font("bold", size)
+        head_lines = wrap(d, heading, head_font, content_w)
+        if len(head_lines) <= 2:
+            break
+    for line in head_lines:
+        d.text((MARGIN, y), line, font=head_font, fill=NAVY)
+        y += int(size * 1.15)
+    y += 10
+    d.line([MARGIN, y, MARGIN + 140, y], fill=ACCENT, width=6)
+    y += 44
+
+    if subtitle:
+        sub_font = font("regular", 32)
+        for line in wrap(d, subtitle, sub_font, content_w):
+            d.text((MARGIN, y), line, font=sub_font, fill=MUTED_NAVY)
+            y += 42
+        y += 26
+
+    point_font = font("regular", 30)
+    for p in points:
+        lines = wrap(d, p, point_font, content_w - 56)
+        d.ellipse([MARGIN, y, MARGIN + 34, y + 34], fill=CHECK_BG)
+        d.line([MARGIN + 9, y + 17, MARGIN + 15, y + 24], fill=WHITE, width=3)
+        d.line([MARGIN + 15, y + 24, MARGIN + 26, y + 10], fill=WHITE, width=3)
+        ty = y + 1
+        for line in lines:
+            d.text((MARGIN + 50, ty), line, font=point_font, fill=NAVY)
+            ty += 38
+        y = ty + 16
+
+    y += 14
+    if examples:
+        ex_label_font = font("bold", 24)
+        ex_font = font("regular", 28)
+        ex_lines = [wrap(d, ex, ex_font, content_w - 88) for ex in examples]
+        ex_h = 70 + sum(len(lines) * 36 + 12 for lines in ex_lines) + 20
+        d.rounded_rectangle([MARGIN, y, W - MARGIN, y + ex_h], radius=20, fill=CARD_BG, outline=CARD_BORDER, width=2)
+        d.text((MARGIN + 28, y + 24), "EXAMPLES", font=ex_label_font, fill=MUTED_NAVY)
+        ey = y + 70
+        for lines in ex_lines:
+            d.ellipse([MARGIN + 28, ey + 10, MARGIN + 44, ey + 26], fill=ACCENT)
+            ty = ey
+            for line in lines:
+                d.text((MARGIN + 60, ty), line, font=ex_font, fill=NAVY)
+                ty += 36
+            ey = ty + 12
+        y += ex_h
+
+    foot_y = H - 90
+    if y > foot_y - 40:
+        print(f"warning: slide '{heading}' is tall and may overlap the footer")
+
+    draw_footer(d, handle, slide_num, total)
+    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
+    img.save(out_path, "JPEG", quality=92, optimize=True)
+    return out_path
+
+
+def render_lesson(lesson: dict, handle: str, out_dir: str, slug: str) -> list[str]:
+    """Render a full carousel (title slide + one per lesson['slides']) and return the image paths in order."""
+    total = 1 + len(lesson["slides"])
+    paths = [render_title_slide(
+        os.path.join(out_dir, f"{slug}-1.jpg"), lesson["title"], lesson["topic"], handle, 1, total,
+    )]
+    for i, slide in enumerate(lesson["slides"], start=2):
+        paths.append(render_explainer_slide(
+            os.path.join(out_dir, f"{slug}-{i}.jpg"),
+            slide["heading"],
+            slide.get("subtitle", ""),
+            slide.get("points", []),
+            slide.get("examples", []),
+            handle, i, total,
+        ))
+    return paths

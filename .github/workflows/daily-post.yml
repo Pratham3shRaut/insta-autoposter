@@ -54,9 +54,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: post-preview
-          path: ${{ steps.prep.outputs.image_path }}
+          path: ${{ steps.prep.outputs.image_paths }}
 
-      - name: Commit image so Instagram can fetch it
+      - name: Commit images so Instagram can fetch them
         id: commit
         if: steps.prep.outputs.skip == 'false' && env.DRY_RUN != 'true'
         env:
@@ -71,16 +71,24 @@ jobs:
 
       - name: Publish to Instagram
         if: steps.commit.outcome == 'success'
+        env:
+          SHA: ${{ steps.commit.outputs.sha }}
+          IMAGE_PATHS: ${{ steps.prep.outputs.image_paths }}
         run: |
-          python -m poster publish \
-            --image-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.commit.outputs.sha }}/${{ steps.prep.outputs.image_path }}" \
-            --caption-file "${{ steps.prep.outputs.caption_path }}"
+          args=()
+          while IFS= read -r path; do
+            [ -z "$path" ] && continue
+            args+=(--image-url "https://raw.githubusercontent.com/${{ github.repository }}/$SHA/$path")
+          done <<< "$IMAGE_PATHS"
+          python -m poster publish "${args[@]}" --caption-file "${{ steps.prep.outputs.caption_path }}"
 
       - name: Record published post
         if: steps.commit.outcome == 'success'
+        env:
+          TITLE: ${{ steps.prep.outputs.title }}
         run: |
           git add state.json
-          git commit -m "published ${{ steps.prep.outputs.image_path }}" || exit 0
+          git commit -m "published: $TITLE" || exit 0
           git push
 
       - name: Refresh Instagram token (keeps the 60-day token alive)

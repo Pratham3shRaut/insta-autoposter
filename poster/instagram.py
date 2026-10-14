@@ -73,9 +73,7 @@ class Instagram:
             return None
 
     # --- publishing ------------------------------------------------------
-    def publish_image(self, image_url: str, caption: str) -> str:
-        uid = self.ig_user_id()
-
+    def _check_quota(self) -> None:
         quota = self.publishing_quota()
         if quota and quota.get("config"):
             used, total = quota.get("quota_usage", 0), quota["config"].get("quota_total")
@@ -83,20 +81,51 @@ class Instagram:
             if total and used >= total:
                 raise InstagramError("24-hour publishing limit reached; try again later")
 
+    def _wait_until_ready(self, container_id: str) -> None:
+        # Meta recommends polling status; give the image up to ~5 minutes to process.
+        for _ in range(20):
+            status = self._call("GET", container_id, fields="status_code").get("status_code")
+            if status == "FINISHED":
+                return
+            if status in ("ERROR", "EXPIRED"):
+                raise InstagramError(f"media container {container_id} ended with status {status}")
+            time.sleep(15)
+        raise InstagramError(f"media container {container_id} not ready after 5 minutes")
+
+    def publish_image(self, image_url: str, caption: str) -> str:
+        uid = self.ig_user_id()
+        self._check_quota()
+
         container = self._call("POST", f"{uid}/media", image_url=image_url, caption=caption)
         cid = container["id"]
         print(f"created media container {cid}")
+        self._wait_until_ready(cid)
 
-        # Meta recommends polling status; give the image up to ~5 minutes to process.
-        for _ in range(20):
-            status = self._call("GET", cid, fields="status_code").get("status_code")
-            if status == "FINISHED":
-                break
-            if status in ("ERROR", "EXPIRED"):
-                raise InstagramError(f"media container {cid} ended with status {status}")
-            time.sleep(15)
-        else:
-            raise InstagramError(f"media container {cid} not ready after 5 minutes")
+        published = self._call("POST", f"{uid}/media_publish", creation_id=cid)
+        return published["id"]
+
+    def publish_carousel(self, image_urls: list[str], caption: str) -> str:
+        if not 2 <= len(image_urls) <= 10:
+            raise InstagramError(f"carousel needs 2-10 images, got {len(image_urls)}")
+
+        uid = self.ig_user_id()
+        self._check_quota()
+
+        item_ids = []
+        for url in image_urls:
+            item = self._call("POST", f"{uid}/media", image_url=url, is_carousel_item="true")
+            item_ids.append(item["id"])
+            print(f"created carousel item {item['id']}")
+        for item_id in item_ids:
+            self._wait_until_ready(item_id)
+
+        container = self._call(
+            "POST", f"{uid}/media",
+            media_type="CAROUSEL", children=",".join(item_ids), caption=caption,
+        )
+        cid = container["id"]
+        print(f"created carousel container {cid}")
+        self._wait_until_ready(cid)
 
         published = self._call("POST", f"{uid}/media_publish", creation_id=cid)
         return published["id"]
