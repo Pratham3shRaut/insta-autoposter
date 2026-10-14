@@ -1,0 +1,9 @@
+Stop writing long null checks
+
+Optional chaining + nullish coalescing replace a whole chain of && checks. Bonus: ?? won't throw away valid falsy values like 0 or an empty string.
+
+Optional chaining stops at null/undefined. ?? only falls back on null/undefined, so 0 and "" survive.
+
+Follow @pr.devtips for a new web dev tip every day.
+
+#javascript #js #es2020 #webdevelopment #webdev #programming #coding #developer #frontenddeveloper #100daysofcode

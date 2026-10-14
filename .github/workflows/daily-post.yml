@@ -1,0 +1,91 @@
+name: Daily Instagram post
+
+on:
+  schedule:
+    # 13:23 UTC = 6:53 PM IST, every day. GitHub may start scheduled runs a few minutes late.
+    - cron: "23 13 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Only render the image (no commit, no posting)"
+        type: boolean
+        default: true
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-instagram-post
+  cancel-in-progress: false
+
+jobs:
+  post:
+    runs-on: ubuntu-latest
+    env:
+      IG_HANDLE: ${{ vars.IG_HANDLE }}
+      POST_TIMEZONE: ${{ vars.POST_TIMEZONE || 'Asia/Kolkata' }}
+      GRAPH_HOST: ${{ vars.GRAPH_HOST || 'graph.instagram.com' }}
+      GRAPH_VERSION: ${{ vars.GRAPH_VERSION || 'v25.0' }}
+      IG_USER_ID: ${{ secrets.IG_USER_ID }}
+      IG_ACCESS_TOKEN: ${{ secrets.IG_ACCESS_TOKEN }}
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install fonts
+        continue-on-error: true
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq fonts-inter fonts-jetbrains-mono
+
+      - run: pip install -r requirements.txt
+
+      - name: Prepare today's post
+        id: prep
+        run: python -m poster prepare
+
+      - name: Upload preview
+        if: steps.prep.outputs.skip == 'false'
+        uses: actions/upload-artifact@v4
+        with:
+          name: post-preview
+          path: ${{ steps.prep.outputs.image_path }}
+
+      - name: Commit image so Instagram can fetch it
+        id: commit
+        if: steps.prep.outputs.skip == 'false' && env.DRY_RUN != 'true'
+        env:
+          TITLE: ${{ steps.prep.outputs.title }}
+        run: |
+          git config user.name "insta-autoposter[bot]"
+          git config user.email "insta-autoposter@users.noreply.github.com"
+          git add posts state.json
+          git commit -m "post: $TITLE"
+          git push
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Publish to Instagram
+        if: steps.commit.outcome == 'success'
+        run: |
+          python -m poster publish \
+            --image-url "https://raw.githubusercontent.com/${{ github.repository }}/${{ steps.commit.outputs.sha }}/${{ steps.prep.outputs.image_path }}" \
+            --caption-file "${{ steps.prep.outputs.caption_path }}"
+
+      - name: Record published post
+        if: steps.commit.outcome == 'success'
+        run: |
+          git add state.json
+          git commit -m "published ${{ steps.prep.outputs.image_path }}" || exit 0
+          git push
+
+      - name: Refresh Instagram token (keeps the 60-day token alive)
+        if: steps.commit.outcome == 'success' && env.GRAPH_HOST == 'graph.instagram.com'
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: python -m poster refresh-token

@@ -1,0 +1,13 @@
+{
+  "topic": "JavaScript",
+  "title": "Stop writing long null checks",
+  "lang": "js",
+  "code": "// before\nconst city = user && user.address\n  && user.address.city || \"Unknown\";\n\n// after\nconst city = user?.address?.city ?? \"Unknown\";",
+  "note": "Optional chaining stops at null/undefined. ?? only falls back on null/undefined, so 0 and \"\" survive.",
+  "caption": "Optional chaining + nullish coalescing replace a whole chain of && checks. Bonus: ?? won't throw away valid falsy values like 0 or an empty string.",
+  "tags": [
+    "javascript",
+    "js",
+    "es2020"
+  ]
+}

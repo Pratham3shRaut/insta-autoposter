@@ -1,0 +1,392 @@
+[
+  {
+    "topic": "JavaScript",
+    "title": "Stop writing long null checks",
+    "lang": "js",
+    "code": "// before\nconst city = user && user.address\n  && user.address.city || \"Unknown\";\n\n// after\nconst city = user?.address?.city ?? \"Unknown\";",
+    "note": "Optional chaining stops at null/undefined. ?? only falls back on null/undefined, so 0 and \"\" survive.",
+    "caption": "Optional chaining + nullish coalescing replace a whole chain of && checks. Bonus: ?? won't throw away valid falsy values like 0 or an empty string.",
+    "tags": [
+      "javascript",
+      "js",
+      "es2020"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Deep copy without JSON hacks",
+    "lang": "js",
+    "code": "const original = {\n  date: new Date(),\n  tags: new Set([\"a\", \"b\"]),\n};\n\nconst copy = structuredClone(original);\n// Date and Set survive. JSON.parse would not.",
+    "note": "structuredClone is built into browsers and Node 17+. No lodash needed.",
+    "caption": "JSON.parse(JSON.stringify(obj)) silently breaks Dates, Maps, Sets and undefined. structuredClone handles them properly.",
+    "tags": [
+      "javascript",
+      "webdev",
+      "nodejs"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Get the last item the clean way",
+    "lang": "js",
+    "code": "const items = [10, 20, 30];\n\nitems[items.length - 1]; // 30\nitems.at(-1);             // 30\nitems.at(-2);             // 20",
+    "note": "Array.prototype.at() accepts negative indexes. Works on strings too.",
+    "caption": "Small one, but it reads so much better. .at(-1) gives you the last element without the length math.",
+    "tags": [
+      "javascript",
+      "js",
+      "codingtips"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Your awaits might be slow for no reason",
+    "lang": "js",
+    "code": "// sequential: ~600ms\nconst user = await getUser();\nconst posts = await getPosts();\n\n// parallel: ~300ms\nconst [user, posts] = await Promise.all([\n  getUser(),\n  getPosts(),\n]);",
+    "note": "If two requests don't depend on each other, start them together.",
+    "caption": "Back-to-back awaits run one after another. When the calls are independent, Promise.all runs them at the same time and cuts the wait.",
+    "tags": [
+      "javascript",
+      "async",
+      "performance"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Group arrays in one line",
+    "lang": "js",
+    "code": "const orders = [\n  { id: 1, status: \"paid\" },\n  { id: 2, status: \"pending\" },\n  { id: 3, status: \"paid\" },\n];\n\nObject.groupBy(orders, (o) => o.status);\n// { paid: [...], pending: [...] }",
+    "note": "Native Object.groupBy. Supported in all modern browsers and Node 21+.",
+    "caption": "No more reduce() boilerplate to group data. Object.groupBy is now built into the language.",
+    "tags": [
+      "javascript",
+      "es2024",
+      "webdev"
+    ]
+  },
+  {
+    "topic": "TypeScript",
+    "title": "Use satisfies, not type annotations",
+    "lang": "ts",
+    "code": "type Theme = Record<string, string>;\n\nconst colors = {\n  primary: \"#a3e635\",\n  bg: \"#0f1117\",\n} satisfies Theme;\n\ncolors.primary; // still autocompletes",
+    "note": "satisfies checks the shape but keeps the exact inferred type.",
+    "caption": "Annotating with : Theme widens your object and you lose autocomplete on keys. satisfies validates it and keeps the precise type.",
+    "tags": [
+      "typescript",
+      "ts",
+      "webdev"
+    ]
+  },
+  {
+    "topic": "TypeScript",
+    "title": "Turn arrays into union types",
+    "lang": "ts",
+    "code": "const ROLES = [\"admin\", \"editor\", \"viewer\"] as const;\n\ntype Role = (typeof ROLES)[number];\n// \"admin\" | \"editor\" | \"viewer\"\n\nfunction can(role: Role) { /* ... */ }",
+    "note": "One source of truth for runtime values and types.",
+    "caption": "Define your options once with as const, then derive the type from it. Add a role to the array and the type updates automatically.",
+    "tags": [
+      "typescript",
+      "ts",
+      "cleancode"
+    ]
+  },
+  {
+    "topic": "React",
+    "title": "Never use index as a key",
+    "lang": "jsx",
+    "code": "// buggy when the list reorders\n{todos.map((t, i) => <Todo key={i} {...t} />)}\n\n// stable identity\n{todos.map((t) => <Todo key={t.id} {...t} />)}",
+    "note": "Index keys make React reuse the wrong component state after sorts or deletes.",
+    "caption": "If inputs in your list start showing the wrong values after deleting an item, check your keys. Use a stable id, not the array index.",
+    "tags": [
+      "reactjs",
+      "react",
+      "frontend"
+    ]
+  },
+  {
+    "topic": "React",
+    "title": "You don't need useEffect for this",
+    "lang": "jsx",
+    "code": "// extra render + extra state\nconst [full, setFull] = useState(\"\");\nuseEffect(() => {\n  setFull(first + \" \" + last);\n}, [first, last]);\n\n// just compute it\nconst full = first + \" \" + last;",
+    "note": "If a value can be calculated from props or state, calculate it during render.",
+    "caption": "Syncing derived values with useEffect causes an extra render and bugs. Compute it directly instead.",
+    "tags": [
+      "reactjs",
+      "react",
+      "hooks"
+    ]
+  },
+  {
+    "topic": "React",
+    "title": "The setState bug that hides in plain sight",
+    "lang": "jsx",
+    "code": "// adds 1, not 3\nsetCount(count + 1);\nsetCount(count + 1);\nsetCount(count + 1);\n\n// adds 3\nsetCount((c) => c + 1);\nsetCount((c) => c + 1);\nsetCount((c) => c + 1);",
+    "note": "Use the updater function when new state depends on the previous state.",
+    "caption": "count is a snapshot from the current render. The updater form always gets the latest value.",
+    "tags": [
+      "reactjs",
+      "react",
+      "javascript"
+    ]
+  },
+  {
+    "topic": "React",
+    "title": "Expensive initial state? Make it lazy",
+    "lang": "jsx",
+    "code": "// runs on EVERY render\nuseState(parseBigList(raw));\n\n// runs once\nuseState(() => parseBigList(raw));",
+    "note": "Pass a function to useState and React only calls it on the first render.",
+    "caption": "A tiny change that can save real work on every re-render: pass an initializer function instead of the computed value.",
+    "tags": [
+      "reactjs",
+      "performance",
+      "react"
+    ]
+  },
+  {
+    "topic": "Next.js",
+    "title": "Fetch data directly in Server Components",
+    "lang": "tsx",
+    "code": "// app/posts/page.tsx\nexport default async function Page() {\n  const res = await fetch(API_URL);\n  const posts = await res.json();\n\n  return <PostList posts={posts} />;\n}",
+    "note": "No useEffect, no loading spinner flash, and the data never ships as client JS.",
+    "caption": "In the Next.js App Router, components are server components by default. You can make them async and fetch right inside.",
+    "tags": [
+      "nextjs",
+      "react",
+      "webdev"
+    ]
+  },
+  {
+    "topic": "Next.js",
+    "title": "Dynamic SEO titles per page",
+    "lang": "tsx",
+    "code": "export async function generateMetadata(\n  { params }\n) {\n  const { slug } = await params;\n  const post = await getPost(slug);\n  return {\n    title: post.title,\n    description: post.excerpt,\n  };\n}",
+    "note": "Each dynamic route gets its own title, description and OG tags.",
+    "caption": "Every blog post or product page sharing one generic title hurts SEO. generateMetadata gives each route its own.",
+    "tags": [
+      "nextjs",
+      "seo",
+      "webdev"
+    ]
+  },
+  {
+    "topic": "Next.js",
+    "title": "Fix font layout shift for free",
+    "lang": "tsx",
+    "code": "import { Inter } from \"next/font/google\";\n\nconst inter = Inter({ subsets: [\"latin\"] });\n\nexport default function RootLayout({ children }) {\n  return (\n    <html lang=\"en\" className={inter.className}>\n      <body>{children}</body>\n    </html>\n  );\n}",
+    "note": "next/font self-hosts the font and sizes the fallback to prevent CLS.",
+    "caption": "Text jumping when your web font loads is layout shift. next/font removes it and drops the external Google Fonts request.",
+    "tags": [
+      "nextjs",
+      "webperf",
+      "corewebvitals"
+    ]
+  },
+  {
+    "topic": "Next.js",
+    "title": "Forms without an API route",
+    "lang": "tsx",
+    "code": "async function subscribe(formData) {\n  \"use server\";\n  await db.insert({\n    email: formData.get(\"email\"),\n  });\n}\n\n<form action={subscribe}>...</form>",
+    "note": "Server Actions run on the server. Always validate input inside them.",
+    "caption": "With Server Actions, a form can call a server function directly. Less boilerplate than writing a separate API route.",
+    "tags": [
+      "nextjs",
+      "react",
+      "fullstack"
+    ]
+  },
+  {
+    "topic": "CSS",
+    "title": "Responsive font size, zero media queries",
+    "lang": "css",
+    "code": "h1 {\n  /* min, preferred, max */\n  font-size: clamp(2rem, 5vw + 1rem, 4.5rem);\n}",
+    "note": "The heading scales with the viewport but never goes below or above your limits.",
+    "caption": "clamp() gives you fluid typography in one line. No more stacking breakpoints just for font sizes.",
+    "tags": [
+      "css",
+      "frontend",
+      "responsivedesign"
+    ]
+  },
+  {
+    "topic": "CSS",
+    "title": "Stop using the padding-top hack",
+    "lang": "css",
+    "code": "/* old */\n.video { padding-top: 56.25%; }\n\n/* new */\n.video {\n  aspect-ratio: 16 / 9;\n  width: 100%;\n}",
+    "note": "aspect-ratio keeps the box proportional and reserves space before media loads.",
+    "caption": "Reserving space for images and embeds prevents layout shift. aspect-ratio does it cleanly.",
+    "tags": [
+      "css",
+      "webdev",
+      "frontend"
+    ]
+  },
+  {
+    "topic": "CSS",
+    "title": "CSS finally has a parent selector",
+    "lang": "css",
+    "code": "/* style the card only if it has an image */\n.card:has(img) {\n  grid-template-rows: 200px auto;\n}\n\n/* highlight a field with an error */\nlabel:has(+ input:invalid) {\n  color: crimson;\n}",
+    "note": ":has() is supported in all modern browsers.",
+    "caption": "Things that used to need JavaScript, like styling a parent based on its children, now work in pure CSS.",
+    "tags": [
+      "css",
+      "frontend",
+      "webdesign"
+    ]
+  },
+  {
+    "topic": "CSS",
+    "title": "Components that respond to their container",
+    "lang": "css",
+    "code": ".sidebar { container-type: inline-size; }\n\n@container (min-width: 400px) {\n  .card {\n    display: flex;\n    gap: 1rem;\n  }\n}",
+    "note": "The card adapts to the space it gets, not the whole screen width.",
+    "caption": "Media queries look at the viewport. Container queries look at the parent, which is what reusable components actually need.",
+    "tags": [
+      "css",
+      "responsivedesign",
+      "frontend"
+    ]
+  },
+  {
+    "topic": "CSS",
+    "title": "One line for full overlays",
+    "lang": "css",
+    "code": "/* old */\n.overlay {\n  top: 0; right: 0;\n  bottom: 0; left: 0;\n}\n\n/* new */\n.overlay { position: absolute; inset: 0; }",
+    "note": "inset is shorthand for top, right, bottom and left.",
+    "caption": "Four properties become one. inset: 0 stretches an element over its positioned parent.",
+    "tags": [
+      "css",
+      "webdev",
+      "cssTips"
+    ]
+  },
+  {
+    "topic": "GSAP",
+    "title": "Scroll-linked zoom effect with GSAP",
+    "lang": "js",
+    "code": "gsap.registerPlugin(ScrollTrigger);\n\ngsap.to(\".hero-img\", {\n  scale: 1.2,\n  scrollTrigger: {\n    trigger: \".hero\",\n    start: \"top top\",\n    end: \"bottom top\",\n    scrub: true,\n  },\n});",
+    "note": "scrub ties the animation progress to the scrollbar position.",
+    "caption": "The classic zoom-on-scroll hero effect. scrub: true makes it follow your scroll instead of playing once.",
+    "tags": [
+      "gsap",
+      "webanimation",
+      "creativecoding"
+    ]
+  },
+  {
+    "topic": "GSAP",
+    "title": "Use GSAP in React without memory leaks",
+    "lang": "jsx",
+    "code": "import { useGSAP } from \"@gsap/react\";\n\nfunction Hero() {\n  const ref = useRef(null);\n  useGSAP(() => {\n    gsap.from(\".title\", { y: 50, opacity: 0 });\n  }, { scope: ref });\n  return <section ref={ref}>...</section>;\n}",
+    "note": "useGSAP scopes selectors to the ref and reverts animations on unmount.",
+    "caption": "Running GSAP inside a plain useEffect often leaves animations behind when components unmount. The official useGSAP hook cleans up for you.",
+    "tags": [
+      "gsap",
+      "reactjs",
+      "webanimation"
+    ]
+  },
+  {
+    "topic": "GSAP",
+    "title": "Respect reduced motion users",
+    "lang": "js",
+    "code": "const mm = gsap.matchMedia();\n\nmm.add(\"(prefers-reduced-motion: no-preference)\",\n  () => {\n    gsap.from(\".card\", { y: 80, stagger: 0.1 });\n  }\n);",
+    "note": "Animations only run for users who haven't asked their OS to reduce motion.",
+    "caption": "Big motion can make some people feel sick. gsap.matchMedia makes accessible animation easy.",
+    "tags": [
+      "gsap",
+      "a11y",
+      "webanimation"
+    ]
+  },
+  {
+    "topic": "Framer Motion",
+    "title": "Animate on scroll into view",
+    "lang": "jsx",
+    "code": "<motion.div\n  initial={{ opacity: 0, y: 40 }}\n  whileInView={{ opacity: 1, y: 0 }}\n  viewport={{ once: true, amount: 0.3 }}\n  transition={{ duration: 0.6 }}\n/>",
+    "note": "once: true plays it a single time. amount controls how much must be visible.",
+    "caption": "Reveal-on-scroll without writing an IntersectionObserver yourself.",
+    "tags": [
+      "framermotion",
+      "reactjs",
+      "webanimation"
+    ]
+  },
+  {
+    "topic": "Node.js",
+    "title": "Add a timeout to fetch in one line",
+    "lang": "js",
+    "code": "try {\n  const res = await fetch(url, {\n    signal: AbortSignal.timeout(5000),\n  });\n} catch (err) {\n  if (err.name === \"TimeoutError\") {\n    console.log(\"took longer than 5s\");\n  }\n}",
+    "note": "Works in Node 18+ and all modern browsers.",
+    "caption": "fetch has no timeout by default, so a slow server can hang your request forever. AbortSignal.timeout fixes that.",
+    "tags": [
+      "nodejs",
+      "javascript",
+      "backend"
+    ]
+  },
+  {
+    "topic": "Node.js",
+    "title": "You may not need nodemon anymore",
+    "lang": "bash",
+    "code": "# restarts on file changes\nnode --watch server.js\n\n# load .env without dotenv\nnode --env-file=.env server.js",
+    "note": "Both flags are built into modern Node versions.",
+    "caption": "Two dev dependencies you can often drop: nodemon and dotenv. Node does both natively now.",
+    "tags": [
+      "nodejs",
+      "backend",
+      "javascript"
+    ]
+  },
+  {
+    "topic": "SQL",
+    "title": "Find out why your query is slow",
+    "lang": "sql",
+    "code": "EXPLAIN ANALYZE\nSELECT * FROM orders\nWHERE customer_id = 42;\n\n-- \"Seq Scan\"? add an index:\nCREATE INDEX idx_orders_customer\n  ON orders (customer_id);",
+    "note": "A sequential scan on a big table usually means a missing index.",
+    "caption": "Don't guess at SQL performance. EXPLAIN ANALYZE shows exactly how Postgres runs your query.",
+    "tags": [
+      "sql",
+      "postgresql",
+      "backend"
+    ]
+  },
+  {
+    "topic": "Git",
+    "title": "Clearer git commands you should use",
+    "lang": "bash",
+    "code": "git switch -c feature/login   # new branch\ngit switch main               # change branch\n\ngit restore app.js            # discard edits\ngit restore --staged app.js   # unstage",
+    "note": "switch and restore split up the many jobs of git checkout.",
+    "caption": "git checkout does too many things. switch handles branches and restore handles files, so mistakes are harder to make.",
+    "tags": [
+      "git",
+      "github",
+      "developer"
+    ]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Stop firing an API call on every keystroke",
+    "lang": "js",
+    "code": "function debounce(fn, ms = 300) {\n  let t;\n  return (...args) => {\n    clearTimeout(t);\n    t = setTimeout(() => fn(...args), ms);\n  };\n}\n\ninput.oninput = debounce(search);",
+    "note": "The search only runs once the user pauses typing.",
+    "caption": "A search box that calls the API on every keystroke wastes requests and can show results out of order. Debounce it.",
+    "tags": [
+      "javascript",
+      "frontend",
+      "performance"
+    ]
+  },
+  {
+    "topic": "Tailwind CSS",
+    "title": "Style children on parent hover",
+    "lang": "html",
+    "code": "<a class=\"group rounded-xl p-6\">\n  <h3 class=\"group-hover:text-lime-400\">\n    Project\n  </h3>\n  <span class=\"opacity-0 group-hover:opacity-100\">\n    View →\n  </span>\n</a>",
+    "note": "Mark the parent with group, then use group-hover: on any child.",
+    "caption": "Hovering a card and changing several elements inside it needs no JavaScript in Tailwind. Just group and group-hover.",
+    "tags": [
+      "tailwindcss",
+      "css",
+      "frontend"
+    ]
+  }
+]
