@@ -1,9 +1,9 @@
-Stop writing long null checks
+Deep copy without JSON hacks
 
-Optional chaining + nullish coalescing replace a whole chain of && checks. Bonus: ?? won't throw away valid falsy values like 0 or an empty string.
+JSON.parse(JSON.stringify(obj)) silently breaks Dates, Maps, Sets and undefined. structuredClone handles them properly.
 
-Optional chaining stops at null/undefined. ?? only falls back on null/undefined, so 0 and "" survive.
+structuredClone is built into browsers and Node 17+. No lodash needed.
 
 Follow @pr.devtips for a new web dev tip every day.
 
-#javascript #js #es2020 #webdevelopment #webdev #programming #coding #developer #frontenddeveloper #100daysofcode
+#javascript #webdev #nodejs #webdevelopment #programming #coding #developer #frontenddeveloper #100daysofcode

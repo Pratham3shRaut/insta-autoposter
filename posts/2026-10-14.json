@@ -1,13 +1,13 @@
 {
   "topic": "JavaScript",
-  "title": "Stop writing long null checks",
+  "title": "Deep copy without JSON hacks",
   "lang": "js",
-  "code": "// before\nconst city = user && user.address\n  && user.address.city || \"Unknown\";\n\n// after\nconst city = user?.address?.city ?? \"Unknown\";",
-  "note": "Optional chaining stops at null/undefined. ?? only falls back on null/undefined, so 0 and \"\" survive.",
-  "caption": "Optional chaining + nullish coalescing replace a whole chain of && checks. Bonus: ?? won't throw away valid falsy values like 0 or an empty string.",
+  "code": "const original = {\n  date: new Date(),\n  tags: new Set([\"a\", \"b\"]),\n};\n\nconst copy = structuredClone(original);\n// Date and Set survive. JSON.parse would not.",
+  "note": "structuredClone is built into browsers and Node 17+. No lodash needed.",
+  "caption": "JSON.parse(JSON.stringify(obj)) silently breaks Dates, Maps, Sets and undefined. structuredClone handles them properly.",
   "tags": [
     "javascript",
-    "js",
-    "es2020"
+    "webdev",
+    "nodejs"
   ]
 }
