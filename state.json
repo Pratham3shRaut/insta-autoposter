@@ -1,5 +1,11 @@
 {
   "next_index": 2,
-  "last_published_date": null,
-  "history": []
+  "last_published_date": "2026-10-14",
+  "history": [
+    {
+      "date": "2026-10-14",
+      "title": "Deep copy without JSON hacks",
+      "media_id": "18149818141563111"
+    }
+  ]
 }
