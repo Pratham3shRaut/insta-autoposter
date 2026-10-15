@@ -1,0 +1,17 @@
+SQL JOINs Explained Simply
+
+JOINs combine rows from two or more tables. Pick the wrong one and you either lose data or duplicate it.
+
+In this post, you'll learn:
+✅ INNER JOIN
+✅ LEFT JOIN
+✅ RIGHT JOIN
+✅ FULL JOIN
+
+Which JOIN trips you up the most?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#sql #databases #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
