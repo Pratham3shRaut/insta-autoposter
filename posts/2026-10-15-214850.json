@@ -1,0 +1,66 @@
+{
+  "topic": "JavaScript",
+  "title": "The JavaScript Event Loop, Simply",
+  "intro": "JavaScript is single-threaded, yet handles thousands of operations without freezing. This is how.",
+  "slides": [
+    {
+      "heading": "Call Stack",
+      "subtitle": "Where your code actually executes.",
+      "points": [
+        "Functions are pushed on when called, popped off when done",
+        "Only one thing runs at a time here",
+        "A long-running function here blocks everything else"
+      ],
+      "examples": [
+        "A synchronous for-loop",
+        "A recursive function"
+      ]
+    },
+    {
+      "heading": "Web APIs",
+      "subtitle": "Where async work actually happens.",
+      "points": [
+        "Timers, network requests and DOM events run outside the stack",
+        "Provided by the browser or Node, not JS itself",
+        "They report back once finished, not immediately"
+      ],
+      "examples": [
+        "setTimeout",
+        "fetch()",
+        "addEventListener"
+      ]
+    },
+    {
+      "heading": "Microtask Queue",
+      "subtitle": "The high-priority line for promises.",
+      "points": [
+        "Holds resolved Promise callbacks and queueMicrotask",
+        "Always fully drained before the next macrotask runs",
+        "This is why a resolved promise logs before a timer"
+      ],
+      "examples": [
+        ".then() callbacks",
+        "async/await continuations"
+      ]
+    },
+    {
+      "heading": "Macrotask Queue",
+      "subtitle": "Where the next 'turn' of work waits.",
+      "points": [
+        "Holds timers, I/O callbacks, and UI events",
+        "Only one macrotask runs per loop iteration",
+        "Runs only after the stack and microtasks are empty"
+      ],
+      "examples": [
+        "setTimeout callbacks",
+        "click event handlers"
+      ]
+    }
+  ],
+  "cta": "Did you know microtasks always run before the next timer?",
+  "tags": [
+    "javascript",
+    "eventloop",
+    "webdevelopment"
+  ]
+}

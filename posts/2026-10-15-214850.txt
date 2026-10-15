@@ -1,0 +1,17 @@
+The JavaScript Event Loop, Simply
+
+JavaScript is single-threaded, yet handles thousands of operations without freezing. This is how.
+
+In this post, you'll learn:
+✅ Call Stack
+✅ Web APIs
+✅ Microtask Queue
+✅ Macrotask Queue
+
+Did you know microtasks always run before the next timer?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#javascript #eventloop #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
