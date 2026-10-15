@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Only render the image (no commit, no posting)"
+        description: "Only render the images (no commit, no posting)"
         type: boolean
-        default: true
+        default: false
 
 permissions:
   contents: write
@@ -45,9 +45,10 @@ jobs:
 
       - run: pip install -r requirements.txt
 
+      # Manual runs always post; only the scheduled run is limited to once per day.
       - name: Prepare today's post
         id: prep
-        run: python -m poster prepare
+        run: python -m poster prepare ${{ github.event_name == 'workflow_dispatch' && '--force' || '' }}
 
       - name: Upload preview
         if: steps.prep.outputs.skip == 'false'

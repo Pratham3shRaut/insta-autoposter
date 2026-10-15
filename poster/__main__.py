@@ -47,8 +47,12 @@ def handle() -> str:
     return os.environ.get("IG_HANDLE", "").strip().lstrip("@")
 
 
+def now() -> datetime:
+    return datetime.now(ZoneInfo(os.environ.get("POST_TIMEZONE", "Asia/Kolkata")))
+
+
 def today() -> str:
-    return datetime.now(ZoneInfo(os.environ.get("POST_TIMEZONE", "Asia/Kolkata"))).strftime("%Y-%m-%d")
+    return now().strftime("%Y-%m-%d")
 
 
 def build_caption(lesson: dict) -> str:
@@ -112,14 +116,16 @@ def cmd_prepare(args):
         if lesson is None:  # no API key or generation failed: cycle the bank again
             lesson, source = bank[idx % len(bank)], "bank-repeat"
 
+    # Time in the name so several posts on one day don't overwrite each other.
+    slug = now().strftime("%Y-%m-%d-%H%M%S")
     out_dir = os.path.join(ROOT, POSTS)
-    image_paths = render_lesson(lesson, handle(), out_dir, date)
+    image_paths = render_lesson(lesson, handle(), out_dir, slug)
     image_paths = [os.path.relpath(p, ROOT).replace(os.sep, "/") for p in image_paths]
 
-    caption_path = f"{POSTS}/{date}.txt"
+    caption_path = f"{POSTS}/{slug}.txt"
     with open(os.path.join(ROOT, caption_path), "w", encoding="utf-8") as f:
         f.write(build_caption(lesson))
-    save_json(os.path.join(ROOT, POSTS, f"{date}.json"), lesson)
+    save_json(os.path.join(ROOT, POSTS, f"{slug}.json"), lesson)
 
     state["next_index"] = idx + 1
     save_json(STATE, state)
