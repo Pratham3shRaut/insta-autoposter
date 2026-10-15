@@ -1,0 +1,82 @@
+{
+  "topic": "APIs",
+  "title": "Types of APIs Explained Simply",
+  "intro": "APIs are the backbone of modern applications. They help different software systems communicate and share data seamlessly.",
+  "slides": [
+    {
+      "heading": "REST API",
+      "subtitle": "The most widely used API type.",
+      "points": [
+        "Uses HTTP methods (GET, POST, PUT, DELETE)",
+        "Lightweight and easy to use",
+        "Returns data mostly in JSON format"
+      ],
+      "examples": [
+        "Social media apps",
+        "Weather apps",
+        "E-commerce websites"
+      ]
+    },
+    {
+      "heading": "SOAP API",
+      "subtitle": "A protocol for secure, structured communication.",
+      "points": [
+        "Uses XML format for messages",
+        "Highly secure with built-in error handling",
+        "Common in enterprise applications"
+      ],
+      "examples": [
+        "Banking systems",
+        "Payment gateways",
+        "Government services"
+      ]
+    },
+    {
+      "heading": "GraphQL API",
+      "subtitle": "Ask for exactly the data you need.",
+      "points": [
+        "Single endpoint for all queries",
+        "Client decides the response shape",
+        "Avoids over-fetching and under-fetching"
+      ],
+      "examples": [
+        "GitHub API",
+        "Shopify storefronts",
+        "Mobile apps with limited bandwidth"
+      ]
+    },
+    {
+      "heading": "WebSocket API",
+      "subtitle": "Two-way communication that stays open.",
+      "points": [
+        "Persistent connection between client and server",
+        "Server can push data without a new request",
+        "Much lower latency than polling"
+      ],
+      "examples": [
+        "Chat apps",
+        "Live sports scores",
+        "Multiplayer games"
+      ]
+    },
+    {
+      "heading": "gRPC API",
+      "subtitle": "Fast, typed communication between services.",
+      "points": [
+        "Uses Protocol Buffers, not JSON",
+        "Much faster than REST for service-to-service calls",
+        "Strict, strongly-typed contracts"
+      ],
+      "examples": [
+        "Microservices",
+        "Internal backend communication"
+      ]
+    }
+  ],
+  "cta": "Which API have you used the most? Let me know in the comments.",
+  "tags": [
+    "api",
+    "webdevelopment",
+    "backend"
+  ]
+}
