@@ -1,0 +1,17 @@
+Web Security Basics Every Dev Should Know
+
+Most breaches don't come from genius hackers — they come from skipped basics. Start here.
+
+In this post, you'll learn:
+✅ SQL Injection
+✅ XSS
+✅ CSRF
+✅ Broken Auth
+
+Which of these have you actually seen in production code?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#security #webdevelopment #backend #webdev #programming #coding #developer #softwareengineering #100daysofcode
