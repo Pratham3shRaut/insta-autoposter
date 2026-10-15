@@ -1,7 +1,7 @@
 """Render a lesson into a carousel of 1080x1350 JPEGs (Instagram portrait size).
 
-Light "explainer" style: a title slide followed by one slide per topic point,
-each with a heading, subtitle, checklist bullets and an optional examples box.
+Dark navy editorial style with electric blue / purple accents: a title slide
+followed by one slide per sub-topic (heading, subtitle, checklist, examples).
 """
 from __future__ import annotations
 
@@ -9,19 +9,22 @@ import glob
 import os
 from functools import lru_cache
 
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
 W, H = 1080, 1350
-MARGIN = 72
+MARGIN = 76
+CONTENT_W = W - 2 * MARGIN
+CONTENT_TOP, CONTENT_BOTTOM = 150, H - 150
+FOOT_Y = H - 84
 
-BG = (253, 240, 196)
-BG_ACCENT = (247, 209, 103)
-NAVY = (26, 33, 56)
-MUTED_NAVY = (90, 100, 128)
-ACCENT = (240, 180, 41)
-CHECK_BG = (46, 196, 122)
-CARD_BG = (255, 250, 232)
-CARD_BORDER = (235, 214, 150)
+BG_TOP = (15, 18, 36)
+BG_BOTTOM = (10, 12, 26)
+CARD = (22, 26, 48)
+CARD_BORDER = (41, 47, 82)
+TEXT = (237, 239, 248)
+MUTED = (148, 155, 186)
+BLUE = (91, 140, 255)
+PURPLE = (168, 115, 255)
 WHITE = (255, 255, 255)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -73,174 +76,199 @@ def wrap(draw: ImageDraw.ImageDraw, text: str, f, max_w: int) -> list[str]:
     return lines
 
 
-def draw_background(img: Image.Image) -> None:
-    d = ImageDraw.Draw(img)
-    d.ellipse([-180, -180, 260, 260], fill=BG_ACCENT)
-    d.ellipse([W - 260, H - 260, W + 180, H + 180], fill=BG_ACCENT)
-
-
-def draw_dots(d: ImageDraw.ImageDraw) -> None:
-    for i in range(6):
-        row, col = divmod(i, 3)
-        cx = W - MARGIN - 70 + col * 24
-        cy = 70 + row * 24
-        d.ellipse([cx - 4, cy - 4, cx + 4, cy + 4], fill=ACCENT)
-
-
-def draw_footer(d: ImageDraw.ImageDraw, handle: str, slide_num: int, total: int) -> None:
-    foot_y = H - 90
-
-    if handle:
-        follow_font = font("bold", 26)
-        handle_font = font("bold", 22)
-        handle_text = f"@{handle.lstrip('@')}"
-        inner_pad = 24
-        gap = 14
-        logo_w = 38
-        follow_w = d.textlength("Follow", font=follow_font)
-        handle_w = d.textlength(handle_text, font=handle_font)
-        badge_w = inner_pad + follow_w + gap + 16 + gap + logo_w + gap + handle_w + inner_pad
-
-        d.rounded_rectangle([MARGIN, foot_y - 10, MARGIN + badge_w, foot_y + 48], radius=28, fill=NAVY)
-        x = MARGIN + inner_pad
-        d.text((x, foot_y + 19), "Follow", font=follow_font, fill=WHITE, anchor="lm")
-        x += follow_w + gap
-        d.line([x, foot_y + 2, x, foot_y + 36], fill=(255, 255, 255), width=2)
-        x += 16 + gap
-        d.rounded_rectangle([x, foot_y, x + logo_w, foot_y + 38], radius=8, fill=ACCENT)
-        d.text((x + logo_w / 2, foot_y + 19), "</>", font=font("bold", 16), fill=NAVY, anchor="mm")
-        x += logo_w + gap
-        d.text((x, foot_y + 19), handle_text, font=handle_font, fill=NAVY, anchor="lm")
-
-    if slide_num < total:
-        d.text((W - MARGIN, foot_y + 19), "Swipe  \u2192", font=font("bold", 28), fill=NAVY, anchor="rm")
-    else:
-        d.text((W - MARGIN, foot_y + 19), "Save this post", font=font("bold", 28), fill=NAVY, anchor="rm")
-
-
-def render_title_slide(out_path: str, title: str, topic: str, handle: str, slide_num: int, total: int) -> str:
-    img = Image.new("RGB", (W, H), BG)
-    draw_background(img)
-    d = ImageDraw.Draw(img)
-    draw_dots(d)
-
-    content_w = W - 2 * MARGIN
-
-    pill_font = font("bold", 24)
-    pill_text = topic.upper()
-    pw = d.textlength(pill_text, font=pill_font) + 44
-    pill_y = 150
-    d.rounded_rectangle([MARGIN, pill_y, MARGIN + pw, pill_y + 48], radius=24, fill=NAVY)
-    d.text((MARGIN + 22, pill_y + 24), pill_text, font=pill_font, fill=ACCENT, anchor="lm")
-
-    for size in (92, 80, 70, 60):
-        title_font = font("bold", size)
-        lines = wrap(d, title, title_font, content_w)
-        if len(lines) <= 4:
+def fit_lines(draw: ImageDraw.ImageDraw, text: str, kind: str, sizes: tuple, max_w: int, max_lines: int):
+    for size in sizes:
+        f = font(kind, size)
+        lines = wrap(draw, text, f, max_w)
+        if len(lines) <= max_lines:
             break
-    lh = int(size * 1.12)
-    total_h = len(lines) * lh
-    y = (H - total_h) // 2
-    for line in lines:
-        d.text((MARGIN, y), line, font=title_font, fill=NAVY)
-        y += lh
-    d.line([MARGIN, y + 16, MARGIN + 220, y + 16], fill=ACCENT, width=8)
+    return f, size, lines
 
-    draw_footer(d, handle, slide_num, total)
+
+# --- shared visuals ---------------------------------------------------------
+def background() -> Image.Image:
+    col = Image.new("RGB", (1, H))
+    for y in range(H):
+        t = y / (H - 1)
+        col.putpixel((0, y), tuple(int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * t) for i in range(3)))
+    img = col.resize((W, H)).convert("RGBA")
+
+    glows = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    for (cx, cy), radius, color, alpha in (((W - 60, 40), 260, BLUE, 70), ((40, H - 120), 240, PURPLE, 55)):
+        blob = Image.new("RGBA", (radius * 2, radius * 2), (0, 0, 0, 0))
+        ImageDraw.Draw(blob).ellipse([0, 0, radius * 2, radius * 2], fill=(*color, alpha))
+        blob = blob.filter(ImageFilter.GaussianBlur(radius // 2))
+        glows.paste(blob, (cx - radius, cy - radius), blob)
+    return Image.alpha_composite(img, glows)
+
+
+def gradient_bar(img: Image.Image, box: tuple, radius: int | None = None) -> None:
+    x0, y0, x1, y1 = (int(v) for v in box)
+    w, h = x1 - x0, y1 - y0
+    row = Image.new("RGB", (w, 1))
+    for x in range(w):
+        t = x / max(w - 1, 1)
+        row.putpixel((x, 0), tuple(int(BLUE[i] + (PURPLE[i] - BLUE[i]) * t) for i in range(3)))
+    mask = Image.new("L", (w, h), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, w, h], radius=h // 2 if radius is None else radius, fill=255)
+    img.paste(row.resize((w, h)), (x0, y0), mask)
+
+
+def draw_header(img: Image.Image, topic: str, slide_num: int, total: int) -> None:
+    d = ImageDraw.Draw(img)
+    f = font("bold", 24)
+    text = f"{topic.upper()}  \u00b7  {slide_num}/{total}"
+    pw = d.textlength(text, font=f) + 44
+    gradient_bar(img, (MARGIN, 64, MARGIN + pw, 112))
+    d.text((MARGIN + 22, 88), text, font=f, fill=WHITE, anchor="lm")
+
+
+def draw_footer(img: Image.Image, handle: str, slide_num: int, total: int) -> None:
+    d = ImageDraw.Draw(img)
+    d.line([MARGIN, FOOT_Y - 38, W - MARGIN, FOOT_Y - 38], fill=CARD_BORDER, width=2)
+    if handle:
+        d.text((MARGIN, FOOT_Y), f"@{handle.lstrip('@')}", font=font("bold", 30), fill=TEXT, anchor="lm")
+
+    # progress dots, the current slide drawn as a wider gradient pill
+    dot, gap, active_w = 10, 12, 32
+    widths = [active_w if i == slide_num else dot for i in range(1, total + 1)]
+    x = W // 2 - (sum(widths) + gap * (total - 1)) // 2
+    for i, w in enumerate(widths, start=1):
+        box = (x, FOOT_Y - dot // 2, x + w, FOOT_Y + dot // 2)
+        if i == slide_num:
+            gradient_bar(img, box)
+        else:
+            d.ellipse(box, fill=CARD_BORDER)
+        x += w + gap
+
+    label = "Swipe  \u2192" if slide_num < total else "Save this post"
+    d.text((W - MARGIN, FOOT_Y), label, font=font("bold", 28), fill=BLUE, anchor="rm")
+
+
+def place_centered(img: Image.Image, layer: Image.Image, content_h: int, name: str) -> None:
+    space = CONTENT_BOTTOM - CONTENT_TOP
+    if content_h > space:
+        print(f"warning: slide '{name}' is tall and may overlap the footer")
+    offset = CONTENT_TOP + max(0, (space - content_h) // 2)
+    img.alpha_composite(layer.crop((0, 0, W, content_h)), dest=(0, offset))
+
+
+def save(img: Image.Image, out_path: str) -> str:
     os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
-    img.save(out_path, "JPEG", quality=92, optimize=True)
+    img.convert("RGB").save(out_path, "JPEG", quality=94, optimize=True)  # Instagram API only accepts JPEG
     return out_path
 
 
-def render_explainer_slide(
-    out_path: str,
-    heading: str,
-    subtitle: str,
-    points: list[str],
-    examples: list[str],
-    handle: str,
-    slide_num: int,
-    total: int,
-) -> str:
-    img = Image.new("RGB", (W, H), BG)
-    d = ImageDraw.Draw(img)
-    draw_dots(d)
+def draw_check(d: ImageDraw.ImageDraw, x: int, y: int, size: int = 40) -> None:
+    d.rounded_rectangle([x, y, x + size, y + size], radius=12, outline=BLUE, width=3)
+    d.line([x + 11, y + 21, x + 18, y + 28], fill=BLUE, width=4)
+    d.line([x + 18, y + 28, x + 30, y + 13], fill=BLUE, width=4)
 
-    content_w = W - 2 * MARGIN
-    y = 90
 
-    for size in (56, 48, 42):
-        head_font = font("bold", size)
-        head_lines = wrap(d, heading, head_font, content_w)
-        if len(head_lines) <= 2:
-            break
-    for line in head_lines:
-        d.text((MARGIN, y), line, font=head_font, fill=NAVY)
+# --- slides -----------------------------------------------------------------
+def render_title_slide(out_path: str, lesson: dict, handle: str, total: int) -> str:
+    img = background()
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    y = 0
+
+    title_font, size, lines = fit_lines(d, lesson["title"], "bold", (84, 74, 66, 58), CONTENT_W, 4)
+    for line in lines:
+        d.text((MARGIN, y), line, font=title_font, fill=TEXT)
         y += int(size * 1.15)
-    y += 10
-    d.line([MARGIN, y, MARGIN + 140, y], fill=ACCENT, width=6)
+    y += 18
+    gradient_bar(layer, (MARGIN, y, MARGIN + 180, y + 8))
     y += 44
 
-    if subtitle:
-        sub_font = font("regular", 32)
-        for line in wrap(d, subtitle, sub_font, content_w):
-            d.text((MARGIN, y), line, font=sub_font, fill=MUTED_NAVY)
-            y += 42
-        y += 26
+    if lesson.get("intro"):
+        intro_font = font("regular", 32)
+        for line in wrap(d, lesson["intro"], intro_font, CONTENT_W)[:4]:
+            d.text((MARGIN, y), line, font=intro_font, fill=MUTED)
+            y += 44
+        y += 40
 
-    point_font = font("regular", 30)
-    for p in points:
-        lines = wrap(d, p, point_font, content_w - 56)
-        d.ellipse([MARGIN, y, MARGIN + 34, y + 34], fill=CHECK_BG)
-        d.line([MARGIN + 9, y + 17, MARGIN + 15, y + 24], fill=WHITE, width=3)
-        d.line([MARGIN + 15, y + 24, MARGIN + 26, y + 10], fill=WHITE, width=3)
-        ty = y + 1
-        for line in lines:
-            d.text((MARGIN + 50, ty), line, font=point_font, fill=NAVY)
-            ty += 38
-        y = ty + 16
+    headings = [s["heading"] for s in lesson["slides"]]
+    if headings:
+        d.text((MARGIN, y), "INSIDE THIS POST", font=font("bold", 22), fill=PURPLE)
+        y += 48
+        chip_font = font("bold", 26)
+        x = MARGIN
+        for h in headings:
+            cw = d.textlength(h, font=chip_font) + 44
+            if x + cw > W - MARGIN:
+                x = MARGIN
+                y += 70
+            d.rounded_rectangle([x, y, x + cw, y + 54], radius=27, fill=CARD, outline=CARD_BORDER, width=2)
+            d.text((x + 22, y + 27), h, font=chip_font, fill=TEXT, anchor="lm")
+            x += cw + 14
+        y += 54
 
+    place_centered(img, layer, y, lesson["title"])
+    draw_header(img, lesson["topic"], 1, total)
+    draw_footer(img, handle, 1, total)
+    return save(img, out_path)
+
+
+def render_explainer_slide(out_path: str, topic: str, slide: dict, handle: str, slide_num: int, total: int) -> str:
+    img = background()
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    y = 0
+
+    head_font, size, lines = fit_lines(d, slide["heading"], "bold", (68, 60, 52), CONTENT_W, 2)
+    for line in lines:
+        d.text((MARGIN, y), line, font=head_font, fill=TEXT)
+        y += int(size * 1.15)
     y += 14
+    gradient_bar(layer, (MARGIN, y, MARGIN + 140, y + 8))
+    y += 40
+
+    if slide.get("subtitle"):
+        sub_font = font("regular", 34)
+        for line in wrap(d, slide["subtitle"], sub_font, CONTENT_W):
+            d.text((MARGIN, y), line, font=sub_font, fill=MUTED)
+            y += 46
+        y += 36
+
+    point_font = font("regular", 32)
+    for p in slide.get("points", []):
+        draw_check(d, MARGIN, y)
+        ty = y + 1
+        for line in wrap(d, p, point_font, CONTENT_W - 64):
+            d.text((MARGIN + 64, ty), line, font=point_font, fill=TEXT)
+            ty += 42
+        y = max(ty, y + 42) + 22
+
+    examples = slide.get("examples", [])
     if examples:
-        ex_label_font = font("bold", 24)
-        ex_font = font("regular", 28)
-        ex_lines = [wrap(d, ex, ex_font, content_w - 88) for ex in examples]
-        ex_h = 70 + sum(len(lines) * 36 + 12 for lines in ex_lines) + 20
-        d.rounded_rectangle([MARGIN, y, W - MARGIN, y + ex_h], radius=20, fill=CARD_BG, outline=CARD_BORDER, width=2)
-        d.text((MARGIN + 28, y + 24), "EXAMPLES", font=ex_label_font, fill=MUTED_NAVY)
-        ey = y + 70
+        y += 18
+        ex_font = font("regular", 30)
+        ex_lines = [wrap(d, ex, ex_font, CONTENT_W - 100) for ex in examples]
+        box_h = 78 + sum(len(lines) * 40 + 14 for lines in ex_lines) + 18
+        d.rounded_rectangle([MARGIN, y, W - MARGIN, y + box_h], radius=22, fill=CARD, outline=CARD_BORDER, width=2)
+        gradient_bar(layer, (MARGIN, y, MARGIN + 10, y + box_h), radius=5)
+        d.text((MARGIN + 40, y + 28), "REAL-WORLD EXAMPLES", font=font("bold", 22), fill=PURPLE)
+        ey = y + 78
         for lines in ex_lines:
-            d.ellipse([MARGIN + 28, ey + 10, MARGIN + 44, ey + 26], fill=ACCENT)
-            ty = ey
+            d.ellipse([MARGIN + 42, ey + 13, MARGIN + 54, ey + 25], fill=PURPLE)
             for line in lines:
-                d.text((MARGIN + 60, ty), line, font=ex_font, fill=NAVY)
-                ty += 36
-            ey = ty + 12
-        y += ex_h
+                d.text((MARGIN + 74, ey), line, font=ex_font, fill=TEXT)
+                ey += 40
+            ey += 14
+        y += box_h
 
-    foot_y = H - 90
-    if y > foot_y - 40:
-        print(f"warning: slide '{heading}' is tall and may overlap the footer")
-
-    draw_footer(d, handle, slide_num, total)
-    os.makedirs(os.path.dirname(out_path) or ".", exist_ok=True)
-    img.save(out_path, "JPEG", quality=92, optimize=True)
-    return out_path
+    place_centered(img, layer, y, slide["heading"])
+    draw_header(img, topic, slide_num, total)
+    draw_footer(img, handle, slide_num, total)
+    return save(img, out_path)
 
 
 def render_lesson(lesson: dict, handle: str, out_dir: str, slug: str) -> list[str]:
     """Render a full carousel (title slide + one per lesson['slides']) and return the image paths in order."""
     total = 1 + len(lesson["slides"])
-    paths = [render_title_slide(
-        os.path.join(out_dir, f"{slug}-1.jpg"), lesson["title"], lesson["topic"], handle, 1, total,
-    )]
+    paths = [render_title_slide(os.path.join(out_dir, f"{slug}-1.jpg"), lesson, handle, total)]
     for i, slide in enumerate(lesson["slides"], start=2):
         paths.append(render_explainer_slide(
-            os.path.join(out_dir, f"{slug}-{i}.jpg"),
-            slide["heading"],
-            slide.get("subtitle", ""),
-            slide.get("points", []),
-            slide.get("examples", []),
-            handle, i, total,
+            os.path.join(out_dir, f"{slug}-{i}.jpg"), lesson["topic"], slide, handle, i, total,
         ))
     return paths
