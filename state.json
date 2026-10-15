@@ -1,11 +1,16 @@
 {
   "next_index": 3,
-  "last_published_date": "2026-10-14",
+  "last_published_date": "2026-10-15",
   "history": [
     {
       "date": "2026-10-14",
       "title": "Deep copy without JSON hacks",
       "media_id": "18149818141563111"
+    },
+    {
+      "date": "2026-10-15",
+      "title": "SQL JOINs Explained Simply",
+      "media_id": "18121351889474203"
     }
   ]
 }
