@@ -1,0 +1,67 @@
+{
+  "topic": "Security",
+  "title": "Web Security Basics Every Dev Should Know",
+  "intro": "Most breaches don't come from genius hackers — they come from skipped basics. Start here.",
+  "slides": [
+    {
+      "heading": "SQL Injection",
+      "subtitle": "Untrusted input treated as executable SQL.",
+      "points": [
+        "Happens when queries are built with string concatenation",
+        "An attacker can read or delete your entire database",
+        "Fixed with parameterized queries, never string building"
+      ],
+      "examples": [
+        "Login forms",
+        "Search bars",
+        "URL parameters"
+      ]
+    },
+    {
+      "heading": "XSS",
+      "subtitle": "Malicious scripts injected into your pages.",
+      "points": [
+        "Happens when user input is rendered as raw HTML",
+        "Can steal cookies, sessions, and user data",
+        "Fixed by escaping output and using a strict CSP"
+      ],
+      "examples": [
+        "Comment sections",
+        "User profile bios",
+        "Chat messages"
+      ]
+    },
+    {
+      "heading": "CSRF",
+      "subtitle": "Tricking a logged-in user into an unwanted action.",
+      "points": [
+        "Exploits the browser automatically sending cookies",
+        "Victim's own session is used against them",
+        "Fixed with CSRF tokens and SameSite cookies"
+      ],
+      "examples": [
+        "Fake 'click here' links",
+        "Hidden auto-submit forms"
+      ]
+    },
+    {
+      "heading": "Broken Auth",
+      "subtitle": "Weaknesses in login and session handling.",
+      "points": [
+        "Weak password rules make brute-forcing easy",
+        "Tokens that never expire stay valid forever if leaked",
+        "Fixed with rate limiting, hashing, and short-lived tokens"
+      ],
+      "examples": [
+        "Admin panels",
+        "Password reset flows"
+      ]
+    }
+  ],
+  "cta": "Which of these have you actually seen in production code?",
+  "tags": [
+    "security",
+    "webdevelopment",
+    "backend"
+  ]
+}
