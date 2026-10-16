@@ -1,0 +1,17 @@
+Git Commands Every Developer Needs
+
+You don't need 100 git commands memorized. These cover 90% of daily work.
+
+In this post, you'll learn:
+✅ Starting out
+✅ Saving work
+✅ Branching
+✅ Undoing things
+
+Which git command took you the longest to actually understand?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#git #github #developer #webdevelopment #webdev #programming #coding #softwareengineering #100daysofcode

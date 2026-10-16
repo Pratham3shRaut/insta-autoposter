@@ -1,0 +1,65 @@
+{
+  "topic": "Git",
+  "title": "Git Commands Every Developer Needs",
+  "intro": "You don't need 100 git commands memorized. These cover 90% of daily work.",
+  "slides": [
+    {
+      "heading": "Starting out",
+      "subtitle": "Get a project under version control.",
+      "points": [
+        "git init — start tracking a new project",
+        "git clone <url> — copy an existing repo",
+        "git status — see what's changed"
+      ],
+      "examples": [
+        "New project setup",
+        "Joining an existing codebase"
+      ]
+    },
+    {
+      "heading": "Saving work",
+      "subtitle": "Record changes as commits.",
+      "points": [
+        "git add <file> — stage a change",
+        "git commit -m \"message\" — save staged changes",
+        "git push — send commits to the remote"
+      ],
+      "examples": [
+        "End of a coding session",
+        "Before switching tasks"
+      ]
+    },
+    {
+      "heading": "Branching",
+      "subtitle": "Work on features without breaking main.",
+      "points": [
+        "git switch -c <name> — create and move to a new branch",
+        "git switch <name> — move to an existing branch",
+        "git merge <name> — bring a branch's changes in"
+      ],
+      "examples": [
+        "Feature branches",
+        "Bug fix branches"
+      ]
+    },
+    {
+      "heading": "Undoing things",
+      "subtitle": "Mistakes happen, git can fix most of them.",
+      "points": [
+        "git restore <file> — discard uncommitted changes",
+        "git reset --soft HEAD~1 — undo last commit, keep changes",
+        "git revert <commit> — safely undo a pushed commit"
+      ],
+      "examples": [
+        "Accidental commit",
+        "Reverting a bad deploy"
+      ]
+    }
+  ],
+  "cta": "Which git command took you the longest to actually understand?",
+  "tags": [
+    "git",
+    "github",
+    "developer"
+  ]
+}
