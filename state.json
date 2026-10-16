@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-16",
+  "last_published_date": "2026-10-17",
   "history": [
     {
       "date": "2026-10-14",
@@ -76,6 +76,11 @@
       "date": "2026-10-16",
       "title": "Code Review Habits That Make You Look Senior",
       "media_id": "17949599841321881"
+    },
+    {
+      "date": "2026-10-17",
+      "title": "Types of APIs Explained Simply",
+      "media_id": "18639748675022910"
     }
   ]
 }
