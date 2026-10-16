@@ -1,0 +1,62 @@
+{
+  "topic": "Career",
+  "title": "Code Review Habits That Make You Look Senior",
+  "intro": "The difference between a junior and senior PR often isn't the code — it's these habits.",
+  "slides": [
+    {
+      "heading": "Self-review first",
+      "subtitle": "Read your own diff before requesting review.",
+      "points": [
+        "Catches typos and leftover console.logs",
+        "Lets you add context comments on tricky parts",
+        "Shows reviewers you respect their time"
+      ],
+      "examples": [
+        "Before clicking 'Create Pull Request'"
+      ]
+    },
+    {
+      "heading": "Small PRs",
+      "subtitle": "Easier to review means faster to merge.",
+      "points": [
+        "Split unrelated changes into separate PRs",
+        "A 100-line PR gets reviewed same-day, a 1000-line one doesn't",
+        "Smaller diffs mean fewer missed bugs"
+      ],
+      "examples": [
+        "One feature per PR",
+        "Refactors separate from features"
+      ]
+    },
+    {
+      "heading": "Clear descriptions",
+      "subtitle": "Explain the why, not just the what.",
+      "points": [
+        "Link the ticket or issue being solved",
+        "Mention tradeoffs you considered and rejected",
+        "Add a test plan so reviewers know how to verify it"
+      ],
+      "examples": [
+        "PR template with context + test plan"
+      ]
+    },
+    {
+      "heading": "Respond fast",
+      "subtitle": "Momentum matters more than perfection.",
+      "points": [
+        "Reply to review comments within a day, not a week",
+        "Disagree directly in comments, don't go silent",
+        "Thank reviewers for catching real issues"
+      ],
+      "examples": [
+        "Addressing comments same day they're posted"
+      ]
+    }
+  ],
+  "cta": "What's one code review habit that changed how people saw your work?",
+  "tags": [
+    "career",
+    "codereview",
+    "softwareengineering"
+  ]
+}

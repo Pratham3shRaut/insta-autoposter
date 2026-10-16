@@ -1,0 +1,17 @@
+Code Review Habits That Make You Look Senior
+
+The difference between a junior and senior PR often isn't the code — it's these habits.
+
+In this post, you'll learn:
+✅ Self-review first
+✅ Small PRs
+✅ Clear descriptions
+✅ Respond fast
+
+What's one code review habit that changed how people saw your work?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#career #codereview #softwareengineering #webdevelopment #webdev #programming #coding #developer #100daysofcode
