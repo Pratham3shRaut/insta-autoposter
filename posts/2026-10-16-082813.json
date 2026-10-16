@@ -1,0 +1,61 @@
+{
+  "topic": "Databases",
+  "title": "SQL JOINs Explained Simply",
+  "intro": "JOINs combine rows from two or more tables. Pick the wrong one and you either lose data or duplicate it.",
+  "slides": [
+    {
+      "heading": "INNER JOIN",
+      "subtitle": "Only rows that match in both tables.",
+      "points": [
+        "Returns rows where the join condition is true in both tables",
+        "Rows with no match on either side are excluded",
+        "The most commonly used join"
+      ],
+      "examples": [
+        "Orders that have a matching customer"
+      ]
+    },
+    {
+      "heading": "LEFT JOIN",
+      "subtitle": "Everything from the left table, matched or not.",
+      "points": [
+        "Keeps all rows from the left table",
+        "Unmatched right-side columns come back as NULL",
+        "Useful for finding what's missing"
+      ],
+      "examples": [
+        "All customers, even those with zero orders"
+      ]
+    },
+    {
+      "heading": "RIGHT JOIN",
+      "subtitle": "The mirror image of LEFT JOIN.",
+      "points": [
+        "Keeps all rows from the right table",
+        "Unmatched left-side columns come back as NULL",
+        "Rarely used — most people rewrite it as a LEFT JOIN"
+      ],
+      "examples": [
+        "All products, even unordered ones, from the orders table"
+      ]
+    },
+    {
+      "heading": "FULL JOIN",
+      "subtitle": "Everything from both tables.",
+      "points": [
+        "Combines LEFT and RIGHT JOIN results",
+        "Unmatched rows from either side get NULLs",
+        "Good for finding mismatches between two tables"
+      ],
+      "examples": [
+        "Reconciling two systems that should be in sync"
+      ]
+    }
+  ],
+  "cta": "Which JOIN trips you up the most?",
+  "tags": [
+    "sql",
+    "databases",
+    "backend"
+  ]
+}
