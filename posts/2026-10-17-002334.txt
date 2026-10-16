@@ -1,0 +1,18 @@
+Types of APIs Explained Simply
+
+APIs are the backbone of modern applications. They help different software systems communicate and share data seamlessly.
+
+In this post, you'll learn:
+✅ REST API
+✅ SOAP API
+✅ GraphQL API
+✅ WebSocket API
+✅ gRPC API
+
+Which API have you used the most? Let me know in the comments.
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#api #webdevelopment #backend #webdev #programming #coding #developer #softwareengineering #100daysofcode
