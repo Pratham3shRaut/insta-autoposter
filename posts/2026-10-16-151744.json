@@ -1,0 +1,68 @@
+{
+  "topic": "System Design",
+  "title": "How Caching Actually Works",
+  "intro": "Caching is the single biggest lever for making an app feel fast. Here's how it's layered in a real system.",
+  "slides": [
+    {
+      "heading": "Browser Cache",
+      "subtitle": "The data never leaves the user's device.",
+      "points": [
+        "Controlled by Cache-Control and ETag headers",
+        "Fastest possible response: zero network time",
+        "Best for static assets like images, CSS, JS"
+      ],
+      "examples": [
+        "Logos",
+        "Fonts",
+        "Hashed JS bundles"
+      ]
+    },
+    {
+      "heading": "CDN Cache",
+      "subtitle": "A copy stored close to the user.",
+      "points": [
+        "Edge servers around the world cache responses",
+        "Cuts latency by avoiding your origin server entirely",
+        "Great for content that's the same for every user"
+      ],
+      "examples": [
+        "Public blog pages",
+        "Product images",
+        "Videos"
+      ]
+    },
+    {
+      "heading": "Application Cache",
+      "subtitle": "In-memory store like Redis sitting in front of your database.",
+      "points": [
+        "Much faster than querying the database every time",
+        "Needs an invalidation strategy or data goes stale",
+        "Usually has a TTL as a safety net"
+      ],
+      "examples": [
+        "Session data",
+        "Expensive aggregate queries",
+        "Rate limit counters"
+      ]
+    },
+    {
+      "heading": "Database Cache",
+      "subtitle": "The database's own internal optimizations.",
+      "points": [
+        "Query plans and recently read pages are kept in memory",
+        "You don't control it directly, but indexes help it a lot",
+        "Still the slowest layer in this whole chain"
+      ],
+      "examples": [
+        "Repeated identical queries",
+        "Hot rows in a popular table"
+      ]
+    }
+  ],
+  "cta": "Which caching layer do you rely on most in your stack?",
+  "tags": [
+    "systemdesign",
+    "backend",
+    "caching"
+  ]
+}

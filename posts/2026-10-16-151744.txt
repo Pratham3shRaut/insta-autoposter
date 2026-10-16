@@ -1,0 +1,17 @@
+How Caching Actually Works
+
+Caching is the single biggest lever for making an app feel fast. Here's how it's layered in a real system.
+
+In this post, you'll learn:
+✅ Browser Cache
+✅ CDN Cache
+✅ Application Cache
+✅ Database Cache
+
+Which caching layer do you rely on most in your stack?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#systemdesign #backend #caching #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
