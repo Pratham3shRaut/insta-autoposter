@@ -1,0 +1,70 @@
+{
+  "topic": "HTTP",
+  "title": "HTTP Status Codes You Must Know",
+  "intro": "Every API response carries a status code. Knowing what they mean saves hours of debugging.",
+  "slides": [
+    {
+      "heading": "2xx Success",
+      "subtitle": "The request worked as expected.",
+      "points": [
+        "200 OK — standard successful response",
+        "201 Created — a new resource was made",
+        "204 No Content — success, nothing to return"
+      ],
+      "examples": [
+        "Successful login",
+        "Resource created",
+        "Delete confirmed"
+      ]
+    },
+    {
+      "heading": "3xx Redirection",
+      "subtitle": "The resource moved somewhere else.",
+      "points": [
+        "301 Moved Permanently — update your bookmarks",
+        "302 Found — temporary redirect",
+        "304 Not Modified — use your cached copy"
+      ],
+      "examples": [
+        "Domain migrations",
+        "HTTPS redirects",
+        "Cached assets"
+      ]
+    },
+    {
+      "heading": "4xx Client Error",
+      "subtitle": "The request itself was the problem.",
+      "points": [
+        "400 Bad Request — malformed input",
+        "401 Unauthorized — you're not logged in",
+        "403 Forbidden — logged in, but not allowed",
+        "404 Not Found — the resource doesn't exist"
+      ],
+      "examples": [
+        "Expired token",
+        "Missing page",
+        "Invalid form data"
+      ]
+    },
+    {
+      "heading": "5xx Server Error",
+      "subtitle": "The request was fine, the server wasn't.",
+      "points": [
+        "500 Internal Server Error — something crashed",
+        "502 Bad Gateway — upstream server failed",
+        "503 Service Unavailable — server is overloaded"
+      ],
+      "examples": [
+        "Unhandled exception",
+        "Database down",
+        "Deployment in progress"
+      ]
+    }
+  ],
+  "cta": "Which status code do you see the most in your logs?",
+  "tags": [
+    "http",
+    "webdevelopment",
+    "backend"
+  ]
+}

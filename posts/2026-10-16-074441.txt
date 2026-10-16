@@ -1,0 +1,17 @@
+HTTP Status Codes You Must Know
+
+Every API response carries a status code. Knowing what they mean saves hours of debugging.
+
+In this post, you'll learn:
+✅ 2xx Success
+✅ 3xx Redirection
+✅ 4xx Client Error
+✅ 5xx Server Error
+
+Which status code do you see the most in your logs?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#http #webdevelopment #backend #webdev #programming #coding #developer #softwareengineering #100daysofcode
