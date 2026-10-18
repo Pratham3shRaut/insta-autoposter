@@ -1,0 +1,78 @@
+{
+  "topic": "Roadmap",
+  "title": "Your Beginner's Roadmap to Web Development",
+  "intro": "Don't know where to start? Follow these five steps in order and you'll go from zero to a live website you can show people.",
+  "slides": [
+    {
+      "heading": "1. HTML & CSS",
+      "subtitle": "Structure and style every web page.",
+      "points": [
+        "HTML gives a page its structure: headings, links, forms",
+        "CSS controls layout, colors and fonts",
+        "Learn Flexbox and Grid for layouts"
+      ],
+      "examples": [
+        "A personal portfolio page",
+        "Cloning a simple landing page"
+      ]
+    },
+    {
+      "heading": "2. JavaScript",
+      "subtitle": "Make your pages interactive.",
+      "points": [
+        "Variables, functions, arrays and objects",
+        "Handling clicks and updating the page (the DOM)",
+        "Loading data from APIs with fetch()"
+      ],
+      "examples": [
+        "A to-do list",
+        "A weather widget"
+      ]
+    },
+    {
+      "heading": "3. Git & GitHub",
+      "subtitle": "Track your code and show your work.",
+      "points": [
+        "Commit often with clear messages",
+        "Push every project to GitHub",
+        "Learn branches early, not later"
+      ],
+      "examples": [
+        "A portfolio of public repos",
+        "Your first open-source fix"
+      ]
+    },
+    {
+      "heading": "4. One Framework",
+      "subtitle": "Pick one and go deep.",
+      "points": [
+        "React is a common, job-friendly choice",
+        "Learn components, props and state",
+        "Avoid hopping between frameworks early"
+      ],
+      "examples": [
+        "A dashboard app",
+        "A movie search app"
+      ]
+    },
+    {
+      "heading": "5. Deploy It",
+      "subtitle": "Put your projects online.",
+      "points": [
+        "Vercel, Netlify and GitHub Pages offer free tiers",
+        "A live link beats a screenshot",
+        "Add a README explaining what you built"
+      ],
+      "examples": [
+        "Sharing a link in your resume",
+        "Showing projects in interviews"
+      ]
+    }
+  ],
+  "cta": "Which step are you on right now? Tell me in the comments.",
+  "tags": [
+    "webdevelopment",
+    "learntocode",
+    "codenewbie"
+  ]
+}

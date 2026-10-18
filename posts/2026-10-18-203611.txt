@@ -1,0 +1,18 @@
+Your Beginner's Roadmap to Web Development
+
+Don't know where to start? Follow these five steps in order and you'll go from zero to a live website you can show people.
+
+In this post, you'll learn:
+✅ 1. HTML & CSS
+✅ 2. JavaScript
+✅ 3. Git & GitHub
+✅ 4. One Framework
+✅ 5. Deploy It
+
+Which step are you on right now? Tell me in the comments.
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#webdevelopment #learntocode #codenewbie #webdev #programming #coding #developer #softwareengineering #100daysofcode
