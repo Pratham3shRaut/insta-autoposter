@@ -1,0 +1,64 @@
+{
+  "topic": "Web Dev",
+  "title": "Frontend vs Backend vs Full Stack",
+  "intro": "Three job titles you'll see everywhere. Here's what each one actually does, in plain language.",
+  "slides": [
+    {
+      "heading": "Frontend",
+      "subtitle": "Everything the user sees and touches.",
+      "points": [
+        "Built with HTML, CSS and JavaScript",
+        "Frameworks like React, Vue or Angular",
+        "Cares about UI, accessibility and speed"
+      ],
+      "examples": [
+        "Buttons and forms",
+        "Page layouts",
+        "Animations"
+      ]
+    },
+    {
+      "heading": "Backend",
+      "subtitle": "The logic and data behind the scenes.",
+      "points": [
+        "Built with Node.js, Python, Java, Go and more",
+        "Handles databases, APIs and login",
+        "Cares about security and reliability"
+      ],
+      "examples": [
+        "Login systems",
+        "Payment processing",
+        "Search"
+      ]
+    },
+    {
+      "heading": "Full Stack",
+      "subtitle": "Comfortable on both sides.",
+      "points": [
+        "Builds features end to end",
+        "Broad skills, usually deeper on one side",
+        "Common in startups and small teams"
+      ],
+      "examples": [
+        "Solo side projects",
+        "Startup MVPs"
+      ]
+    },
+    {
+      "heading": "Which to pick?",
+      "subtitle": "Start where the work feels fun.",
+      "points": [
+        "Love visuals and design? Try frontend",
+        "Love logic and data? Try backend",
+        "You can always switch later"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Frontend, backend or full stack: which one are you?",
+  "tags": [
+    "frontend",
+    "backend",
+    "fullstackdeveloper"
+  ]
+}
