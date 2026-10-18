@@ -1,0 +1,17 @@
+CSS Flexbox vs Grid, Explained Simply
+
+Both are for layout, but they solve different problems. Knowing which to reach for saves a lot of frustration.
+
+In this post, you'll learn:
+✅ Flexbox
+✅ Grid
+✅ When to use which
+✅ Centering, solved
+
+Team Flexbox or team Grid?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#css #frontend #webdesign #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

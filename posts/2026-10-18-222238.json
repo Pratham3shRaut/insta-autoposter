@@ -1,0 +1,66 @@
+{
+  "topic": "CSS",
+  "title": "CSS Flexbox vs Grid, Explained Simply",
+  "intro": "Both are for layout, but they solve different problems. Knowing which to reach for saves a lot of frustration.",
+  "slides": [
+    {
+      "heading": "Flexbox",
+      "subtitle": "Layout in one direction: a row or a column.",
+      "points": [
+        "Add display: flex to the parent",
+        "justify-content aligns along the main axis",
+        "align-items aligns along the cross axis"
+      ],
+      "examples": [
+        "Navbars",
+        "Button groups",
+        "Card footers"
+      ]
+    },
+    {
+      "heading": "Grid",
+      "subtitle": "Layout in two directions: rows and columns.",
+      "points": [
+        "Add display: grid to the parent",
+        "grid-template-columns defines the columns",
+        "gap adds space between items"
+      ],
+      "examples": [
+        "Photo galleries",
+        "Page layouts",
+        "Dashboards"
+      ]
+    },
+    {
+      "heading": "When to use which",
+      "subtitle": "A simple rule of thumb.",
+      "points": [
+        "Items in a single line? Use Flexbox",
+        "Rows and columns together? Use Grid",
+        "They work great combined"
+      ],
+      "examples": [
+        "Grid for the page, Flexbox inside each card"
+      ]
+    },
+    {
+      "heading": "Centering, solved",
+      "subtitle": "The classic beginner question.",
+      "points": [
+        "Flexbox: justify-content and align-items: center",
+        "Grid: place-items: center",
+        "Both center horizontally and vertically"
+      ],
+      "examples": [
+        "Centering a modal",
+        "Centering a hero heading"
+      ]
+    }
+  ],
+  "cta": "Team Flexbox or team Grid?",
+  "tags": [
+    "css",
+    "frontend",
+    "webdesign"
+  ]
+}
