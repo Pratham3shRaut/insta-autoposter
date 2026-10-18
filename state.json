@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-17",
+  "last_published_date": "2026-10-18",
   "history": [
     {
       "date": "2026-10-14",
@@ -81,6 +81,11 @@
       "date": "2026-10-17",
       "title": "Types of APIs Explained Simply",
       "media_id": "18639748675022910"
+    },
+    {
+      "date": "2026-10-18",
+      "title": "Your Beginner's Roadmap to Web Development",
+      "media_id": "17875833333637694"
     }
   ]
 }
