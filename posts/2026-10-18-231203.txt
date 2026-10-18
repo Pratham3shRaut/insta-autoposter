@@ -1,0 +1,17 @@
+Async JavaScript: Callbacks, Promises, async/await
+
+Async code lets JavaScript wait for slow things, like network requests, without freezing the page.
+
+In this post, you'll learn:
+✅ Callbacks
+✅ Promises
+✅ async / await
+✅ Common mistakes
+
+Which one clicked for you first: promises or async/await?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#javascript #async #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

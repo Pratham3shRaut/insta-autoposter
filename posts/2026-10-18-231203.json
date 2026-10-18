@@ -1,0 +1,62 @@
+{
+  "topic": "JavaScript",
+  "title": "Async JavaScript: Callbacks, Promises, async/await",
+  "intro": "Async code lets JavaScript wait for slow things, like network requests, without freezing the page.",
+  "slides": [
+    {
+      "heading": "Callbacks",
+      "subtitle": "Pass a function to run later.",
+      "points": [
+        "The original way to handle async work",
+        "Deep nesting leads to \"callback hell\"",
+        "Error handling gets messy fast"
+      ],
+      "examples": [
+        "setTimeout",
+        "Older Node.js APIs"
+      ]
+    },
+    {
+      "heading": "Promises",
+      "subtitle": "An object for a value that arrives later.",
+      "points": [
+        "States: pending, fulfilled or rejected",
+        "Chain with .then() and .catch()",
+        "Promise.all runs tasks in parallel"
+      ],
+      "examples": [
+        "fetch()",
+        "Loading several APIs at once"
+      ]
+    },
+    {
+      "heading": "async / await",
+      "subtitle": "Promise code that reads like normal code.",
+      "points": [
+        "async functions always return a Promise",
+        "await pauses until the Promise settles",
+        "Use try/catch to handle errors"
+      ],
+      "examples": [
+        "Loading user data",
+        "Submitting a form"
+      ]
+    },
+    {
+      "heading": "Common mistakes",
+      "subtitle": "Bugs almost everyone hits once.",
+      "points": [
+        "Forgetting await and getting a Promise back",
+        "Awaiting independent calls one by one",
+        "No .catch() or try/catch for failures"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Which one clicked for you first: promises or async/await?",
+  "tags": [
+    "javascript",
+    "async",
+    "webdevelopment"
+  ]
+}
