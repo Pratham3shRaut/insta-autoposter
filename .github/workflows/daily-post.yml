@@ -32,7 +32,11 @@ jobs:
       DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
 
     steps:
+      # Check out the branch head, not the triggering commit: a run queued behind another
+      # must see the state.json that run just pushed, or it could repeat the same post.
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
 
       - uses: actions/setup-python@v5
         with:

@@ -57,14 +57,16 @@ def valid(lesson: dict) -> bool:
     return True
 
 
-def generate_lesson(recent_titles: list[str]) -> dict | None:
+def generate_lesson(recent_titles: list[str], taken: set[str]) -> dict | None:
+    """taken: normalized titles already posted; a generated lesson matching one is rejected."""
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
         return None
     model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
+    unique_recent = list(dict.fromkeys(recent_titles))[-80:]
     body = {
-        "contents": [{"parts": [{"text": PROMPT.format(recent="\n".join(f"- {t}" for t in recent_titles[-60:]))}]}],
+        "contents": [{"parts": [{"text": PROMPT.format(recent="\n".join(f"- {t}" for t in unique_recent))}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0.9},
     }
     for _ in range(3):
@@ -77,9 +79,12 @@ def generate_lesson(recent_titles: list[str]) -> dict | None:
             lesson = json.loads(text)
             if isinstance(lesson, list):
                 lesson = lesson[0]
-            if valid(lesson):
+            if not valid(lesson):
+                print("generated lesson failed validation, retrying")
+            elif " ".join(lesson["title"].lower().split()) in taken:
+                print(f"generated lesson '{lesson['title']}' was already posted, retrying")
+            else:
                 return lesson
-            print("generated lesson failed validation, retrying")
         except Exception as e:  # network/format issues: fall back to the bank
             print(f"gemini generation failed: {e}")
     return None

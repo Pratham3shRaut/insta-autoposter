@@ -55,6 +55,10 @@ def today() -> str:
     return now().strftime("%Y-%m-%d")
 
 
+def norm_title(title: str) -> str:
+    return " ".join(title.lower().split())
+
+
 def build_caption(lesson: dict) -> str:
     tags = []
     for t in list(lesson.get("tags", [])) + BASE_TAGS:
@@ -98,23 +102,27 @@ def set_output(**kv):
 
 # --- commands --------------------------------------------------------------
 def cmd_prepare(args):
-    state = load_json(STATE, {"next_index": 0, "last_published_date": None, "history": []})
+    state = load_json(STATE, {"last_published_date": None, "history": []})
     date = today()
     if state.get("last_published_date") == date and not args.force:
         print(f"already posted today ({date}); skipping")
         set_output(skip="true")
         return
 
+    history_titles = [h["title"] for h in state.get("history", [])]
+    posted = {norm_title(t) for t in history_titles}
+
     bank = load_json(BANK, [])
-    idx = state.get("next_index", 0)
-    lesson, source = None, "bank"
-    if idx < len(bank):
-        lesson = bank[idx]
-    else:
-        lesson = generate_lesson([h["title"] for h in state.get("history", [])])
+    lesson = next((l for l in bank if norm_title(l["title"]) not in posted), None)
+    source = "bank"
+    if lesson is None:
+        lesson = generate_lesson(history_titles, posted)
         source = "gemini"
-        if lesson is None:  # no API key or generation failed: cycle the bank again
-            lesson, source = bank[idx % len(bank)], "bank-repeat"
+    if lesson is None:
+        print("NO NEW LESSON: every lesson in poster/content.json has already been posted, and no new one")
+        print("could be generated (GEMINI_API_KEY missing or generation failed). Refusing to repost.")
+        print("Add new lessons to poster/content.json or set the GEMINI_API_KEY secret.")
+        sys.exit(1)
 
     # Time in the name so several posts on one day don't overwrite each other.
     slug = now().strftime("%Y-%m-%d-%H%M%S")
@@ -127,8 +135,6 @@ def cmd_prepare(args):
         f.write(build_caption(lesson))
     save_json(os.path.join(ROOT, POSTS, f"{slug}.json"), lesson)
 
-    state["next_index"] = idx + 1
-    save_json(STATE, state)
     print(f"prepared lesson from {source}: {lesson['title']} ({len(image_paths)} slides)")
     set_output(
         skip="false",
@@ -141,6 +147,14 @@ def cmd_prepare(args):
 def cmd_publish(args):
     with open(args.caption_file, encoding="utf-8") as f:
         caption = f.read()
+    lesson = load_json(args.caption_file.replace(".txt", ".json"), {})
+    state = load_json(STATE, {"history": []})
+
+    # Last line of defense: never publish a title that's already in the history.
+    if norm_title(lesson.get("title", "")) in {norm_title(h["title"]) for h in state.get("history", [])}:
+        print(f"REFUSING TO PUBLISH: '{lesson.get('title')}' was already posted.")
+        sys.exit(1)
+
     urls = args.image_url
     try:
         ig = Instagram()
@@ -150,8 +164,6 @@ def cmd_publish(args):
         sys.exit(1)
     print(f"published! media id {media_id}")
 
-    state = load_json(STATE, {"next_index": 0, "history": []})
-    lesson = load_json(args.caption_file.replace(".txt", ".json"), {})
     state["last_published_date"] = today()
     state.setdefault("history", []).append({"date": today(), "title": lesson.get("title", ""), "media_id": media_id})
     save_json(STATE, state)

@@ -401,5 +401,617 @@
     ],
     "cta": "What's one code review habit that changed how people saw your work?",
     "tags": ["career", "codereview", "softwareengineering"]
+  },
+  {
+    "topic": "Roadmap",
+    "title": "Your Beginner's Roadmap to Web Development",
+    "intro": "Don't know where to start? Follow these five steps in order and you'll go from zero to a live website you can show people.",
+    "slides": [
+      {
+        "heading": "1. HTML & CSS",
+        "subtitle": "Structure and style every web page.",
+        "points": [
+          "HTML gives a page its structure: headings, links, forms",
+          "CSS controls layout, colors and fonts",
+          "Learn Flexbox and Grid for layouts"
+        ],
+        "examples": ["A personal portfolio page", "Cloning a simple landing page"]
+      },
+      {
+        "heading": "2. JavaScript",
+        "subtitle": "Make your pages interactive.",
+        "points": [
+          "Variables, functions, arrays and objects",
+          "Handling clicks and updating the page (the DOM)",
+          "Loading data from APIs with fetch()"
+        ],
+        "examples": ["A to-do list", "A weather widget"]
+      },
+      {
+        "heading": "3. Git & GitHub",
+        "subtitle": "Track your code and show your work.",
+        "points": [
+          "Commit often with clear messages",
+          "Push every project to GitHub",
+          "Learn branches early, not later"
+        ],
+        "examples": ["A portfolio of public repos", "Your first open-source fix"]
+      },
+      {
+        "heading": "4. One Framework",
+        "subtitle": "Pick one and go deep.",
+        "points": [
+          "React is a common, job-friendly choice",
+          "Learn components, props and state",
+          "Avoid hopping between frameworks early"
+        ],
+        "examples": ["A dashboard app", "A movie search app"]
+      },
+      {
+        "heading": "5. Deploy It",
+        "subtitle": "Put your projects online.",
+        "points": [
+          "Vercel, Netlify and GitHub Pages offer free tiers",
+          "A live link beats a screenshot",
+          "Add a README explaining what you built"
+        ],
+        "examples": ["Sharing a link in your resume", "Showing projects in interviews"]
+      }
+    ],
+    "cta": "Which step are you on right now? Tell me in the comments.",
+    "tags": ["webdevelopment", "learntocode", "codenewbie"]
+  },
+  {
+    "topic": "Web Dev",
+    "title": "Frontend vs Backend vs Full Stack",
+    "intro": "Three job titles you'll see everywhere. Here's what each one actually does, in plain language.",
+    "slides": [
+      {
+        "heading": "Frontend",
+        "subtitle": "Everything the user sees and touches.",
+        "points": [
+          "Built with HTML, CSS and JavaScript",
+          "Frameworks like React, Vue or Angular",
+          "Cares about UI, accessibility and speed"
+        ],
+        "examples": ["Buttons and forms", "Page layouts", "Animations"]
+      },
+      {
+        "heading": "Backend",
+        "subtitle": "The logic and data behind the scenes.",
+        "points": [
+          "Built with Node.js, Python, Java, Go and more",
+          "Handles databases, APIs and login",
+          "Cares about security and reliability"
+        ],
+        "examples": ["Login systems", "Payment processing", "Search"]
+      },
+      {
+        "heading": "Full Stack",
+        "subtitle": "Comfortable on both sides.",
+        "points": [
+          "Builds features end to end",
+          "Broad skills, usually deeper on one side",
+          "Common in startups and small teams"
+        ],
+        "examples": ["Solo side projects", "Startup MVPs"]
+      },
+      {
+        "heading": "Which to pick?",
+        "subtitle": "Start where the work feels fun.",
+        "points": [
+          "Love visuals and design? Try frontend",
+          "Love logic and data? Try backend",
+          "You can always switch later"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Frontend, backend or full stack: which one are you?",
+    "tags": ["frontend", "backend", "fullstackdeveloper"]
+  },
+  {
+    "topic": "CSS",
+    "title": "CSS Flexbox vs Grid, Explained Simply",
+    "intro": "Both are for layout, but they solve different problems. Knowing which to reach for saves a lot of frustration.",
+    "slides": [
+      {
+        "heading": "Flexbox",
+        "subtitle": "Layout in one direction: a row or a column.",
+        "points": [
+          "Add display: flex to the parent",
+          "justify-content aligns along the main axis",
+          "align-items aligns along the cross axis"
+        ],
+        "examples": ["Navbars", "Button groups", "Card footers"]
+      },
+      {
+        "heading": "Grid",
+        "subtitle": "Layout in two directions: rows and columns.",
+        "points": [
+          "Add display: grid to the parent",
+          "grid-template-columns defines the columns",
+          "gap adds space between items"
+        ],
+        "examples": ["Photo galleries", "Page layouts", "Dashboards"]
+      },
+      {
+        "heading": "When to use which",
+        "subtitle": "A simple rule of thumb.",
+        "points": [
+          "Items in a single line? Use Flexbox",
+          "Rows and columns together? Use Grid",
+          "They work great combined"
+        ],
+        "examples": ["Grid for the page, Flexbox inside each card"]
+      },
+      {
+        "heading": "Centering, solved",
+        "subtitle": "The classic beginner question.",
+        "points": [
+          "Flexbox: justify-content and align-items: center",
+          "Grid: place-items: center",
+          "Both center horizontally and vertically"
+        ],
+        "examples": ["Centering a modal", "Centering a hero heading"]
+      }
+    ],
+    "cta": "Team Flexbox or team Grid?",
+    "tags": ["css", "frontend", "webdesign"]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "Async JavaScript: Callbacks, Promises, async/await",
+    "intro": "Async code lets JavaScript wait for slow things, like network requests, without freezing the page.",
+    "slides": [
+      {
+        "heading": "Callbacks",
+        "subtitle": "Pass a function to run later.",
+        "points": [
+          "The original way to handle async work",
+          "Deep nesting leads to \"callback hell\"",
+          "Error handling gets messy fast"
+        ],
+        "examples": ["setTimeout", "Older Node.js APIs"]
+      },
+      {
+        "heading": "Promises",
+        "subtitle": "An object for a value that arrives later.",
+        "points": [
+          "States: pending, fulfilled or rejected",
+          "Chain with .then() and .catch()",
+          "Promise.all runs tasks in parallel"
+        ],
+        "examples": ["fetch()", "Loading several APIs at once"]
+      },
+      {
+        "heading": "async / await",
+        "subtitle": "Promise code that reads like normal code.",
+        "points": [
+          "async functions always return a Promise",
+          "await pauses until the Promise settles",
+          "Use try/catch to handle errors"
+        ],
+        "examples": ["Loading user data", "Submitting a form"]
+      },
+      {
+        "heading": "Common mistakes",
+        "subtitle": "Bugs almost everyone hits once.",
+        "points": [
+          "Forgetting await and getting a Promise back",
+          "Awaiting independent calls one by one",
+          "No .catch() or try/catch for failures"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Which one clicked for you first: promises or async/await?",
+    "tags": ["javascript", "async", "webdevelopment"]
+  },
+  {
+    "topic": "Security",
+    "title": "Authentication vs Authorization",
+    "intro": "They sound alike but answer two different questions. Mixing them up is a common source of security bugs.",
+    "slides": [
+      {
+        "heading": "Authentication",
+        "subtitle": "Who are you?",
+        "points": [
+          "Verifies a user's identity",
+          "Passwords, one-time codes, passkeys or social login",
+          "Always happens before authorization"
+        ],
+        "examples": ["Logging in", "Two-factor codes"]
+      },
+      {
+        "heading": "Authorization",
+        "subtitle": "What are you allowed to do?",
+        "points": [
+          "Checks permissions after login",
+          "Often role-based: admin, editor, viewer",
+          "Must be enforced on the server"
+        ],
+        "examples": ["Admin-only pages", "Editing only your own posts"]
+      },
+      {
+        "heading": "Sessions",
+        "subtitle": "The server remembers who you are.",
+        "points": [
+          "Server stores the session, browser keeps an ID cookie",
+          "Easy to log a user out by deleting the session",
+          "Classic choice for server-rendered apps"
+        ],
+        "examples": ["Traditional web apps", "Admin dashboards"]
+      },
+      {
+        "heading": "JWT",
+        "subtitle": "A signed token the client carries.",
+        "points": [
+          "Holds user info signed by the server",
+          "Can be verified without a database lookup",
+          "Hard to revoke, so keep expiry short"
+        ],
+        "examples": ["APIs", "Mobile apps"]
+      }
+    ],
+    "cta": "Do you prefer sessions or JWTs in your projects?",
+    "tags": ["security", "authentication", "backend"]
+  },
+  {
+    "topic": "DSA",
+    "title": "Big O Notation Explained Simply",
+    "intro": "Big O describes how your code slows down as the input grows. It's the language every coding interview uses.",
+    "slides": [
+      {
+        "heading": "What is Big O?",
+        "subtitle": "How work grows as input grows.",
+        "points": [
+          "Describes how time or memory scales",
+          "Ignores constants, focuses on growth",
+          "Usually describes the worst case"
+        ],
+        "examples": ["Comparing two ways to solve a problem"]
+      },
+      {
+        "heading": "O(1) Constant",
+        "subtitle": "Same time no matter the size.",
+        "points": [
+          "Reading an array item by its index",
+          "Looking up a key in a hash map (on average)"
+        ],
+        "examples": ["arr[5]", "map.get(key)"]
+      },
+      {
+        "heading": "O(n) Linear",
+        "subtitle": "Work grows with the input.",
+        "points": [
+          "Looping through every item once",
+          "Double the input, roughly double the time"
+        ],
+        "examples": ["Finding the max in an array", "Searching an unsorted list"]
+      },
+      {
+        "heading": "O(log n)",
+        "subtitle": "Halve the problem at every step.",
+        "points": [
+          "Binary search on a sorted array",
+          "1 million items takes about 20 steps"
+        ],
+        "examples": ["Binary search", "Balanced tree lookups"]
+      },
+      {
+        "heading": "O(n²) Quadratic",
+        "subtitle": "Nested loops over the same data.",
+        "points": [
+          "Compares every item with every other item",
+          "Gets slow quickly on large inputs",
+          "Often fixable with a hash map"
+        ],
+        "examples": ["Bubble sort", "Naive duplicate check"]
+      }
+    ],
+    "cta": "What's the slowest code you've ever had to fix?",
+    "tags": ["dsa", "algorithms", "codinginterview"]
+  },
+  {
+    "topic": "DevOps",
+    "title": "Docker Basics Every Developer Should Know",
+    "intro": "Docker packages your app with everything it needs, so it runs the same on every machine.",
+    "slides": [
+      {
+        "heading": "What is Docker?",
+        "subtitle": "Apps in portable, isolated boxes.",
+        "points": [
+          "Runs apps in isolated containers",
+          "Same environment on every machine",
+          "Ends \"it works on my machine\""
+        ],
+        "examples": ["Running a database locally", "Deploying web apps"]
+      },
+      {
+        "heading": "Image vs Container",
+        "subtitle": "The recipe vs the running dish.",
+        "points": [
+          "Image: a read-only template of your app",
+          "Container: a running copy of an image",
+          "One image can start many containers"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Dockerfile",
+        "subtitle": "The instructions for building an image.",
+        "points": [
+          "FROM picks a base image",
+          "COPY adds your code",
+          "RUN installs dependencies",
+          "CMD sets the start command"
+        ],
+        "examples": ["FROM node:20 for a Node.js app"]
+      },
+      {
+        "heading": "Key commands",
+        "subtitle": "The four you'll use daily.",
+        "points": [
+          "docker build -t app . builds an image",
+          "docker run -p 3000:3000 app starts it",
+          "docker ps lists running containers",
+          "docker compose up starts multi-container apps"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Have you containerized a project yet?",
+    "tags": ["docker", "devops", "backend"]
+  },
+  {
+    "topic": "APIs",
+    "title": "REST API Design Best Practices",
+    "intro": "A well-designed API is easy to guess, easy to use and hard to misuse. These conventions get you most of the way.",
+    "slides": [
+      {
+        "heading": "Use nouns",
+        "subtitle": "Resources in URLs, not actions.",
+        "points": [
+          "GET /users, not GET /getUsers",
+          "Plural nouns for collections",
+          "Nest related data: /users/42/orders"
+        ],
+        "examples": ["/products", "/orders/17"]
+      },
+      {
+        "heading": "HTTP methods",
+        "subtitle": "Let the method describe the action.",
+        "points": [
+          "GET reads data",
+          "POST creates something new",
+          "PUT replaces, PATCH updates part of it",
+          "DELETE removes it"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Status codes",
+        "subtitle": "Tell the client what happened.",
+        "points": [
+          "201 after creating a resource",
+          "400 for invalid input",
+          "404 when it doesn't exist",
+          "Never return 200 with an error inside"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Version & paginate",
+        "subtitle": "Plan for growth from day one.",
+        "points": [
+          "Version your API: /api/v1/",
+          "Paginate big lists: ?page=2&limit=20",
+          "Keep response shapes consistent"
+        ],
+        "examples": ["Public APIs", "Mobile app backends"]
+      }
+    ],
+    "cta": "What's the worst API design you've had to work with?",
+    "tags": ["api", "restapi", "backend"]
+  },
+  {
+    "topic": "React",
+    "title": "React Hooks Every Beginner Should Know",
+    "intro": "Hooks let function components remember data and react to changes. These four cover most of what you'll write.",
+    "slides": [
+      {
+        "heading": "useState",
+        "subtitle": "Remember values between renders.",
+        "points": [
+          "Returns the value and a setter function",
+          "Calling the setter re-renders the component",
+          "Use setX(prev => ...) for updates based on the old value"
+        ],
+        "examples": ["Counters", "Form inputs", "Toggles"]
+      },
+      {
+        "heading": "useEffect",
+        "subtitle": "Sync with things outside React.",
+        "points": [
+          "Runs after the component renders",
+          "The dependency array controls when it re-runs",
+          "Return a cleanup function when needed"
+        ],
+        "examples": ["Timers", "Subscriptions", "Fetching data"]
+      },
+      {
+        "heading": "useRef",
+        "subtitle": "Keep a value without re-rendering.",
+        "points": [
+          "Access DOM elements directly",
+          "Store values that survive re-renders",
+          "Changing .current doesn't re-render"
+        ],
+        "examples": ["Focusing an input", "Storing a timer ID"]
+      },
+      {
+        "heading": "useMemo & useCallback",
+        "subtitle": "Skip expensive work.",
+        "points": [
+          "useMemo caches a computed value",
+          "useCallback caches a function",
+          "Add them when you notice real slowness"
+        ],
+        "examples": ["Filtering a large list", "Callbacks passed to memoized children"]
+      }
+    ],
+    "cta": "Which hook confused you the most when you started?",
+    "tags": ["reactjs", "react", "javascript"]
+  },
+  {
+    "topic": "Networking",
+    "title": "What Happens When You Type a URL",
+    "intro": "Hitting Enter in your browser kicks off a surprisingly long chain of steps. Here's the journey, simplified.",
+    "slides": [
+      {
+        "heading": "1. DNS Lookup",
+        "subtitle": "Turning a name into an IP address.",
+        "points": [
+          "The browser asks DNS for the site's IP address",
+          "Answers are cached to speed up repeat visits"
+        ],
+        "examples": ["google.com becomes a numeric IP"]
+      },
+      {
+        "heading": "2. Connecting",
+        "subtitle": "Opening a secure connection.",
+        "points": [
+          "A TCP handshake connects to the server",
+          "A TLS handshake sets up HTTPS encryption",
+          "HTTP/3 uses QUIC over UDP instead of TCP"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "3. The Request",
+        "subtitle": "Asking the server for the page.",
+        "points": [
+          "The browser sends a GET request with headers",
+          "The server replies with a status code and HTML",
+          "A CDN may answer instead of the origin server"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "4. Rendering",
+        "subtitle": "Turning code into pixels.",
+        "points": [
+          "HTML is parsed into the DOM",
+          "CSS is parsed into the CSSOM",
+          "Layout and paint draw the page",
+          "JavaScript can then update it"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Which step surprised you the most?",
+    "tags": ["networking", "webdevelopment", "computerscience"]
+  },
+  {
+    "topic": "Linux",
+    "title": "Terminal Commands Every Developer Uses",
+    "intro": "You don't need to be a Linux expert. These commands cover most of your daily terminal work.",
+    "slides": [
+      {
+        "heading": "Navigation",
+        "subtitle": "Know where you are and move around.",
+        "points": [
+          "pwd shows the current folder",
+          "ls -la lists files, including hidden ones",
+          "cd folder moves into a folder"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Files & folders",
+        "subtitle": "Create, copy, move and delete.",
+        "points": [
+          "mkdir name creates a folder",
+          "touch file creates an empty file",
+          "cp copies, mv moves or renames",
+          "rm deletes for good: there's no trash"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Reading files",
+        "subtitle": "Look inside without an editor.",
+        "points": [
+          "cat file prints a file",
+          "less file lets you scroll through it",
+          "tail -f file follows a log live",
+          "grep \"text\" file searches inside it"
+        ],
+        "examples": ["Checking server logs", "Finding an error message"]
+      },
+      {
+        "heading": "Processes",
+        "subtitle": "See and control what's running.",
+        "points": [
+          "ps aux lists running processes",
+          "kill PID stops a process",
+          "chmod +x script.sh makes a script runnable",
+          "sudo runs a command as admin"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Which terminal command do you use the most?",
+    "tags": ["linux", "terminal", "developer"]
+  },
+  {
+    "topic": "Clean Code",
+    "title": "Clean Code Habits That Save You Hours",
+    "intro": "Code is read far more often than it's written. These habits make your code easier for everyone, including future you.",
+    "slides": [
+      {
+        "heading": "Meaningful names",
+        "subtitle": "Names should explain intent.",
+        "points": [
+          "getUserById beats getData",
+          "Booleans read like questions: isActive",
+          "Avoid single letters outside short loops"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Small functions",
+        "subtitle": "One function, one job.",
+        "points": [
+          "If you need \"and\" to describe it, split it",
+          "Short functions are easier to test",
+          "And easier to reuse"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "DRY, carefully",
+        "subtitle": "Don't Repeat Yourself, within reason.",
+        "points": [
+          "Extract logic you've copied several times",
+          "Don't merge code that only looks similar",
+          "A little duplication beats the wrong abstraction"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Comments",
+        "subtitle": "Explain why, not what.",
+        "points": [
+          "Good names remove most comments",
+          "Comment surprising decisions and workarounds",
+          "Delete commented-out code: git remembers it"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "What's one clean code habit you swear by?",
+    "tags": ["cleancode", "softwareengineering", "programming"]
   }
 ]
