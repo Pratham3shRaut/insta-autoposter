@@ -1,0 +1,74 @@
+{
+  "topic": "DSA",
+  "title": "Big O Notation Explained Simply",
+  "intro": "Big O describes how your code slows down as the input grows. It's the language every coding interview uses.",
+  "slides": [
+    {
+      "heading": "What is Big O?",
+      "subtitle": "How work grows as input grows.",
+      "points": [
+        "Describes how time or memory scales",
+        "Ignores constants, focuses on growth",
+        "Usually describes the worst case"
+      ],
+      "examples": [
+        "Comparing two ways to solve a problem"
+      ]
+    },
+    {
+      "heading": "O(1) Constant",
+      "subtitle": "Same time no matter the size.",
+      "points": [
+        "Reading an array item by its index",
+        "Looking up a key in a hash map (on average)"
+      ],
+      "examples": [
+        "arr[5]",
+        "map.get(key)"
+      ]
+    },
+    {
+      "heading": "O(n) Linear",
+      "subtitle": "Work grows with the input.",
+      "points": [
+        "Looping through every item once",
+        "Double the input, roughly double the time"
+      ],
+      "examples": [
+        "Finding the max in an array",
+        "Searching an unsorted list"
+      ]
+    },
+    {
+      "heading": "O(log n)",
+      "subtitle": "Halve the problem at every step.",
+      "points": [
+        "Binary search on a sorted array",
+        "1 million items takes about 20 steps"
+      ],
+      "examples": [
+        "Binary search",
+        "Balanced tree lookups"
+      ]
+    },
+    {
+      "heading": "O(n²) Quadratic",
+      "subtitle": "Nested loops over the same data.",
+      "points": [
+        "Compares every item with every other item",
+        "Gets slow quickly on large inputs",
+        "Often fixable with a hash map"
+      ],
+      "examples": [
+        "Bubble sort",
+        "Naive duplicate check"
+      ]
+    }
+  ],
+  "cta": "What's the slowest code you've ever had to fix?",
+  "tags": [
+    "dsa",
+    "algorithms",
+    "codinginterview"
+  ]
+}

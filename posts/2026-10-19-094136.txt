@@ -1,0 +1,18 @@
+Big O Notation Explained Simply
+
+Big O describes how your code slows down as the input grows. It's the language every coding interview uses.
+
+In this post, you'll learn:
+✅ What is Big O?
+✅ O(1) Constant
+✅ O(n) Linear
+✅ O(log n)
+✅ O(n²) Quadratic
+
+What's the slowest code you've ever had to fix?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#dsa #algorithms #codinginterview #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
