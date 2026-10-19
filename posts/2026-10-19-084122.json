@@ -1,0 +1,65 @@
+{
+  "topic": "Security",
+  "title": "Authentication vs Authorization",
+  "intro": "They sound alike but answer two different questions. Mixing them up is a common source of security bugs.",
+  "slides": [
+    {
+      "heading": "Authentication",
+      "subtitle": "Who are you?",
+      "points": [
+        "Verifies a user's identity",
+        "Passwords, one-time codes, passkeys or social login",
+        "Always happens before authorization"
+      ],
+      "examples": [
+        "Logging in",
+        "Two-factor codes"
+      ]
+    },
+    {
+      "heading": "Authorization",
+      "subtitle": "What are you allowed to do?",
+      "points": [
+        "Checks permissions after login",
+        "Often role-based: admin, editor, viewer",
+        "Must be enforced on the server"
+      ],
+      "examples": [
+        "Admin-only pages",
+        "Editing only your own posts"
+      ]
+    },
+    {
+      "heading": "Sessions",
+      "subtitle": "The server remembers who you are.",
+      "points": [
+        "Server stores the session, browser keeps an ID cookie",
+        "Easy to log a user out by deleting the session",
+        "Classic choice for server-rendered apps"
+      ],
+      "examples": [
+        "Traditional web apps",
+        "Admin dashboards"
+      ]
+    },
+    {
+      "heading": "JWT",
+      "subtitle": "A signed token the client carries.",
+      "points": [
+        "Holds user info signed by the server",
+        "Can be verified without a database lookup",
+        "Hard to revoke, so keep expiry short"
+      ],
+      "examples": [
+        "APIs",
+        "Mobile apps"
+      ]
+    }
+  ],
+  "cta": "Do you prefer sessions or JWTs in your projects?",
+  "tags": [
+    "security",
+    "authentication",
+    "backend"
+  ]
+}

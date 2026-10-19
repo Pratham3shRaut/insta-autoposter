@@ -1,0 +1,17 @@
+Authentication vs Authorization
+
+They sound alike but answer two different questions. Mixing them up is a common source of security bugs.
+
+In this post, you'll learn:
+✅ Authentication
+✅ Authorization
+✅ Sessions
+✅ JWT
+
+Do you prefer sessions or JWTs in your projects?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#security #authentication #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
