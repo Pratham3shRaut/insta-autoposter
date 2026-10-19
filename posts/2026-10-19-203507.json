@@ -1,0 +1,61 @@
+{
+  "topic": "APIs",
+  "title": "REST API Design Best Practices",
+  "intro": "A well-designed API is easy to guess, easy to use and hard to misuse. These conventions get you most of the way.",
+  "slides": [
+    {
+      "heading": "Use nouns",
+      "subtitle": "Resources in URLs, not actions.",
+      "points": [
+        "GET /users, not GET /getUsers",
+        "Plural nouns for collections",
+        "Nest related data: /users/42/orders"
+      ],
+      "examples": [
+        "/products",
+        "/orders/17"
+      ]
+    },
+    {
+      "heading": "HTTP methods",
+      "subtitle": "Let the method describe the action.",
+      "points": [
+        "GET reads data",
+        "POST creates something new",
+        "PUT replaces, PATCH updates part of it",
+        "DELETE removes it"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Status codes",
+      "subtitle": "Tell the client what happened.",
+      "points": [
+        "201 after creating a resource",
+        "400 for invalid input",
+        "404 when it doesn't exist",
+        "Never return 200 with an error inside"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Version & paginate",
+      "subtitle": "Plan for growth from day one.",
+      "points": [
+        "Version your API: /api/v1/",
+        "Paginate big lists: ?page=2&limit=20",
+        "Keep response shapes consistent"
+      ],
+      "examples": [
+        "Public APIs",
+        "Mobile app backends"
+      ]
+    }
+  ],
+  "cta": "What's the worst API design you've had to work with?",
+  "tags": [
+    "api",
+    "restapi",
+    "backend"
+  ]
+}
