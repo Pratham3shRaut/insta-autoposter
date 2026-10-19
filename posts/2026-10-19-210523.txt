@@ -1,0 +1,17 @@
+React Hooks Every Beginner Should Know
+
+Hooks let function components remember data and react to changes. These four cover most of what you'll write.
+
+In this post, you'll learn:
+✅ useState
+✅ useEffect
+✅ useRef
+✅ useMemo & useCallback
+
+Which hook confused you the most when you started?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#reactjs #react #javascript #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

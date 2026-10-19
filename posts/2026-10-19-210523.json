@@ -1,0 +1,67 @@
+{
+  "topic": "React",
+  "title": "React Hooks Every Beginner Should Know",
+  "intro": "Hooks let function components remember data and react to changes. These four cover most of what you'll write.",
+  "slides": [
+    {
+      "heading": "useState",
+      "subtitle": "Remember values between renders.",
+      "points": [
+        "Returns the value and a setter function",
+        "Calling the setter re-renders the component",
+        "Use setX(prev => ...) for updates based on the old value"
+      ],
+      "examples": [
+        "Counters",
+        "Form inputs",
+        "Toggles"
+      ]
+    },
+    {
+      "heading": "useEffect",
+      "subtitle": "Sync with things outside React.",
+      "points": [
+        "Runs after the component renders",
+        "The dependency array controls when it re-runs",
+        "Return a cleanup function when needed"
+      ],
+      "examples": [
+        "Timers",
+        "Subscriptions",
+        "Fetching data"
+      ]
+    },
+    {
+      "heading": "useRef",
+      "subtitle": "Keep a value without re-rendering.",
+      "points": [
+        "Access DOM elements directly",
+        "Store values that survive re-renders",
+        "Changing .current doesn't re-render"
+      ],
+      "examples": [
+        "Focusing an input",
+        "Storing a timer ID"
+      ]
+    },
+    {
+      "heading": "useMemo & useCallback",
+      "subtitle": "Skip expensive work.",
+      "points": [
+        "useMemo caches a computed value",
+        "useCallback caches a function",
+        "Add them when you notice real slowness"
+      ],
+      "examples": [
+        "Filtering a large list",
+        "Callbacks passed to memoized children"
+      ]
+    }
+  ],
+  "cta": "Which hook confused you the most when you started?",
+  "tags": [
+    "reactjs",
+    "react",
+    "javascript"
+  ]
+}
