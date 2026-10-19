@@ -1,0 +1,17 @@
+Docker Basics Every Developer Should Know
+
+Docker packages your app with everything it needs, so it runs the same on every machine.
+
+In this post, you'll learn:
+✅ What is Docker?
+✅ Image vs Container
+✅ Dockerfile
+✅ Key commands
+
+Have you containerized a project yet?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#docker #devops #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

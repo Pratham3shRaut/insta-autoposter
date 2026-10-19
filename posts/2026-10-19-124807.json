@@ -1,0 +1,60 @@
+{
+  "topic": "DevOps",
+  "title": "Docker Basics Every Developer Should Know",
+  "intro": "Docker packages your app with everything it needs, so it runs the same on every machine.",
+  "slides": [
+    {
+      "heading": "What is Docker?",
+      "subtitle": "Apps in portable, isolated boxes.",
+      "points": [
+        "Runs apps in isolated containers",
+        "Same environment on every machine",
+        "Ends \"it works on my machine\""
+      ],
+      "examples": [
+        "Running a database locally",
+        "Deploying web apps"
+      ]
+    },
+    {
+      "heading": "Image vs Container",
+      "subtitle": "The recipe vs the running dish.",
+      "points": [
+        "Image: a read-only template of your app",
+        "Container: a running copy of an image",
+        "One image can start many containers"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Dockerfile",
+      "subtitle": "The instructions for building an image.",
+      "points": [
+        "FROM picks a base image",
+        "COPY adds your code",
+        "RUN installs dependencies",
+        "CMD sets the start command"
+      ],
+      "examples": [
+        "FROM node:20 for a Node.js app"
+      ]
+    },
+    {
+      "heading": "Key commands",
+      "subtitle": "The four you'll use daily.",
+      "points": [
+        "docker build -t app . builds an image",
+        "docker run -p 3000:3000 app starts it",
+        "docker ps lists running containers",
+        "docker compose up starts multi-container apps"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Have you containerized a project yet?",
+  "tags": [
+    "docker",
+    "devops",
+    "backend"
+  ]
+}
