@@ -1,0 +1,17 @@
+What Happens When You Type a URL
+
+Hitting Enter in your browser kicks off a surprisingly long chain of steps. Here's the journey, simplified.
+
+In this post, you'll learn:
+✅ 1. DNS Lookup
+✅ 2. Connecting
+✅ 3. The Request
+✅ 4. Rendering
+
+Which step surprised you the most?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#networking #webdevelopment #computerscience #webdev #programming #coding #developer #softwareengineering #100daysofcode

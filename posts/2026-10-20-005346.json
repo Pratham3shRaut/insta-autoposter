@@ -1,0 +1,55 @@
+{
+  "topic": "Networking",
+  "title": "What Happens When You Type a URL",
+  "intro": "Hitting Enter in your browser kicks off a surprisingly long chain of steps. Here's the journey, simplified.",
+  "slides": [
+    {
+      "heading": "1. DNS Lookup",
+      "subtitle": "Turning a name into an IP address.",
+      "points": [
+        "The browser asks DNS for the site's IP address",
+        "Answers are cached to speed up repeat visits"
+      ],
+      "examples": [
+        "google.com becomes a numeric IP"
+      ]
+    },
+    {
+      "heading": "2. Connecting",
+      "subtitle": "Opening a secure connection.",
+      "points": [
+        "A TCP handshake connects to the server",
+        "A TLS handshake sets up HTTPS encryption",
+        "HTTP/3 uses QUIC over UDP instead of TCP"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "3. The Request",
+      "subtitle": "Asking the server for the page.",
+      "points": [
+        "The browser sends a GET request with headers",
+        "The server replies with a status code and HTML",
+        "A CDN may answer instead of the origin server"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "4. Rendering",
+      "subtitle": "Turning code into pixels.",
+      "points": [
+        "HTML is parsed into the DOM",
+        "CSS is parsed into the CSSOM",
+        "Layout and paint draw the page",
+        "JavaScript can then update it"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Which step surprised you the most?",
+  "tags": [
+    "networking",
+    "webdevelopment",
+    "computerscience"
+  ]
+}
