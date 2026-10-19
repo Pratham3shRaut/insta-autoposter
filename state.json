@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-19",
+  "last_published_date": "2026-10-20",
   "history": [
     {
       "date": "2026-10-14",
@@ -126,6 +126,11 @@
       "date": "2026-10-19",
       "title": "React Hooks Every Beginner Should Know",
       "media_id": "17915188779542915"
+    },
+    {
+      "date": "2026-10-20",
+      "title": "What Happens When You Type a URL",
+      "media_id": "17971068318173067"
     }
   ]
 }
