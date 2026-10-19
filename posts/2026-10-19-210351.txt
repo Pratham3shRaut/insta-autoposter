@@ -1,0 +1,17 @@
+REST API Design Best Practices
+
+A well-designed API is easy to guess, easy to use and hard to misuse. These conventions get you most of the way.
+
+In this post, you'll learn:
+✅ Use nouns
+✅ HTTP methods
+✅ Status codes
+✅ Version & paginate
+
+What's the worst API design you've had to work with?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#api #restapi #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
