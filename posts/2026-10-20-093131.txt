@@ -1,0 +1,17 @@
+Terminal Commands Every Developer Uses
+
+You don't need to be a Linux expert. These commands cover most of your daily terminal work.
+
+In this post, you'll learn:
+✅ Navigation
+✅ Files & folders
+✅ Reading files
+✅ Processes
+
+Which terminal command do you use the most?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#linux #terminal #developer #webdevelopment #webdev #programming #coding #softwareengineering #100daysofcode

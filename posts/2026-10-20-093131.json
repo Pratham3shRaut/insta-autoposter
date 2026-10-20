@@ -1,0 +1,59 @@
+{
+  "topic": "Linux",
+  "title": "Terminal Commands Every Developer Uses",
+  "intro": "You don't need to be a Linux expert. These commands cover most of your daily terminal work.",
+  "slides": [
+    {
+      "heading": "Navigation",
+      "subtitle": "Know where you are and move around.",
+      "points": [
+        "pwd shows the current folder",
+        "ls -la lists files, including hidden ones",
+        "cd folder moves into a folder"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Files & folders",
+      "subtitle": "Create, copy, move and delete.",
+      "points": [
+        "mkdir name creates a folder",
+        "touch file creates an empty file",
+        "cp copies, mv moves or renames",
+        "rm deletes for good: there's no trash"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Reading files",
+      "subtitle": "Look inside without an editor.",
+      "points": [
+        "cat file prints a file",
+        "less file lets you scroll through it",
+        "tail -f file follows a log live",
+        "grep \"text\" file searches inside it"
+      ],
+      "examples": [
+        "Checking server logs",
+        "Finding an error message"
+      ]
+    },
+    {
+      "heading": "Processes",
+      "subtitle": "See and control what's running.",
+      "points": [
+        "ps aux lists running processes",
+        "kill PID stops a process",
+        "chmod +x script.sh makes a script runnable",
+        "sudo runs a command as admin"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Which terminal command do you use the most?",
+  "tags": [
+    "linux",
+    "terminal",
+    "developer"
+  ]
+}
