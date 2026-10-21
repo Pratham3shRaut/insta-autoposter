@@ -1,0 +1,53 @@
+{
+  "topic": "Clean Code",
+  "title": "Clean Code Habits That Save You Hours",
+  "intro": "Code is read far more often than it's written. These habits make your code easier for everyone, including future you.",
+  "slides": [
+    {
+      "heading": "Meaningful names",
+      "subtitle": "Names should explain intent.",
+      "points": [
+        "getUserById beats getData",
+        "Booleans read like questions: isActive",
+        "Avoid single letters outside short loops"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Small functions",
+      "subtitle": "One function, one job.",
+      "points": [
+        "If you need \"and\" to describe it, split it",
+        "Short functions are easier to test",
+        "And easier to reuse"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "DRY, carefully",
+      "subtitle": "Don't Repeat Yourself, within reason.",
+      "points": [
+        "Extract logic you've copied several times",
+        "Don't merge code that only looks similar",
+        "A little duplication beats the wrong abstraction"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Comments",
+      "subtitle": "Explain why, not what.",
+      "points": [
+        "Good names remove most comments",
+        "Comment surprising decisions and workarounds",
+        "Delete commented-out code: git remembers it"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "What's one clean code habit you swear by?",
+  "tags": [
+    "cleancode",
+    "softwareengineering",
+    "programming"
+  ]
+}

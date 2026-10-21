@@ -1,0 +1,17 @@
+Clean Code Habits That Save You Hours
+
+Code is read far more often than it's written. These habits make your code easier for everyone, including future you.
+
+In this post, you'll learn:
+✅ Meaningful names
+✅ Small functions
+✅ DRY, carefully
+✅ Comments
+
+What's one clean code habit you swear by?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#cleancode #softwareengineering #programming #webdevelopment #webdev #coding #developer #100daysofcode
