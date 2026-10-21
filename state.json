@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-20",
+  "last_published_date": "2026-10-21",
   "history": [
     {
       "date": "2026-10-14",
@@ -136,6 +136,11 @@
       "date": "2026-10-20",
       "title": "Terminal Commands Every Developer Uses",
       "media_id": "18131916112687761"
+    },
+    {
+      "date": "2026-10-21",
+      "title": "Clean Code Habits That Save You Hours",
+      "media_id": "17962299960233177"
     }
   ]
 }
