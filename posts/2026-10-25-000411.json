@@ -1,0 +1,84 @@
+{
+  "topic": "System Design #3",
+  "series": "System Design",
+  "part": 3,
+  "title": "Vertical vs Horizontal Scaling",
+  "intro": "When one server can't keep up, you have two choices: make it bigger, or add more of them.",
+  "slides": [
+    {
+      "heading": "The problem",
+      "subtitle": "One server has limits.",
+      "explain": "Every server has a fixed amount of CPU, memory and network. As traffic grows, response times climb until requests start timing out.",
+      "points": [
+        "CPU hits 100%",
+        "Memory runs out",
+        "Requests queue up and slow down"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Vertical scaling",
+      "subtitle": "Make the server bigger.",
+      "explain": "Also called scaling up: move to a machine with more CPU and RAM. It needs no code changes, so it's the quickest first fix.",
+      "points": [
+        "Simple: no architecture changes",
+        "Has a ceiling: machines only get so big",
+        "Still a single point of failure"
+      ],
+      "flow": [
+        "Small server",
+        "Bigger server"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Horizontal scaling",
+      "subtitle": "Add more servers.",
+      "explain": "Also called scaling out: run many copies of your app and share traffic between them. This is how large systems keep growing.",
+      "points": [
+        "Grows far beyond one machine",
+        "If one server dies, others keep serving",
+        "Needs a load balancer in front"
+      ],
+      "flow": [
+        "Users",
+        "Load balancer",
+        "Many servers"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Stateless servers",
+      "subtitle": "The key to scaling out.",
+      "explain": "If a server keeps user sessions in its own memory, the next request may hit a different server that knows nothing. Keep servers stateless and store shared state elsewhere.",
+      "points": [
+        "Store sessions in Redis or a database",
+        "Any server can handle any request"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Which to choose?",
+      "subtitle": "Usually both, in order.",
+      "explain": "Most teams scale up first because it's easy, then scale out when they hit limits or need high availability.",
+      "points": [
+        "Early stage: scale up",
+        "Growing fast: scale out",
+        "Need high uptime: scale out"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "An e-commerce site runs on one large server before a big sale.",
+    "problem": "They upgrade to the biggest machine available. Sale traffic still exceeds it, and when it crashes the whole store is offline.",
+    "fix": "Run several smaller stateless servers behind a load balancer and add more during the sale. One crash no longer takes the site down.",
+    "takeaway": "Scale up for simplicity; scale out for growth and uptime."
+  },
+  "cta": "Has your app ever outgrown its server?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

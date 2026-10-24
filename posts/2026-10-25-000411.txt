@@ -1,0 +1,21 @@
+Vertical vs Horizontal Scaling
+📚 Part 3 of our System Design series
+
+When one server can't keep up, you have two choices: make it bigger, or add more of them.
+
+In this post, you'll learn:
+✅ The problem
+✅ Vertical scaling
+✅ Horizontal scaling
+✅ Stateless servers
+✅ Which to choose?
+✅ A real-world scenario
+
+Has your app ever outgrown its server?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 4.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
