@@ -1,0 +1,84 @@
+{
+  "topic": "System Design #1",
+  "series": "System Design",
+  "part": 1,
+  "title": "What Is System Design?",
+  "intro": "System design is planning how the parts of a software system fit together so it stays fast, reliable and affordable as it grows. This series builds it up one concept at a time.",
+  "slides": [
+    {
+      "heading": "The big picture",
+      "subtitle": "Designing the whole system, not one function.",
+      "explain": "Coding answers \"how do I build this feature?\". System design answers \"how do servers, databases, caches and queues work together for millions of users?\"",
+      "points": [
+        "Decide which components you need",
+        "Decide how they talk to each other",
+        "Plan for growth and failure"
+      ],
+      "flow": [
+        "Users",
+        "App servers",
+        "Database"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Functional needs",
+      "subtitle": "What the system must do.",
+      "explain": "These are the features users see. List them first, because every design decision should serve one of them.",
+      "points": [
+        "Users can sign up and log in",
+        "Users can post a photo",
+        "Users can scroll a feed"
+      ],
+      "examples": [
+        "Instagram: upload, like, comment"
+      ]
+    },
+    {
+      "heading": "Non-functional needs",
+      "subtitle": "How well the system must do it.",
+      "explain": "These qualities shape the architecture. Two apps with the same features can need very different designs because of them.",
+      "points": [
+        "Scalability: handle more users",
+        "Availability: stay up, e.g. 99.9% uptime",
+        "Latency: respond quickly",
+        "Durability: never lose data"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Estimate the scale",
+      "subtitle": "Back-of-the-envelope math.",
+      "explain": "Rough numbers tell you whether one server is enough or you need hundreds. You only need the right order of magnitude, not exact figures.",
+      "points": [
+        "10M daily users x 10 requests = 100M requests a day",
+        "That's about 1,150 requests per second on average",
+        "Peaks can be several times higher"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Trade-offs",
+      "subtitle": "There is no perfect design.",
+      "explain": "Faster reads can mean slower writes, and more consistency can mean less availability. Good design means choosing the right trade-off and explaining why.",
+      "points": [
+        "Speed vs cost",
+        "Consistency vs availability",
+        "Simplicity vs flexibility"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A team builds a photo app without writing down requirements or estimating traffic.",
+    "problem": "It runs on one server and one database. A viral post brings 50x the usual traffic and the whole app goes down.",
+    "fix": "Start with requirements and rough numbers. Knowing the expected peak would have shown the need for caching and more servers before launch.",
+    "takeaway": "Requirements and estimates come before architecture."
+  },
+  "cta": "What system would you like us to design later in this series?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

@@ -1,0 +1,20 @@
+What Is System Design?
+📚 Part 1 of our System Design series
+
+System design is planning how the parts of a software system fit together so it stays fast, reliable and affordable as it grows. This series builds it up one concept at a time.
+
+In this post, you'll learn:
+✅ The big picture
+✅ Functional needs
+✅ Non-functional needs
+✅ Estimate the scale
+✅ Trade-offs
+✅ A real-world scenario
+
+What system would you like us to design later in this series?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 2.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
