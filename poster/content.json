@@ -1013,5 +1013,1090 @@
     ],
     "cta": "What's one clean code habit you swear by?",
     "tags": ["cleancode", "softwareengineering", "programming"]
+  },
+  {
+    "topic": "HTML",
+    "title": "Semantic HTML Tags You Should Be Using",
+    "intro": "Semantic tags describe what content is, not just how it looks. They help screen readers, search engines and your teammates.",
+    "slides": [
+      {
+        "heading": "Page structure",
+        "subtitle": "Tags that outline the page.",
+        "points": [
+          "<header> for the top of a page or section",
+          "<nav> for the main navigation links",
+          "<main> for the page's main content",
+          "<footer> for the bottom section"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Content tags",
+        "subtitle": "Group related content.",
+        "points": [
+          "<article> for standalone content",
+          "<section> for a themed group of content",
+          "<aside> for side content"
+        ],
+        "examples": ["Blog posts", "Sidebars"]
+      },
+      {
+        "heading": "Why it matters",
+        "subtitle": "More than tidy code.",
+        "points": [
+          "Screen readers can jump between landmarks",
+          "Search engines understand your page better",
+          "Code is easier to read and maintain"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Avoid div soup",
+        "subtitle": "Use a div only when nothing else fits.",
+        "points": [
+          "<button> instead of a clickable <div>",
+          "Headings in order: h1, then h2, then h3",
+          "<a> for navigation, <button> for actions"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Be honest: how many divs are in your last project?",
+    "tags": ["html", "frontend", "webdevelopment"]
+  },
+  {
+    "topic": "CSS",
+    "title": "The CSS Box Model Explained Simply",
+    "intro": "Every element on a web page is a rectangular box. Understanding its layers fixes most spacing bugs.",
+    "slides": [
+      {
+        "heading": "Content",
+        "subtitle": "The text or image itself.",
+        "points": [
+          "Sized with width and height",
+          "The innermost layer of the box"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Padding",
+        "subtitle": "Space inside the border.",
+        "points": [
+          "Pushes content away from the border",
+          "Shows the element's background color"
+        ],
+        "examples": ["Space inside a button"]
+      },
+      {
+        "heading": "Border",
+        "subtitle": "The line around the padding.",
+        "points": [
+          "Set with a width, style and color",
+          "Shorthand: border: 2px solid black"
+        ],
+        "examples": ["Card outlines", "Input fields"]
+      },
+      {
+        "heading": "Margin",
+        "subtitle": "Space outside the border.",
+        "points": [
+          "Pushes other elements away",
+          "Always transparent",
+          "Vertical margins can collapse into one"
+        ],
+        "examples": ["Space between cards"]
+      },
+      {
+        "heading": "box-sizing",
+        "subtitle": "The one line most projects add.",
+        "points": [
+          "By default, width excludes padding and border",
+          "box-sizing: border-box includes them",
+          "Makes element sizes predictable"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Did box-sizing: border-box ever save your layout?",
+    "tags": ["css", "frontend", "webdesign"]
+  },
+  {
+    "topic": "CSS",
+    "title": "CSS Units: px vs rem vs em vs %",
+    "intro": "Picking the right unit makes your layout scale nicely across screens and respect users' font settings.",
+    "slides": [
+      {
+        "heading": "px",
+        "subtitle": "A fixed size.",
+        "points": [
+          "Same size regardless of the parent",
+          "Good for borders and fine details",
+          "Doesn't scale with the user's font settings"
+        ],
+        "examples": ["1px borders"]
+      },
+      {
+        "heading": "rem",
+        "subtitle": "Relative to the root font size.",
+        "points": [
+          "1rem equals the html font size (16px by default)",
+          "Scales when users change their browser font size",
+          "A great default for font sizes and spacing"
+        ],
+        "examples": ["font-size: 1.25rem"]
+      },
+      {
+        "heading": "em",
+        "subtitle": "Relative to the parent's font size.",
+        "points": [
+          "Compounds when elements are nested",
+          "Handy for padding that scales with text"
+        ],
+        "examples": ["Button padding: 0.5em 1em"]
+      },
+      {
+        "heading": "% and vw / vh",
+        "subtitle": "Relative to a container or the screen.",
+        "points": [
+          "% is relative to the parent element",
+          "1vw is 1% of the viewport width",
+          "1vh is 1% of the viewport height"
+        ],
+        "examples": ["Full-screen hero: height: 100vh"]
+      }
+    ],
+    "cta": "Which unit do you reach for first?",
+    "tags": ["css", "frontend", "responsivedesign"]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "var vs let vs const in JavaScript",
+    "intro": "Three ways to declare a variable, each with different rules. Modern code mostly uses const and let.",
+    "slides": [
+      {
+        "heading": "var",
+        "subtitle": "The old way.",
+        "points": [
+          "Function-scoped, not block-scoped",
+          "Hoisted and starts as undefined",
+          "Can be redeclared, which hides bugs"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "let",
+        "subtitle": "For values that change.",
+        "points": [
+          "Block-scoped: lives inside { }",
+          "Can be reassigned",
+          "Can't be used before it's declared"
+        ],
+        "examples": ["Loop counters", "Running totals"]
+      },
+      {
+        "heading": "const",
+        "subtitle": "For values that won't be reassigned.",
+        "points": [
+          "Block-scoped, just like let",
+          "Can't be reassigned",
+          "Objects and arrays inside can still change"
+        ],
+        "examples": ["Config values", "Imported functions"]
+      },
+      {
+        "heading": "Rule of thumb",
+        "subtitle": "What most teams do.",
+        "points": [
+          "Use const by default",
+          "Switch to let when you need to reassign",
+          "Avoid var in new code"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "const by default: yes or no?",
+    "tags": ["javascript", "js", "webdevelopment"]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "JavaScript Array Methods You'll Use Daily",
+    "intro": "These built-in methods replace most manual for-loops and make your code easier to read.",
+    "slides": [
+      {
+        "heading": "map()",
+        "subtitle": "Transform every item.",
+        "points": [
+          "Returns a new array of the same length",
+          "Doesn't change the original array"
+        ],
+        "examples": ["Users to a list of names", "Prices to formatted strings"]
+      },
+      {
+        "heading": "filter()",
+        "subtitle": "Keep only the matching items.",
+        "points": [
+          "Returns a new array",
+          "Keeps items where the callback returns true"
+        ],
+        "examples": ["Active users only", "In-stock products"]
+      },
+      {
+        "heading": "find()",
+        "subtitle": "Get the first match.",
+        "points": [
+          "Returns the first matching item",
+          "Returns undefined if nothing matches"
+        ],
+        "examples": ["Looking up a user by ID"]
+      },
+      {
+        "heading": "reduce()",
+        "subtitle": "Boil an array down to one value.",
+        "points": [
+          "Carries an accumulator through each item",
+          "Always pass a starting value"
+        ],
+        "examples": ["Shopping cart total", "Counting items by type"]
+      },
+      {
+        "heading": "some() & every()",
+        "subtitle": "Yes-or-no questions about an array.",
+        "points": [
+          "some: does at least one item match?",
+          "every: do all items match?"
+        ],
+        "examples": ["Any errors in the form?", "Are all fields filled?"]
+      }
+    ],
+    "cta": "Which array method do you use the most?",
+    "tags": ["javascript", "js", "codingtips"]
+  },
+  {
+    "topic": "JavaScript",
+    "title": "== vs === and Truthy vs Falsy",
+    "intro": "Two JavaScript quirks behind many beginner bugs. Here's how to stay out of trouble.",
+    "slides": [
+      {
+        "heading": "== (loose)",
+        "subtitle": "Converts types before comparing.",
+        "points": [
+          "0 == \"\" is true",
+          "null == undefined is true",
+          "The conversion rules are easy to forget"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "=== (strict)",
+        "subtitle": "No type conversion.",
+        "points": [
+          "Type and value must both match",
+          "0 === \"\" is false",
+          "Predictable, so use it by default"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Falsy values",
+        "subtitle": "The main values that count as false.",
+        "points": [
+          "false, 0 and \"\" (empty string)",
+          "null, undefined and NaN",
+          "Almost everything else is truthy"
+        ],
+        "examples": ["if (name) skips empty strings"]
+      },
+      {
+        "heading": "Watch out",
+        "subtitle": "Common surprises.",
+        "points": [
+          "[] and {} are truthy, even when empty",
+          "The strings \"0\" and \"false\" are truthy",
+          "Check array.length when testing for empty"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Which of these surprised you the first time?",
+    "tags": ["javascript", "js", "webdevelopment"]
+  },
+  {
+    "topic": "Git",
+    "title": "Git Merge vs Rebase, Explained Simply",
+    "intro": "Both bring changes from one branch into another. They just leave behind a different history.",
+    "slides": [
+      {
+        "heading": "git merge",
+        "subtitle": "Join two histories together.",
+        "points": [
+          "Creates a merge commit",
+          "Keeps the full branch history",
+          "Safe to use on shared branches"
+        ],
+        "examples": ["Merging a feature into main"]
+      },
+      {
+        "heading": "git rebase",
+        "subtitle": "Replay your commits on top.",
+        "points": [
+          "Moves your commits onto the latest base",
+          "Produces a straight, linear history",
+          "Rewrites your commit IDs"
+        ],
+        "examples": ["Updating a feature branch with main"]
+      },
+      {
+        "heading": "The golden rule",
+        "subtitle": "Never rebase shared history.",
+        "points": [
+          "Rebase only branches nobody else uses",
+          "Rewriting pushed commits breaks teammates' copies",
+          "If you must push, use --force-with-lease"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Which to use?",
+        "subtitle": "A simple default.",
+        "points": [
+          "Updating your own branch: rebase",
+          "Bringing a feature into main: merge",
+          "Follow your team's convention"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Team merge or team rebase?",
+    "tags": ["git", "github", "developer"]
+  },
+  {
+    "topic": "Node.js",
+    "title": "npm Basics Every JavaScript Developer Needs",
+    "intro": "npm installs and manages the packages your JavaScript projects depend on. Here's what you need day to day.",
+    "slides": [
+      {
+        "heading": "package.json",
+        "subtitle": "Your project's ID card.",
+        "points": [
+          "Lists the name, version and scripts",
+          "Lists the packages you depend on",
+          "Create one with npm init -y"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Installing",
+        "subtitle": "Adding packages to a project.",
+        "points": [
+          "npm install express adds a dependency",
+          "npm install -D eslint adds a dev dependency",
+          "npm install alone installs everything listed"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Lock file",
+        "subtitle": "package-lock.json",
+        "points": [
+          "Records the exact installed versions",
+          "Makes installs repeatable on every machine",
+          "Commit it to git"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Scripts",
+        "subtitle": "Shortcuts for common tasks.",
+        "points": [
+          "Defined under \"scripts\" in package.json",
+          "Run them with npm run dev or npm run build",
+          "npm start and npm test work without run"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "node_modules",
+        "subtitle": "Where packages are installed.",
+        "points": [
+          "Can get very large",
+          "Never commit it to git",
+          "Delete and reinstall to fix odd issues"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "How big is your biggest node_modules folder?",
+    "tags": ["nodejs", "npm", "javascript"]
+  },
+  {
+    "topic": "Security",
+    "title": "Environment Variables and Secrets 101",
+    "intro": "API keys and passwords should never live in your code. Environment variables keep them separate and safe.",
+    "slides": [
+      {
+        "heading": "What they are",
+        "subtitle": "Settings that live outside your code.",
+        "points": [
+          "Key-value pairs set in the environment",
+          "Read in Node.js with process.env.NAME",
+          "Different values per environment"
+        ],
+        "examples": ["DATABASE_URL", "API_KEY"]
+      },
+      {
+        "heading": ".env files",
+        "subtitle": "Local secrets for development.",
+        "points": [
+          "One KEY=value per line",
+          "Loaded by dotenv or node --env-file",
+          "Add .env to your .gitignore"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Never commit secrets",
+        "subtitle": "Git history remembers everything.",
+        "points": [
+          "Deleting the file later doesn't erase history",
+          "Bots scan public repos for leaked keys",
+          "If a key leaks, revoke it and make a new one"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "In production",
+        "subtitle": "Where secrets should live.",
+        "points": [
+          "Your hosting provider's environment settings",
+          "CI secrets, like GitHub Actions secrets",
+          "A secrets manager for larger teams"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Have you ever accidentally committed a secret?",
+    "tags": ["security", "webdevelopment", "backend"]
+  },
+  {
+    "topic": "Web",
+    "title": "CORS Errors Explained Simply",
+    "intro": "Seen \"blocked by CORS policy\" in your console? Here's what's actually happening and how to fix it.",
+    "slides": [
+      {
+        "heading": "Same-origin policy",
+        "subtitle": "The browser's default rule.",
+        "points": [
+          "Origin = protocol + domain + port",
+          "Pages can't read responses from other origins by default",
+          "It protects users from malicious sites"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "What CORS is",
+        "subtitle": "A way for servers to opt in.",
+        "points": [
+          "The server sends Access-Control-Allow-Origin",
+          "The browser checks it before sharing the response",
+          "The server decides, not the frontend"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Preflight requests",
+        "subtitle": "The browser asks first.",
+        "points": [
+          "An OPTIONS request sent before some requests",
+          "Triggered by methods like PUT or custom headers",
+          "The server must reply with what it allows"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "How to fix it",
+        "subtitle": "Fix it on the server.",
+        "points": [
+          "Configure CORS in your backend",
+          "Allow specific origins, especially with cookies",
+          "Use a dev-server proxy during local development"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "How many hours has CORS cost you?",
+    "tags": ["webdevelopment", "api", "backend"]
+  },
+  {
+    "topic": "Web",
+    "title": "Cookies vs localStorage vs sessionStorage",
+    "intro": "Three ways to store data in the browser, each built for a different job.",
+    "slides": [
+      {
+        "heading": "Cookies",
+        "subtitle": "Small data sent with requests.",
+        "points": [
+          "About 4KB per cookie",
+          "Sent to the server automatically",
+          "Can be httpOnly so JavaScript can't read them"
+        ],
+        "examples": ["Login sessions"]
+      },
+      {
+        "heading": "localStorage",
+        "subtitle": "Browser storage that persists.",
+        "points": [
+          "Around 5MB per site in most browsers",
+          "Stays until it's cleared",
+          "Readable by any script on the page"
+        ],
+        "examples": ["Theme preference", "Saved drafts"]
+      },
+      {
+        "heading": "sessionStorage",
+        "subtitle": "Storage for a single tab.",
+        "points": [
+          "Same API as localStorage",
+          "Cleared when the tab closes",
+          "Not shared between tabs"
+        ],
+        "examples": ["Multi-step form progress"]
+      },
+      {
+        "heading": "Security tip",
+        "subtitle": "Choose storage carefully.",
+        "points": [
+          "Never store passwords in the browser",
+          "Prefer httpOnly cookies for auth tokens",
+          "Treat stored data as user-editable"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Where do you store auth tokens in your apps?",
+    "tags": ["webdevelopment", "javascript", "security"]
+  },
+  {
+    "topic": "Databases",
+    "title": "SQL vs NoSQL Databases Explained",
+    "intro": "Both store data, but in very different ways. The right choice depends on your data and how you read it.",
+    "slides": [
+      {
+        "heading": "SQL databases",
+        "subtitle": "Tables with a fixed schema.",
+        "points": [
+          "Rows and columns, like a spreadsheet",
+          "Relationships through joins",
+          "Strong consistency with transactions"
+        ],
+        "examples": ["PostgreSQL", "MySQL"]
+      },
+      {
+        "heading": "NoSQL databases",
+        "subtitle": "Flexible data models.",
+        "points": [
+          "Document, key-value, graph or wide-column",
+          "Schema can change easily",
+          "Often built to scale across many servers"
+        ],
+        "examples": ["MongoDB", "Redis"]
+      },
+      {
+        "heading": "Pick SQL when",
+        "subtitle": "Structure and correctness matter.",
+        "points": [
+          "Your data is highly related",
+          "Correctness is critical, like payments",
+          "You need complex queries and reports"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Pick NoSQL when",
+        "subtitle": "Flexibility and scale matter.",
+        "points": [
+          "The data shape changes often",
+          "You mostly read data by a single key",
+          "You need very high write volume"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "SQL or NoSQL for your current project?",
+    "tags": ["databases", "sql", "backend"]
+  },
+  {
+    "topic": "Databases",
+    "title": "Database Indexes Explained Simply",
+    "intro": "An index works like the index in a book: it lets the database find rows without reading every page.",
+    "slides": [
+      {
+        "heading": "Without an index",
+        "subtitle": "The database reads every row.",
+        "points": [
+          "Called a full table scan",
+          "Gets slow as tables grow"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "With an index",
+        "subtitle": "Jump straight to the right rows.",
+        "points": [
+          "Usually stored as a sorted B-tree",
+          "Lookups take a few steps, not millions",
+          "Speeds up WHERE, JOIN and ORDER BY"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The trade-off",
+        "subtitle": "Indexes aren't free.",
+        "points": [
+          "Each index uses extra storage",
+          "Inserts and updates get slower",
+          "Index the columns you actually query"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Check your query",
+        "subtitle": "Don't guess, measure.",
+        "points": [
+          "Run EXPLAIN to see the query plan",
+          "A full scan on a big table hints at a missing index",
+          "CREATE INDEX idx_email ON users (email);"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Have you ever fixed a slow query with one index?",
+    "tags": ["databases", "sql", "performance"]
+  },
+  {
+    "topic": "Performance",
+    "title": "Core Web Vitals Explained Simply",
+    "intro": "Google's three metrics for how fast and smooth your page feels to real users.",
+    "slides": [
+      {
+        "heading": "LCP",
+        "subtitle": "Largest Contentful Paint: loading.",
+        "points": [
+          "Time until the main content appears",
+          "Good: 2.5 seconds or less",
+          "Fix: optimize images, use a CDN"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "INP",
+        "subtitle": "Interaction to Next Paint: responsiveness.",
+        "points": [
+          "How fast the page responds to clicks and taps",
+          "Good: 200 milliseconds or less",
+          "Fix: break up long JavaScript tasks"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "CLS",
+        "subtitle": "Cumulative Layout Shift: stability.",
+        "points": [
+          "How much the layout jumps while loading",
+          "Good: 0.1 or less",
+          "Fix: set image sizes, reserve space for ads"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Measure it",
+        "subtitle": "Free tools to check your site.",
+        "points": [
+          "Lighthouse in Chrome DevTools",
+          "PageSpeed Insights for real-user data",
+          "The web-vitals library for your own analytics"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "What's your site's LCP right now?",
+    "tags": ["webperf", "corewebvitals", "frontend"]
+  },
+  {
+    "topic": "Accessibility",
+    "title": "Web Accessibility Basics Every Dev Should Know",
+    "intro": "Accessible sites work for everyone, including people using screen readers, keyboards or zoom.",
+    "slides": [
+      {
+        "heading": "Alt text",
+        "subtitle": "Describe your images.",
+        "points": [
+          "Screen readers read alt text aloud",
+          "Describe the purpose, not just the look",
+          "Use alt=\"\" for purely decorative images"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Keyboard access",
+        "subtitle": "Not everyone uses a mouse.",
+        "points": [
+          "Everything clickable works with Tab and Enter",
+          "Keep a visible focus outline",
+          "Use real <button> and <a> elements"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Color contrast",
+        "subtitle": "Make text easy to read.",
+        "points": [
+          "WCAG AA asks for 4.5:1 for normal text",
+          "Don't rely on color alone to show meaning",
+          "Test with a contrast checker"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Forms",
+        "subtitle": "Where accessibility breaks most often.",
+        "points": [
+          "Every input needs a <label>",
+          "Error messages should say how to fix it",
+          "Placeholder text is not a label"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Have you ever tried using your site with only a keyboard?",
+    "tags": ["a11y", "accessibility", "frontend"]
+  },
+  {
+    "topic": "TypeScript",
+    "title": "Why Developers Love TypeScript",
+    "intro": "TypeScript is JavaScript with types. It catches many bugs before your code ever runs.",
+    "slides": [
+      {
+        "heading": "What it is",
+        "subtitle": "JavaScript plus a type system.",
+        "points": [
+          "Compiles to plain JavaScript",
+          "Types are checked, then removed at build time",
+          "You can adopt it gradually"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Basic types",
+        "subtitle": "The building blocks.",
+        "points": [
+          "string, number and boolean",
+          "string[] for an array of strings",
+          "Unions: \"admin\" | \"user\""
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Interfaces",
+        "subtitle": "Describe the shape of objects.",
+        "points": [
+          "interface User { id: number; name: string }",
+          "Your editor autocompletes properties",
+          "Typos in property names become errors"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Why it helps",
+        "subtitle": "Benefits you feel every day.",
+        "points": [
+          "Catches bugs while you type",
+          "Makes refactoring much safer",
+          "Works as living documentation"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Do you write TypeScript or plain JavaScript?",
+    "tags": ["typescript", "javascript", "webdevelopment"]
+  },
+  {
+    "topic": "Testing",
+    "title": "Unit vs Integration vs E2E Testing",
+    "intro": "Different tests catch different bugs. The testing pyramid shows how to balance them.",
+    "slides": [
+      {
+        "heading": "Unit tests",
+        "subtitle": "Test one small piece in isolation.",
+        "points": [
+          "Fast and cheap to run",
+          "Test a single function or component",
+          "Should be most of your tests"
+        ],
+        "examples": ["Jest", "Vitest"]
+      },
+      {
+        "heading": "Integration tests",
+        "subtitle": "Test pieces working together.",
+        "points": [
+          "Check modules work correctly together",
+          "Often include a real database or API",
+          "Slower than unit tests"
+        ],
+        "examples": ["An API endpoint with its database"]
+      },
+      {
+        "heading": "E2E tests",
+        "subtitle": "Test the app like a real user.",
+        "points": [
+          "Run in a real browser",
+          "Catch issues across the whole stack",
+          "Slowest and most fragile, so keep them few"
+        ],
+        "examples": ["Playwright", "Cypress"]
+      },
+      {
+        "heading": "The pyramid",
+        "subtitle": "How to balance them.",
+        "points": [
+          "Many unit tests at the base",
+          "Fewer integration tests in the middle",
+          "A handful of E2E tests on top"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Which kind of test do you write the most?",
+    "tags": ["testing", "softwareengineering", "javascript"]
+  },
+  {
+    "topic": "CSS",
+    "title": "Responsive Design Basics",
+    "intro": "Most visitors browse on phones. These basics make your site look good on every screen size.",
+    "slides": [
+      {
+        "heading": "Viewport meta tag",
+        "subtitle": "Step one for mobile.",
+        "points": [
+          "Tells phones to use the device's real width",
+          "Without it, pages render zoomed out",
+          "Goes in the <head> of every page"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Mobile first",
+        "subtitle": "Start small, then scale up.",
+        "points": [
+          "Write base styles for small screens",
+          "Add min-width media queries for bigger ones",
+          "Usually leads to simpler CSS"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Media queries",
+        "subtitle": "Change the layout at breakpoints.",
+        "points": [
+          "@media (min-width: 768px) { ... }",
+          "Switch columns, sizes or visibility",
+          "Add breakpoints where your design breaks"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Flexible media",
+        "subtitle": "Images that never overflow.",
+        "points": [
+          "img { max-width: 100%; height: auto; }",
+          "Use srcset to serve different image sizes",
+          "Prefer fluid widths over fixed pixels"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Do you design mobile first or desktop first?",
+    "tags": ["css", "responsivedesign", "frontend"]
+  },
+  {
+    "topic": "System Design",
+    "title": "Monolith vs Microservices, Explained",
+    "intro": "Two ways to structure a backend. Neither is always better; it depends on your team and your stage.",
+    "slides": [
+      {
+        "heading": "Monolith",
+        "subtitle": "One codebase, deployed as one app.",
+        "points": [
+          "Simple to build, test and deploy",
+          "Easy to debug in one place",
+          "Harder to scale parts independently"
+        ],
+        "examples": ["Most early-stage startups"]
+      },
+      {
+        "heading": "Microservices",
+        "subtitle": "Many small services working together.",
+        "points": [
+          "Each service owns one job and its data",
+          "Teams can deploy independently",
+          "Adds network calls and operational complexity"
+        ],
+        "examples": ["Large companies with many teams"]
+      },
+      {
+        "heading": "Where to start",
+        "subtitle": "The usual advice.",
+        "points": [
+          "Start with a well-organized monolith",
+          "Split out a service when a real need appears",
+          "Keep modules separated from day one"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Monolith or microservices at your company?",
+    "tags": ["systemdesign", "backend", "softwarearchitecture"]
+  },
+  {
+    "topic": "Debugging",
+    "title": "How to Debug Like a Pro",
+    "intro": "Debugging is a skill you can learn. This process works for almost any bug.",
+    "slides": [
+      {
+        "heading": "Read the error",
+        "subtitle": "It often tells you exactly what's wrong.",
+        "points": [
+          "Read the whole message, not just the first line",
+          "The stack trace shows where it happened",
+          "Find the first line from your own code"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Reproduce it",
+        "subtitle": "Make it happen on demand.",
+        "points": [
+          "Find the exact steps that trigger it",
+          "Shrink it to the smallest failing case",
+          "A bug you can reproduce is half fixed"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Use your tools",
+        "subtitle": "Stop guessing, start looking.",
+        "points": [
+          "Set breakpoints in DevTools or your editor",
+          "Log values at key points",
+          "Check the Network tab for failed requests"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Search smart",
+        "subtitle": "Someone has probably seen it before.",
+        "points": [
+          "Search the exact error message",
+          "Check the official docs and GitHub issues",
+          "Explain the problem out loud, step by step"
+        ],
+        "examples": ["Rubber duck debugging"]
+      }
+    ],
+    "cta": "What's the longest you've spent on a single bug?",
+    "tags": ["debugging", "programming", "developer"]
+  },
+  {
+    "topic": "System Design",
+    "title": "What Is a Load Balancer?",
+    "intro": "When one server isn't enough, a load balancer spreads traffic across many. It's a building block of almost every large app.",
+    "slides": [
+      {
+        "heading": "The problem",
+        "subtitle": "One server can't do it all.",
+        "points": [
+          "Traffic grows beyond what one machine handles",
+          "One server is a single point of failure"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The solution",
+        "subtitle": "Spread requests across servers.",
+        "points": [
+          "Sits in front of your servers",
+          "Sends each request to a healthy server",
+          "Users still see one address"
+        ],
+        "examples": ["Nginx", "AWS Elastic Load Balancing"]
+      },
+      {
+        "heading": "Strategies",
+        "subtitle": "How it picks a server.",
+        "points": [
+          "Round robin: servers take turns",
+          "Least connections: pick the least busy",
+          "IP hash: same user, same server"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Health checks",
+        "subtitle": "Routing around failures.",
+        "points": [
+          "Checks each server regularly",
+          "Stops sending traffic to failing servers",
+          "Adds them back once they recover"
+        ],
+        "examples": []
+      }
+    ],
+    "cta": "Have you set up a load balancer before?",
+    "tags": ["systemdesign", "backend", "devops"]
+  },
+  {
+    "topic": "Programming",
+    "title": "The 4 Pillars of Object-Oriented Programming",
+    "intro": "OOP shows up in interviews and in languages like Java, Python and C#. Here are the four core ideas in plain words.",
+    "slides": [
+      {
+        "heading": "Encapsulation",
+        "subtitle": "Keep data and behavior together.",
+        "points": [
+          "Bundle data with the methods that use it",
+          "Hide internal details behind a clear interface"
+        ],
+        "examples": ["A BankAccount with deposit()"]
+      },
+      {
+        "heading": "Abstraction",
+        "subtitle": "Show only what matters.",
+        "points": [
+          "Expose simple methods, hide the complexity",
+          "Like driving a car without knowing the engine"
+        ],
+        "examples": ["sendEmail() hiding SMTP details"]
+      },
+      {
+        "heading": "Inheritance",
+        "subtitle": "Reuse code from a parent class.",
+        "points": [
+          "A child class extends a parent class",
+          "Shares behavior without copying it",
+          "Use it only for true \"is-a\" relationships"
+        ],
+        "examples": ["Dog extends Animal"]
+      },
+      {
+        "heading": "Polymorphism",
+        "subtitle": "One interface, many forms.",
+        "points": [
+          "Different classes answer the same method",
+          "Code works with any object that fits"
+        ],
+        "examples": ["area() on circles and squares"]
+      }
+    ],
+    "cta": "Which pillar was hardest to understand at first?",
+    "tags": ["oop", "programming", "softwareengineering"]
   }
 ]
