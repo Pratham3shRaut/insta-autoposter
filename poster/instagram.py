@@ -81,16 +81,17 @@ class Instagram:
             if total and used >= total:
                 raise InstagramError("24-hour publishing limit reached; try again later")
 
-    def _wait_until_ready(self, container_id: str) -> None:
-        # Meta recommends polling status; give the image up to ~5 minutes to process.
-        for _ in range(20):
-            status = self._call("GET", container_id, fields="status_code").get("status_code")
+    def _wait_until_ready(self, container_id: str, attempts: int = 20) -> None:
+        # Meta recommends polling status; images get ~5 minutes, videos longer.
+        for _ in range(attempts):
+            res = self._call("GET", container_id, fields="status_code,status")
+            status = res.get("status_code")
             if status == "FINISHED":
                 return
             if status in ("ERROR", "EXPIRED"):
-                raise InstagramError(f"media container {container_id} ended with status {status}")
+                raise InstagramError(f"media container {container_id} ended with status {status}: {res.get('status')}")
             time.sleep(15)
-        raise InstagramError(f"media container {container_id} not ready after 5 minutes")
+        raise InstagramError(f"media container {container_id} not ready after {attempts * 15 // 60} minutes")
 
     def publish_image(self, image_url: str, caption: str) -> str:
         uid = self.ig_user_id()
@@ -127,6 +128,37 @@ class Instagram:
         print(f"created carousel container {cid}")
         self._wait_until_ready(cid)
 
+        published = self._call("POST", f"{uid}/media_publish", creation_id=cid)
+        return published["id"]
+
+    def publish_reel(self, video_path: str, caption: str) -> str:
+        """Upload a local MP4 with Meta's resumable upload, so it needn't be hosted publicly."""
+        uid = self.ig_user_id()
+        self._check_quota()
+
+        container = self._call(
+            "POST", f"{uid}/media",
+            media_type="REELS", upload_type="resumable", caption=caption, share_to_feed="true",
+        )
+        cid = container["id"]
+        upload_uri = container.get("uri") or f"https://rupload.facebook.com/ig-api-upload/{self.version}/{cid}"
+        print(f"created reel container {cid}")
+
+        size = os.path.getsize(video_path)
+        try:
+            with open(video_path, "rb") as f:
+                r = requests.post(
+                    upload_uri,
+                    headers={"Authorization": f"OAuth {self.token}", "offset": "0", "file_size": str(size)},
+                    data=f, timeout=600,
+                )
+        except requests.RequestException as e:
+            raise InstagramError(f"network error uploading reel: {type(e).__name__}") from None
+        if r.status_code != 200:
+            raise InstagramError(f"reel upload failed ({r.status_code}): {r.text[:300]}")
+        print(f"uploaded {size // 1024} KB")
+
+        self._wait_until_ready(cid, attempts=60)
         published = self._call("POST", f"{uid}/media_publish", creation_id=cid)
         return published["id"]
 

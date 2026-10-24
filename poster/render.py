@@ -86,15 +86,15 @@ def fit_lines(draw: ImageDraw.ImageDraw, text: str, kind: str, sizes: tuple, max
 
 
 # --- shared visuals ---------------------------------------------------------
-def background() -> Image.Image:
-    col = Image.new("RGB", (1, H))
-    for y in range(H):
-        t = y / (H - 1)
+def background(w: int = W, h: int = H) -> Image.Image:
+    col = Image.new("RGB", (1, h))
+    for y in range(h):
+        t = y / (h - 1)
         col.putpixel((0, y), tuple(int(BG_TOP[i] + (BG_BOTTOM[i] - BG_TOP[i]) * t) for i in range(3)))
-    img = col.resize((W, H)).convert("RGBA")
+    img = col.resize((w, h)).convert("RGBA")
 
-    glows = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    for (cx, cy), radius, color, alpha in (((W - 60, 40), 260, BLUE, 70), ((40, H - 120), 240, PURPLE, 55)):
+    glows = Image.new("RGBA", (w, h), (0, 0, 0, 0))
+    for (cx, cy), radius, color, alpha in (((w - 60, 40), 260, BLUE, 70), ((40, h - 120), 240, PURPLE, 55)):
         blob = Image.new("RGBA", (radius * 2, radius * 2), (0, 0, 0, 0))
         ImageDraw.Draw(blob).ellipse([0, 0, radius * 2, radius * 2], fill=(*color, alpha))
         blob = blob.filter(ImageFilter.GaussianBlur(radius // 2))

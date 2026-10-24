@@ -59,7 +59,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: post-preview
-          path: ${{ steps.prep.outputs.image_paths }}
+          path: |
+            ${{ steps.prep.outputs.image_paths }}
+            ${{ steps.prep.outputs.reel_path }}
 
       - name: Commit images so Instagram can fetch them
         id: commit
@@ -86,6 +88,15 @@ jobs:
             args+=(--image-url "https://raw.githubusercontent.com/${{ github.repository }}/$SHA/$path")
           done <<< "$IMAGE_PATHS"
           python -m poster publish "${args[@]}" --caption-file "${{ steps.prep.outputs.caption_path }}"
+
+      # A failed reel must not undo the carousel, so this step can't fail the run.
+      - name: Publish Reel to Instagram
+        if: steps.commit.outcome == 'success' && steps.prep.outputs.reel_path != ''
+        continue-on-error: true
+        run: |
+          python -m poster publish-reel \
+            --video-file "${{ steps.prep.outputs.reel_path }}" \
+            --caption-file "${{ steps.prep.outputs.caption_path }}"
 
       - name: Record published post
         if: steps.commit.outcome == 'success'

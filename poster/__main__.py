@@ -3,6 +3,7 @@
 Commands:
   python -m poster prepare            pick today's lesson, render the carousel, write the caption
   python -m poster publish --image-url URL [--image-url URL ...] --caption-file FILE
+  python -m poster publish-reel --video-file FILE --caption-file FILE
   python -m poster preview [--count N]   render lessons into ./preview to check the design
   python -m poster whoami             check your token and see which account it posts to
   python -m poster refresh-token      refresh a 60-day Instagram Login token (and save it to GitHub)
@@ -19,6 +20,7 @@ from zoneinfo import ZoneInfo
 
 from .generate import generate_lesson
 from .instagram import Instagram, InstagramError
+from .reel import build_reel
 from .render import render_lesson
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -57,6 +59,11 @@ def today() -> str:
 
 def norm_title(title: str) -> str:
     return " ".join(title.lower().split())
+
+
+def posted_titles(state: dict, kind: str) -> set[str]:
+    # Entries from before Reels existed have no "kind"; they were all carousels.
+    return {norm_title(h["title"]) for h in state.get("history", []) if h.get("kind", "carousel") == kind}
 
 
 def build_caption(lesson: dict) -> str:
@@ -110,7 +117,7 @@ def cmd_prepare(args):
         return
 
     history_titles = [h["title"] for h in state.get("history", [])]
-    posted = {norm_title(t) for t in history_titles}
+    posted = posted_titles(state, "carousel")
 
     bank = load_json(BANK, [])
     lesson = next((l for l in bank if norm_title(l["title"]) not in posted), None)
@@ -136,10 +143,24 @@ def cmd_prepare(args):
     save_json(os.path.join(ROOT, POSTS, f"{slug}.json"), lesson)
 
     print(f"prepared lesson from {source}: {lesson['title']} ({len(image_paths)} slides)")
+
+    # The Reel is optional: any failure here must not stop the carousel from posting.
+    reel_path = ""
+    if args.no_reel or not os.environ.get("GEMINI_API_KEY"):
+        print("skipping reel (disabled or GEMINI_API_KEY not set)")
+    else:
+        try:
+            out = os.path.join(ROOT, POSTS, f"{slug}.mp4")
+            build_reel(lesson, [os.path.join(ROOT, p) for p in image_paths], handle(), out)
+            reel_path = f"{POSTS}/{slug}.mp4"
+        except Exception as e:
+            print(f"warning: reel not created, posting the carousel only ({e})")
+
     set_output(
         skip="false",
         image_paths="\n".join(image_paths),
         caption_path=caption_path,
+        reel_path=reel_path,
         title=lesson["title"].replace("\n", " "),
     )
 
@@ -151,7 +172,7 @@ def cmd_publish(args):
     state = load_json(STATE, {"history": []})
 
     # Last line of defense: never publish a title that's already in the history.
-    if norm_title(lesson.get("title", "")) in {norm_title(h["title"]) for h in state.get("history", [])}:
+    if norm_title(lesson.get("title", "")) in posted_titles(state, "carousel"):
         print(f"REFUSING TO PUBLISH: '{lesson.get('title')}' was already posted.")
         sys.exit(1)
 
@@ -165,7 +186,30 @@ def cmd_publish(args):
     print(f"published! media id {media_id}")
 
     state["last_published_date"] = today()
-    state.setdefault("history", []).append({"date": today(), "title": lesson.get("title", ""), "media_id": media_id})
+    state.setdefault("history", []).append(
+        {"date": today(), "title": lesson.get("title", ""), "media_id": media_id, "kind": "carousel"})
+    save_json(STATE, state)
+
+
+def cmd_publish_reel(args):
+    with open(args.caption_file, encoding="utf-8") as f:
+        caption = f.read()
+    lesson = load_json(args.caption_file.replace(".txt", ".json"), {})
+    state = load_json(STATE, {"history": []})
+
+    if norm_title(lesson.get("title", "")) in posted_titles(state, "reel"):
+        print(f"REFUSING TO PUBLISH: a reel for '{lesson.get('title')}' was already posted.")
+        sys.exit(1)
+
+    try:
+        media_id = Instagram().publish_reel(args.video_file, caption)
+    except InstagramError as e:
+        print(f"REEL PUBLISH FAILED: {e}")
+        sys.exit(1)
+    print(f"reel published! media id {media_id}")
+
+    state.setdefault("history", []).append(
+        {"date": today(), "title": lesson.get("title", ""), "media_id": media_id, "kind": "reel"})
     save_json(STATE, state)
 
 
@@ -215,7 +259,13 @@ def main():
     p = argparse.ArgumentParser(prog="poster")
     sub = p.add_subparsers(dest="cmd", required=True)
 
-    s = sub.add_parser("prepare"); s.add_argument("--force", action="store_true"); s.set_defaults(fn=cmd_prepare)
+    s = sub.add_parser("prepare")
+    s.add_argument("--force", action="store_true")
+    s.add_argument("--no-reel", action="store_true", help="only render the carousel")
+    s.set_defaults(fn=cmd_prepare)
+    s = sub.add_parser("publish-reel")
+    s.add_argument("--video-file", required=True); s.add_argument("--caption-file", required=True)
+    s.set_defaults(fn=cmd_publish_reel)
     s = sub.add_parser("publish")
     s.add_argument("--image-url", action="append", required=True, help="repeatable; 2+ makes a carousel")
     s.add_argument("--caption-file", required=True)
