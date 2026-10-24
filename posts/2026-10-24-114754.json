@@ -1,0 +1,67 @@
+{
+  "topic": "CSS",
+  "title": "The CSS Box Model Explained Simply",
+  "intro": "Every element on a web page is a rectangular box. Understanding its layers fixes most spacing bugs.",
+  "slides": [
+    {
+      "heading": "Content",
+      "subtitle": "The text or image itself.",
+      "points": [
+        "Sized with width and height",
+        "The innermost layer of the box"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Padding",
+      "subtitle": "Space inside the border.",
+      "points": [
+        "Pushes content away from the border",
+        "Shows the element's background color"
+      ],
+      "examples": [
+        "Space inside a button"
+      ]
+    },
+    {
+      "heading": "Border",
+      "subtitle": "The line around the padding.",
+      "points": [
+        "Set with a width, style and color",
+        "Shorthand: border: 2px solid black"
+      ],
+      "examples": [
+        "Card outlines",
+        "Input fields"
+      ]
+    },
+    {
+      "heading": "Margin",
+      "subtitle": "Space outside the border.",
+      "points": [
+        "Pushes other elements away",
+        "Always transparent",
+        "Vertical margins can collapse into one"
+      ],
+      "examples": [
+        "Space between cards"
+      ]
+    },
+    {
+      "heading": "box-sizing",
+      "subtitle": "The one line most projects add.",
+      "points": [
+        "By default, width excludes padding and border",
+        "box-sizing: border-box includes them",
+        "Makes element sizes predictable"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Did box-sizing: border-box ever save your layout?",
+  "tags": [
+    "css",
+    "frontend",
+    "webdesign"
+  ]
+}

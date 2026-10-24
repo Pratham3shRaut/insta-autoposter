@@ -1,0 +1,18 @@
+The CSS Box Model Explained Simply
+
+Every element on a web page is a rectangular box. Understanding its layers fixes most spacing bugs.
+
+In this post, you'll learn:
+✅ Content
+✅ Padding
+✅ Border
+✅ Margin
+✅ box-sizing
+
+Did box-sizing: border-box ever save your layout?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#css #frontend #webdesign #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
