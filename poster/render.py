@@ -167,12 +167,37 @@ def draw_check(d: ImageDraw.ImageDraw, x: int, y: int, size: int = 40) -> None:
     d.line([x + 18, y + 28, x + 30, y + 13], fill=BLUE, width=4)
 
 
+def draw_flow(d: ImageDraw.ImageDraw, nodes: list[str], y: int) -> int:
+    """A left-to-right diagram of 2-4 boxes joined by arrows. Returns the y below it."""
+    gap, box_h = 56, 96
+    box_w = (CONTENT_W - gap * (len(nodes) - 1)) // len(nodes)
+    label_font = font("bold", 24)
+    for i, label in enumerate(nodes):
+        x = MARGIN + i * (box_w + gap)
+        d.rounded_rectangle([x, y, x + box_w, y + box_h], radius=18, fill=CARD, outline=BLUE, width=2)
+        lines = wrap(d, label, label_font, box_w - 24)[:2]
+        ty = y + box_h // 2 - (len(lines) * 30) // 2 + 15
+        for line in lines:
+            d.text((x + box_w // 2, ty), line, font=label_font, fill=TEXT, anchor="mm")
+            ty += 30
+        if i < len(nodes) - 1:
+            ax0, ax1, ay = x + box_w + 10, x + box_w + gap - 10, y + box_h // 2
+            d.line([ax0, ay, ax1 - 8, ay], fill=BLUE, width=4)
+            d.polygon([(ax1, ay), (ax1 - 12, ay - 9), (ax1 - 12, ay + 9)], fill=BLUE)
+    return y + box_h
+
+
 # --- slides -----------------------------------------------------------------
 def render_title_slide(out_path: str, lesson: dict, handle: str, total: int) -> str:
     img = background()
     layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
     d = ImageDraw.Draw(layer)
     y = 0
+
+    if lesson.get("series"):
+        d.text((MARGIN, y), f"{lesson['series'].upper()} SERIES  ·  PART {lesson['part']}",
+               font=font("bold", 26), fill=PURPLE)
+        y += 56
 
     title_font, size, lines = fit_lines(d, lesson["title"], "bold", (84, 74, 66, 58), CONTENT_W, 4)
     for line in lines:
@@ -230,7 +255,17 @@ def render_explainer_slide(out_path: str, topic: str, slide: dict, handle: str, 
         for line in wrap(d, slide["subtitle"], sub_font, CONTENT_W):
             d.text((MARGIN, y), line, font=sub_font, fill=MUTED)
             y += 46
-        y += 36
+        y += 30
+
+    if slide.get("explain"):
+        explain_font = font("regular", 30)
+        for line in wrap(d, slide["explain"], explain_font, CONTENT_W):
+            d.text((MARGIN, y), line, font=explain_font, fill=TEXT)
+            y += 41
+        y += 30
+
+    if slide.get("flow"):
+        y = draw_flow(d, slide["flow"], y) + 34
 
     point_font = font("regular", 32)
     for p in slide.get("points", []):

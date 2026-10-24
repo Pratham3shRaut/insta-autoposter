@@ -66,6 +66,19 @@ def posted_titles(state: dict, kind: str) -> set[str]:
     return {norm_title(h["title"]) for h in state.get("history", []) if h.get("kind", "carousel") == kind}
 
 
+def next_series_part(state: dict) -> dict | None:
+    """The part that would continue the most recent series, so generated posts keep it going."""
+    parts = [h for h in state.get("history", []) if h.get("series") and h.get("kind", "carousel") == "carousel"]
+    if not parts:
+        return None
+    last = max(parts, key=lambda h: h["part"])
+    return {
+        "series": last["series"],
+        "part": last["part"] + 1,
+        "covered": [h["title"] for h in parts if h["series"] == last["series"]],
+    }
+
+
 def build_caption(lesson: dict) -> str:
     tags = []
     for t in list(lesson.get("tags", [])) + BASE_TAGS:
@@ -73,7 +86,10 @@ def build_caption(lesson: dict) -> str:
         if t and t not in tags:
             tags.append(t)
 
+    series, part = lesson.get("series"), lesson.get("part")
     lines = [lesson["title"].strip()]
+    if series:
+        lines += [f"\U0001f4da Part {part} of our {series} series"]
     if lesson.get("intro"):
         lines += ["", lesson["intro"].strip()]
 
@@ -88,7 +104,11 @@ def build_caption(lesson: dict) -> str:
         lines += ["", lesson["cta"].strip()]
     lines += ["", "\U0001f4cc Save this post for later"]
 
-    if handle():
+    if handle() and series:
+        lines += ["", f"Follow @{handle()} so you don't miss Part {part + 1}."]
+        if part > 1:
+            lines += [f"Missed the earlier parts? They're on our profile."]
+    elif handle():
         lines += ["", f"Follow @{handle()} for more posts like this."]
 
     lines += ["", " ".join(f"#{t}" for t in tags[:12])]  # Instagram allows max 30
@@ -125,7 +145,7 @@ def cmd_prepare(args):
     lesson = next((l for l in bank if norm_title(l["title"]) not in posted), None)
     source = "bank"
     if lesson is None:
-        lesson = generate_lesson(history_titles, posted)
+        lesson = generate_lesson(history_titles, posted, next_series_part(state))
         source = "gemini"
     if lesson is None:
         print("NO NEW LESSON: every lesson in poster/content.json has already been posted, and no new one")
@@ -188,8 +208,10 @@ def cmd_publish(args):
     print(f"published! media id {media_id}")
 
     state["last_published_date"] = today()
-    state.setdefault("history", []).append(
-        {"date": today(), "title": lesson.get("title", ""), "media_id": media_id, "kind": "carousel"})
+    entry = {"date": today(), "title": lesson.get("title", ""), "media_id": media_id, "kind": "carousel"}
+    if lesson.get("series"):
+        entry.update(series=lesson["series"], part=lesson["part"])
+    state.setdefault("history", []).append(entry)
     save_json(STATE, state)
 
 

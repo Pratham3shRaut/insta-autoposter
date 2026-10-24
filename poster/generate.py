@@ -24,8 +24,11 @@ Return ONLY JSON matching this shape:
     {{
       "heading": str (max 20 characters, the sub-topic name),
       "subtitle": str (max 60 characters, one-line description),
-      "points": [2-4 short bullet strings, each max 60 characters],
-      "examples": [2-3 short real-world example strings, each max 30 characters]
+      "explain": str (2-3 plain sentences explaining the idea to a beginner, max 230 characters),
+      "points": [2-3 short bullet strings, each max 60 characters],
+      "flow": [optional: 2-4 short box labels (max 16 characters each) for a left-to-right
+               diagram of how data or requests move, only when a flow genuinely helps],
+      "examples": [0-3 short real-world example strings, each max 30 characters]
     }}
     // 3 to 6 of these
   ],
@@ -65,19 +68,35 @@ def valid(lesson: dict) -> bool:
             return False
         if len(s["heading"]) > 30:
             return False
+        if "flow" in s and not (isinstance(s["flow"], list) and 2 <= len(s["flow"]) <= 4):
+            return False
     return True
 
 
-def generate_lesson(recent_titles: list[str], taken: set[str]) -> dict | None:
-    """taken: normalized titles already posted; a generated lesson matching one is rejected."""
+SERIES_PROMPT = """
+
+This post is Part {part} of an ongoing "{series}" series that teaches the subject step by step.
+Earlier parts covered, in order:
+{covered}
+Pick the natural next topic that builds on those parts, and do not repeat any of them."""
+
+
+def generate_lesson(recent_titles: list[str], taken: set[str], series: dict | None = None) -> dict | None:
+    """taken: normalized titles already posted; a generated lesson matching one is rejected.
+    series: {"series", "part", "covered"} to generate the next part of a running series."""
     key = os.environ.get("GEMINI_API_KEY")
     if not key:
         return None
     model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
     url = f"https://generativelanguage.googleapis.com/v1beta/models/{model}:generateContent"
     unique_recent = list(dict.fromkeys(recent_titles))[-80:]
+    prompt = PROMPT.format(recent="\n".join(f"- {t}" for t in unique_recent))
+    if series:
+        prompt += SERIES_PROMPT.format(
+            part=series["part"], series=series["series"], covered="\n".join(f"- {t}" for t in series["covered"]),
+        )
     body = {
-        "contents": [{"parts": [{"text": PROMPT.format(recent="\n".join(f"- {t}" for t in unique_recent))}]}],
+        "contents": [{"parts": [{"text": prompt}]}],
         "generationConfig": {"responseMimeType": "application/json", "temperature": 0.9},
     }
     for _ in range(3):
@@ -95,6 +114,9 @@ def generate_lesson(recent_titles: list[str], taken: set[str]) -> dict | None:
             elif " ".join(lesson["title"].lower().split()) in taken:
                 print(f"generated lesson '{lesson['title']}' was already posted, retrying")
             else:
+                if series:
+                    lesson.update(series=series["series"], part=series["part"],
+                                  topic=f"{series['series']} #{series['part']}")
                 return lesson
         except Exception as e:  # network/format issues: fall back to the bank
             print(f"gemini generation failed: {e}")

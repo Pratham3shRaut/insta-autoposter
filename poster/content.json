@@ -1,5 +1,987 @@
 [
   {
+    "topic": "System Design #1",
+    "series": "System Design",
+    "part": 1,
+    "title": "What Is System Design?",
+    "intro": "System design is planning how the parts of a software system fit together so it stays fast, reliable and affordable as it grows. This series builds it up one concept at a time.",
+    "slides": [
+      {
+        "heading": "The big picture",
+        "subtitle": "Designing the whole system, not one function.",
+        "explain": "Coding answers \"how do I build this feature?\". System design answers \"how do servers, databases, caches and queues work together for millions of users?\"",
+        "points": [
+          "Decide which components you need",
+          "Decide how they talk to each other",
+          "Plan for growth and failure"
+        ],
+        "flow": [
+          "Users",
+          "App servers",
+          "Database"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Functional needs",
+        "subtitle": "What the system must do.",
+        "explain": "These are the features users see. List them first, because every design decision should serve one of them.",
+        "points": [
+          "Users can sign up and log in",
+          "Users can post a photo",
+          "Users can scroll a feed"
+        ],
+        "examples": [
+          "Instagram: upload, like, comment"
+        ]
+      },
+      {
+        "heading": "Non-functional needs",
+        "subtitle": "How well the system must do it.",
+        "explain": "These qualities shape the architecture. Two apps with the same features can need very different designs because of them.",
+        "points": [
+          "Scalability: handle more users",
+          "Availability: stay up, e.g. 99.9% uptime",
+          "Latency: respond quickly",
+          "Durability: never lose data"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Estimate the scale",
+        "subtitle": "Back-of-the-envelope math.",
+        "explain": "Rough numbers tell you whether one server is enough or you need hundreds. You only need the right order of magnitude, not exact figures.",
+        "points": [
+          "10M daily users x 10 requests = 100M requests a day",
+          "That's about 1,150 requests per second on average",
+          "Peaks can be several times higher"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Trade-offs",
+        "subtitle": "There is no perfect design.",
+        "explain": "Faster reads can mean slower writes, and more consistency can mean less availability. Good design means choosing the right trade-off and explaining why.",
+        "points": [
+          "Speed vs cost",
+          "Consistency vs availability",
+          "Simplicity vs flexibility"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A team builds a photo app without writing down requirements or estimating traffic.",
+      "problem": "It runs on one server and one database. A viral post brings 50x the usual traffic and the whole app goes down.",
+      "fix": "Start with requirements and rough numbers. Knowing the expected peak would have shown the need for caching and more servers before launch.",
+      "takeaway": "Requirements and estimates come before architecture."
+    },
+    "cta": "What system would you like us to design later in this series?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #2",
+    "series": "System Design",
+    "part": 2,
+    "title": "How a Web Request Travels",
+    "intro": "Before scaling anything, you need to know the path a single request takes. Every later part of this series adds a component to this path.",
+    "slides": [
+      {
+        "heading": "The client",
+        "subtitle": "Where every request starts.",
+        "explain": "The client is the browser or mobile app. It doesn't know where your servers are; it only knows a domain name like api.example.com.",
+        "points": [
+          "Sends HTTP requests",
+          "Shows the response to the user"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "DNS",
+        "subtitle": "Finding the server's address.",
+        "explain": "DNS turns the domain name into an IP address, like a phone book. The answer is cached, so this step is usually skipped on repeat visits.",
+        "points": [
+          "api.example.com becomes an IP address",
+          "Cached by the browser, OS and resolvers"
+        ],
+        "flow": [
+          "Client",
+          "DNS",
+          "IP address"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The app server",
+        "subtitle": "Where your code runs.",
+        "explain": "The server receives the request, runs your business logic, such as checking a password or building a feed, and decides what data it needs.",
+        "points": [
+          "Runs your backend code",
+          "Validates input and checks permissions",
+          "Talks to the database"
+        ],
+        "examples": [
+          "Node.js, Django or Spring Boot apps"
+        ]
+      },
+      {
+        "heading": "The database",
+        "subtitle": "Where data lives permanently.",
+        "explain": "The server reads or writes data in the database, then sends the result back to the client, usually as JSON.",
+        "points": [
+          "Stores users, posts and orders",
+          "Often the slowest step in a request"
+        ],
+        "flow": [
+          "Client",
+          "Server",
+          "Database"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The full path",
+        "subtitle": "One request, end to end.",
+        "explain": "The client looks up DNS, connects to the server, the server queries the database, and the response travels back. Each hop adds time, which is why later parts add caches and CDNs.",
+        "points": [
+          "Every hop adds latency",
+          "Every component can fail"
+        ],
+        "flow": [
+          "Client",
+          "DNS",
+          "Server",
+          "Database"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A page takes 3 seconds to load and the team wants to make it faster.",
+      "problem": "Without knowing the request path, they spend a week optimizing frontend code that only took 100 milliseconds.",
+      "fix": "Timing each hop shows one database query takes 2.5 seconds. Adding an index removes most of the delay.",
+      "takeaway": "Know the request path before you optimize."
+    },
+    "cta": "Which part of the request path do you think is usually slowest?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #3",
+    "series": "System Design",
+    "part": 3,
+    "title": "Vertical vs Horizontal Scaling",
+    "intro": "When one server can't keep up, you have two choices: make it bigger, or add more of them.",
+    "slides": [
+      {
+        "heading": "The problem",
+        "subtitle": "One server has limits.",
+        "explain": "Every server has a fixed amount of CPU, memory and network. As traffic grows, response times climb until requests start timing out.",
+        "points": [
+          "CPU hits 100%",
+          "Memory runs out",
+          "Requests queue up and slow down"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Vertical scaling",
+        "subtitle": "Make the server bigger.",
+        "explain": "Also called scaling up: move to a machine with more CPU and RAM. It needs no code changes, so it's the quickest first fix.",
+        "points": [
+          "Simple: no architecture changes",
+          "Has a ceiling: machines only get so big",
+          "Still a single point of failure"
+        ],
+        "flow": [
+          "Small server",
+          "Bigger server"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Horizontal scaling",
+        "subtitle": "Add more servers.",
+        "explain": "Also called scaling out: run many copies of your app and share traffic between them. This is how large systems keep growing.",
+        "points": [
+          "Grows far beyond one machine",
+          "If one server dies, others keep serving",
+          "Needs a load balancer in front"
+        ],
+        "flow": [
+          "Users",
+          "Load balancer",
+          "Many servers"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Stateless servers",
+        "subtitle": "The key to scaling out.",
+        "explain": "If a server keeps user sessions in its own memory, the next request may hit a different server that knows nothing. Keep servers stateless and store shared state elsewhere.",
+        "points": [
+          "Store sessions in Redis or a database",
+          "Any server can handle any request"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Which to choose?",
+        "subtitle": "Usually both, in order.",
+        "explain": "Most teams scale up first because it's easy, then scale out when they hit limits or need high availability.",
+        "points": [
+          "Early stage: scale up",
+          "Growing fast: scale out",
+          "Need high uptime: scale out"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "An e-commerce site runs on one large server before a big sale.",
+      "problem": "They upgrade to the biggest machine available. Sale traffic still exceeds it, and when it crashes the whole store is offline.",
+      "fix": "Run several smaller stateless servers behind a load balancer and add more during the sale. One crash no longer takes the site down.",
+      "takeaway": "Scale up for simplicity; scale out for growth and uptime."
+    },
+    "cta": "Has your app ever outgrown its server?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #4",
+    "series": "System Design",
+    "part": 4,
+    "title": "Load Balancers Explained",
+    "intro": "Once you have more than one server, something has to decide which server handles each request. That's the load balancer.",
+    "slides": [
+      {
+        "heading": "What it does",
+        "subtitle": "A traffic manager for your servers.",
+        "explain": "The load balancer sits between users and your servers. Users connect to one address, and it forwards each request to a healthy server behind it.",
+        "points": [
+          "One public address for many servers",
+          "Spreads load across them"
+        ],
+        "flow": [
+          "Users",
+          "Load balancer",
+          "Servers"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Algorithms",
+        "subtitle": "How it picks a server.",
+        "explain": "Different strategies suit different workloads. Round robin is the simplest; least connections copes better when some requests take much longer.",
+        "points": [
+          "Round robin: servers take turns",
+          "Least connections: pick the least busy",
+          "IP hash: same client, same server"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Health checks",
+        "subtitle": "Avoiding broken servers.",
+        "explain": "The load balancer regularly checks each server. If one stops responding, it's taken out of rotation until it recovers, so users don't hit it.",
+        "points": [
+          "Detects failed servers automatically",
+          "Makes zero-downtime deploys possible"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Layer 4 vs Layer 7",
+        "subtitle": "How deep it looks.",
+        "explain": "A Layer 4 balancer routes by IP and port only, so it's very fast. A Layer 7 balancer reads the HTTP request and can route by URL path or headers.",
+        "points": [
+          "L4: fast and simple",
+          "L7: smart routing, e.g. /api to API servers"
+        ],
+        "examples": [
+          "Nginx",
+          "HAProxy",
+          "AWS load balancers"
+        ]
+      },
+      {
+        "heading": "Don't add a weak spot",
+        "subtitle": "The balancer can fail too.",
+        "explain": "If the load balancer goes down, everything behind it does too. Production setups run at least two, or use a managed cloud load balancer.",
+        "points": [
+          "Run redundant load balancers",
+          "Managed options handle this for you"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A site runs three servers behind a round-robin load balancer, and one server's disk fills up.",
+      "problem": "Without health checks, one in three requests still goes to the broken server, so a third of users see errors.",
+      "fix": "Turn on health checks. The balancer notices the failing server within seconds and sends traffic only to the two healthy ones.",
+      "takeaway": "A load balancer without health checks spreads failures too."
+    },
+    "cta": "Do you use Nginx, a cloud load balancer, or something else?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #5",
+    "series": "System Design",
+    "part": 5,
+    "title": "Caching in System Design",
+    "intro": "The fastest request is one that never reaches your database. Caching keeps frequently used data somewhere much faster.",
+    "slides": [
+      {
+        "heading": "Why cache?",
+        "subtitle": "Memory beats database queries.",
+        "explain": "Reading from an in-memory cache like Redis typically takes under a millisecond, while database queries often take far longer. Caching hot data cuts latency and database load.",
+        "points": [
+          "Faster responses",
+          "Less load on the database",
+          "Lower cost at scale"
+        ],
+        "flow": [
+          "App",
+          "Cache",
+          "Database"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Cache-aside",
+        "subtitle": "The most common pattern.",
+        "explain": "The app checks the cache first. On a miss, it reads from the database, saves the result in the cache, then returns it. The next request is a hit.",
+        "points": [
+          "Simple and widely used",
+          "Only caches data that's requested",
+          "The first request after a miss is slow"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Write-through",
+        "subtitle": "Write to both at once.",
+        "explain": "Every write goes to the cache and the database together, so the cache is always current. The trade-off is slower writes.",
+        "points": [
+          "Cache stays up to date",
+          "Writes take a little longer",
+          "Good for data read right after writing"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Expiry & eviction",
+        "subtitle": "Caches can't keep everything.",
+        "explain": "A TTL removes entries after a set time so stale data doesn't live forever. When memory fills up, a policy like LRU removes the least recently used items.",
+        "points": [
+          "TTL: expire after N seconds",
+          "LRU: drop the least recently used",
+          "Hit rate shows how well it works"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Invalidation",
+        "subtitle": "The hard part.",
+        "explain": "When the real data changes, the cached copy is wrong until it's updated or removed. Many systems delete the cache key on every write and keep a TTL as a safety net.",
+        "points": [
+          "Delete the key when data changes",
+          "Keep a TTL as a backup",
+          "Stale data is the main risk"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A news site's homepage runs the same heavy database query for every visitor.",
+      "problem": "During breaking news, thousands of identical queries per second overload the database and pages time out.",
+      "fix": "Cache the homepage data in Redis with a 30-second TTL. The database now runs that query about twice a minute instead of thousands of times a second.",
+      "takeaway": "Cache data that's read often and changes rarely."
+    },
+    "cta": "Redis, Memcached, or something else in your stack?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #6",
+    "series": "System Design",
+    "part": 6,
+    "title": "Database Replication",
+    "intro": "One database is a single point of failure and a read bottleneck. Replication keeps copies of your data on several machines.",
+    "slides": [
+      {
+        "heading": "What it is",
+        "subtitle": "Copies of the same data.",
+        "explain": "Replication continuously copies data from one database server to others. If one machine fails, another still has the data, and reads can be spread across the copies.",
+        "points": [
+          "Protects against hardware failure",
+          "Spreads read traffic"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Primary-replica",
+        "subtitle": "One writer, many readers.",
+        "explain": "All writes go to the primary. Replicas copy its changes and serve reads. Most apps read far more than they write, so this scales well.",
+        "points": [
+          "Writes: primary only",
+          "Reads: any replica",
+          "Add replicas to scale reads"
+        ],
+        "flow": [
+          "App",
+          "Primary DB",
+          "Read replicas"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Replication lag",
+        "subtitle": "Replicas can be slightly behind.",
+        "explain": "With asynchronous replication, a replica can lag behind the primary. A user who just edited their profile might briefly see the old version if the read hits a replica.",
+        "points": [
+          "Async: fast writes, possible lag",
+          "Sync: no lag, slower writes",
+          "Read your own writes from the primary"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Failover",
+        "subtitle": "When the primary dies.",
+        "explain": "If the primary fails, a replica is promoted to become the new primary. Managed databases can do this automatically.",
+        "points": [
+          "A replica becomes the new primary",
+          "Apps reconnect to it",
+          "Async setups can lose the latest writes"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "When to use it",
+        "subtitle": "Signs you need replicas.",
+        "explain": "Replication is usually the next step after caching when the database becomes the bottleneck.",
+        "points": [
+          "Read-heavy traffic",
+          "High availability needs",
+          "Backups without slowing the primary"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A social app's single database handles everything, and feed loads are most of the traffic.",
+      "problem": "Read traffic saturates the database, so writes like new posts become slow too.",
+      "fix": "Add two read replicas and send feed reads to them. The primary now handles mostly writes, and both get faster.",
+      "takeaway": "Replicas scale reads; the primary handles writes."
+    },
+    "cta": "Have you ever hit a replication lag bug?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #7",
+    "series": "System Design",
+    "part": 7,
+    "title": "Database Sharding",
+    "intro": "Replicas help with reads, but every replica still holds all the data. When the data or the writes outgrow one machine, you shard.",
+    "slides": [
+      {
+        "heading": "What is sharding?",
+        "subtitle": "Splitting data across databases.",
+        "explain": "Sharding splits a big table into pieces called shards, each on its own server. Each shard holds part of the rows, so no single machine stores or writes everything.",
+        "points": [
+          "Each shard holds part of the data",
+          "Writes are spread across shards"
+        ],
+        "flow": [
+          "App",
+          "Shard router",
+          "Shards"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The shard key",
+        "subtitle": "How rows are assigned.",
+        "explain": "The shard key decides which shard a row lives on, for example user_id. A good key spreads data evenly and keeps related data together.",
+        "points": [
+          "Often user_id or tenant_id",
+          "Must spread load evenly",
+          "Hard to change later"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Strategies",
+        "subtitle": "Ways to split the data.",
+        "explain": "Range sharding groups nearby keys, which is simple but can create hot spots. Hash sharding spreads keys evenly but makes range queries harder.",
+        "points": [
+          "Range: IDs 1 to 1M on shard 1, and so on",
+          "Hash: hash(user_id) decides the shard",
+          "Directory: a lookup table maps keys"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The downsides",
+        "subtitle": "Sharding adds real complexity.",
+        "explain": "Queries across shards, like joins or global counts, become slow and complicated. Moving data when you add shards is also hard.",
+        "points": [
+          "Cross-shard joins are hard",
+          "Uneven keys create hot shards",
+          "Rebalancing is painful"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Before you shard",
+        "subtitle": "Try cheaper options first.",
+        "explain": "Indexes, caching, read replicas and bigger machines solve most problems. Sharding is usually the last step.",
+        "points": [
+          "Optimize queries and indexes",
+          "Add caching and replicas",
+          "Shard when one machine truly can't cope"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A messaging app shards by country, putting each country's users on its own shard.",
+      "problem": "One large country has most of the users, so its shard is overloaded while the others sit nearly idle.",
+      "fix": "Re-shard by a hash of user_id. Users spread evenly across shards and the hot spot disappears.",
+      "takeaway": "Pick a shard key that spreads load evenly."
+    },
+    "cta": "Have you ever had to shard a database?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #8",
+    "series": "System Design",
+    "part": 8,
+    "title": "The CAP Theorem, Simply",
+    "intro": "In a distributed system, network problems are unavoidable. CAP describes the choice you must make when they happen.",
+    "slides": [
+      {
+        "heading": "C, A and P",
+        "subtitle": "Three properties.",
+        "explain": "Consistency: every read sees the latest write. Availability: every request gets a response. Partition tolerance: the system keeps working when links between nodes fail.",
+        "points": [
+          "C: everyone sees the same data",
+          "A: every request gets an answer",
+          "P: survives network splits"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The real choice",
+        "subtitle": "During a partition, pick C or A.",
+        "explain": "Networks do fail, so distributed systems must tolerate partitions. When one happens, a cut-off node must either refuse requests or answer with possibly stale data.",
+        "points": [
+          "Partitions will happen",
+          "CP: refuse rather than be wrong",
+          "AP: answer, even if stale"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "CP systems",
+        "subtitle": "Correctness first.",
+        "explain": "CP systems return an error or wait rather than show outdated data. Choose this when wrong data is worse than no data.",
+        "points": [
+          "Bank balances",
+          "Payments and inventory"
+        ],
+        "examples": [
+          "ZooKeeper",
+          "etcd"
+        ]
+      },
+      {
+        "heading": "AP systems",
+        "subtitle": "Always respond.",
+        "explain": "AP systems keep serving and sync up later, which is called eventual consistency. Choose this when staying up matters more than being perfectly current.",
+        "points": [
+          "Social feeds and like counts",
+          "Shopping carts"
+        ],
+        "examples": [
+          "Cassandra",
+          "DynamoDB's default reads"
+        ]
+      },
+      {
+        "heading": "Eventual consistency",
+        "subtitle": "Correct, just not instantly.",
+        "explain": "Copies may disagree for a short time, but they converge once updates spread. For likes or view counts, a short delay is fine.",
+        "points": [
+          "Brief disagreement is acceptable",
+          "All copies converge over time"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A ticketing site lets two data centers sell seats independently during a network split.",
+      "problem": "Both sides keep selling, and the same seat is sold to two different people.",
+      "fix": "Treat seat booking as CP: if a data center can't confirm with the other, it pauses sales instead of risking a double booking.",
+      "takeaway": "Choose consistency where mistakes are costly."
+    },
+    "cta": "Would you pick CP or AP for a chat app, and why?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #9",
+    "series": "System Design",
+    "part": 9,
+    "title": "Message Queues Explained",
+    "intro": "Not everything needs to happen while the user waits. Message queues let you do slow work in the background, reliably.",
+    "slides": [
+      {
+        "heading": "The problem",
+        "subtitle": "Slow work blocks requests.",
+        "explain": "If signing up sends an email, resizes an avatar and updates analytics before responding, the user waits for all of it, and one failing step breaks the whole request.",
+        "points": [
+          "Slow responses",
+          "One failure breaks everything"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "What a queue is",
+        "subtitle": "A to-do list between services.",
+        "explain": "A producer adds a message to the queue and returns right away. A consumer picks messages up and processes them in the background at its own pace.",
+        "points": [
+          "Producer: adds jobs",
+          "Consumer: processes jobs"
+        ],
+        "flow": [
+          "Producer",
+          "Queue",
+          "Consumer"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Benefits",
+        "subtitle": "Why systems use them.",
+        "explain": "Queues decouple services so each can scale and fail on its own. They also absorb traffic spikes: messages simply wait until consumers catch up.",
+        "points": [
+          "Faster user-facing responses",
+          "Absorbs traffic spikes",
+          "Retries when a job fails"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Delivery guarantees",
+        "subtitle": "What happens on failure.",
+        "explain": "Many queues deliver at least once, so a message can occasionally be processed twice. Consumers should be idempotent: running a job twice has the same effect as once.",
+        "points": [
+          "At-least-once is common",
+          "Make consumers idempotent",
+          "Failed messages go to a dead-letter queue"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Popular tools",
+        "subtitle": "What teams use.",
+        "explain": "Pick based on throughput, ordering needs and how much you want to manage yourself.",
+        "points": [
+          "RabbitMQ: classic message broker",
+          "Kafka: high-throughput event streams",
+          "Amazon SQS: fully managed"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "An online store sends the order confirmation email inside the checkout request.",
+      "problem": "When the email provider is slow, checkout takes 10 seconds, and when it's down, orders fail completely.",
+      "fix": "Checkout saves the order and adds a \"send email\" message to a queue. A worker sends it in the background and retries if the provider is down.",
+      "takeaway": "If the user doesn't need to wait for it, queue it."
+    },
+    "cta": "Which have you used: RabbitMQ, Kafka or SQS?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #10",
+    "series": "System Design",
+    "part": 10,
+    "title": "CDNs: Content Delivery Networks",
+    "intro": "Your servers might be in one city, but your users are everywhere. A CDN brings content physically closer to them.",
+    "slides": [
+      {
+        "heading": "The distance problem",
+        "subtitle": "Data takes time to travel.",
+        "explain": "A request from Mumbai to a server in the US crosses the world and back. Even over fiber, that distance adds noticeable delay to every file.",
+        "points": [
+          "Far servers mean slow loads",
+          "Every image and script pays the cost"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "What a CDN is",
+        "subtitle": "Servers around the world.",
+        "explain": "A CDN is a network of edge servers in many cities. Users are routed to a nearby edge, which serves a cached copy of your content.",
+        "points": [
+          "Edge servers cache your files",
+          "The origin is only hit on a cache miss"
+        ],
+        "flow": [
+          "User",
+          "Nearby edge",
+          "Origin server"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "What to put on it",
+        "subtitle": "Best for static content.",
+        "explain": "Files that are the same for everyone are perfect for a CDN. Many CDNs can also cache public API responses and run code at the edge.",
+        "points": [
+          "Images, videos and fonts",
+          "CSS and JavaScript bundles",
+          "Public, cacheable pages"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Cache control",
+        "subtitle": "Telling the CDN what to keep.",
+        "explain": "Cache-Control headers decide how long edges keep a file. Hashed filenames like app.3f9a.js let you cache for a year and still ship updates instantly.",
+        "points": [
+          "Long max-age for hashed files",
+          "Purge the cache for urgent changes",
+          "Don't cache personal data publicly"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Extra benefits",
+        "subtitle": "More than speed.",
+        "explain": "Because edges absorb most of the traffic, your own servers handle far less. Many CDNs also help absorb DDoS attacks.",
+        "points": [
+          "Less load on your servers",
+          "Lower bandwidth costs",
+          "DDoS protection"
+        ],
+        "examples": [
+          "Cloudflare",
+          "Amazon CloudFront",
+          "Fastly"
+        ]
+      }
+    ],
+    "scenario": {
+      "situation": "A startup serves product images from one server in Mumbai, but many customers are in the US and Europe.",
+      "problem": "Overseas users wait seconds for each image, and many leave before the page finishes loading.",
+      "fix": "Put the images behind a CDN. Overseas users now load them from a nearby edge server instead of from Mumbai.",
+      "takeaway": "Serve static files from close to your users."
+    },
+    "cta": "Which CDN do you use for your projects?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #11",
+    "series": "System Design",
+    "part": 11,
+    "title": "Rate Limiting Explained",
+    "intro": "One buggy client or attacker can flood your API. Rate limiting caps how many requests each client can make.",
+    "slides": [
+      {
+        "heading": "Why limit?",
+        "subtitle": "Protect the system for everyone.",
+        "explain": "Without limits, one script can overload your servers, run up your costs or brute-force passwords. Limits keep the service fair and stable.",
+        "points": [
+          "Stops abuse and brute force",
+          "Prevents one client hogging resources",
+          "Keeps costs under control"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Fixed window",
+        "subtitle": "Count requests per time window.",
+        "explain": "Allow N requests per minute and reset the count each minute. It's simple, but a burst at the end of one window plus the start of the next can allow double the limit.",
+        "points": [
+          "Simple to build",
+          "Bursts at window edges"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Sliding window",
+        "subtitle": "A smoother count.",
+        "explain": "Instead of resetting at fixed times, it counts requests over the last rolling minute. This removes the edge-burst problem at the cost of a bit more memory.",
+        "points": [
+          "More accurate limits",
+          "Slightly more storage"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Token bucket",
+        "subtitle": "Allows controlled bursts.",
+        "explain": "Each client has a bucket that refills with tokens at a steady rate. Every request spends a token; when the bucket is empty, requests are rejected until it refills.",
+        "points": [
+          "Allows short bursts",
+          "Enforces an average rate",
+          "Widely used by public APIs"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "In practice",
+        "subtitle": "Where it lives and what it returns.",
+        "explain": "Rate limiting usually sits at the API gateway or load balancer, with counters in a fast shared store like Redis so every server sees the same count.",
+        "points": [
+          "Return HTTP 429 Too Many Requests",
+          "Add a Retry-After header",
+          "Limit per user, API key or IP"
+        ],
+        "flow": [
+          "Client",
+          "Rate limiter",
+          "API"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "A login endpoint has no limit on attempts.",
+      "problem": "An attacker's script tries thousands of passwords per minute against user accounts.",
+      "fix": "Limit each IP and account to 5 attempts per minute with a token bucket in Redis, returning 429 when exceeded. Brute force becomes impractical.",
+      "takeaway": "Rate limit every public endpoint, especially login."
+    },
+    "cta": "Have you ever been rate limited by an API?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
+    "topic": "System Design #12",
+    "series": "System Design",
+    "part": 12,
+    "title": "Case Study: Design a URL Shortener",
+    "intro": "Time to combine everything from this series. Let's design a service like bit.ly, step by step.",
+    "slides": [
+      {
+        "heading": "Requirements",
+        "subtitle": "Start with what it must do.",
+        "explain": "Functional: turn a long URL into a short one, and redirect short links to the original. Non-functional: redirects must be fast and always available.",
+        "points": [
+          "Create short links",
+          "Redirect quickly",
+          "Reads far outnumber writes"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Estimate the scale",
+        "subtitle": "Rough numbers.",
+        "explain": "Assume 100 million new links a month, each opened about 100 times. That's roughly 40 writes and 4,000 redirects per second on average.",
+        "points": [
+          "About 40 writes per second",
+          "About 4,000 reads per second",
+          "Read-heavy: optimize redirects"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "Short codes",
+        "subtitle": "Short, unique and compact.",
+        "explain": "Encode a unique ID in base62, using a-z, A-Z and 0-9. Seven characters give 62^7, about 3.5 trillion codes, which is plenty.",
+        "points": [
+          "Unique ID from a counter or ID service",
+          "Encode it in base62",
+          "7 characters is about 3.5 trillion codes"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The read path",
+        "subtitle": "Make redirects fast.",
+        "explain": "Redirects check a cache first, so popular links rarely touch the database. On a miss, read from a replica and cache the result.",
+        "points": [
+          "Cache hot links in Redis",
+          "Read replicas behind the cache",
+          "Use 302 if you want to count every click"
+        ],
+        "flow": [
+          "Client",
+          "Load balancer",
+          "App server",
+          "Cache"
+        ],
+        "examples": []
+      },
+      {
+        "heading": "The full design",
+        "subtitle": "Putting it together.",
+        "explain": "A load balancer spreads requests across stateless app servers. Redis caches popular links, a replicated database stores every mapping, and rate limiting protects link creation.",
+        "points": [
+          "Stateless servers scale out",
+          "Cache and replicas handle reads",
+          "Rate limit creation to stop spam"
+        ],
+        "examples": []
+      }
+    ],
+    "scenario": {
+      "situation": "The shortener launches and one link goes viral, getting millions of clicks in an hour.",
+      "problem": "If every click queried the database, that single hot row could overwhelm it.",
+      "fix": "After the first click, the link is served from the Redis cache, so the database barely notices the spike.",
+      "takeaway": "Design for your heaviest path: here, the redirect."
+    },
+    "cta": "What should we design next in this series?",
+    "tags": [
+      "systemdesign",
+      "softwarearchitecture",
+      "backend"
+    ]
+  },
+  {
     "topic": "APIs",
     "title": "Types of APIs Explained Simply",
     "intro": "APIs are the backbone of modern applications. They help different software systems communicate and share data seamlessly.",
@@ -2444,59 +3426,6 @@
     ]
   },
   {
-    "topic": "System Design",
-    "title": "Monolith vs Microservices, Explained",
-    "intro": "Two ways to structure a backend. Neither is always better; it depends on your team and your stage.",
-    "slides": [
-      {
-        "heading": "Monolith",
-        "subtitle": "One codebase, deployed as one app.",
-        "points": [
-          "Simple to build, test and deploy",
-          "Easy to debug in one place",
-          "Harder to scale parts independently"
-        ],
-        "examples": [
-          "Most early-stage startups"
-        ]
-      },
-      {
-        "heading": "Microservices",
-        "subtitle": "Many small services working together.",
-        "points": [
-          "Each service owns one job and its data",
-          "Teams can deploy independently",
-          "Adds network calls and operational complexity"
-        ],
-        "examples": [
-          "Large companies with many teams"
-        ]
-      },
-      {
-        "heading": "Where to start",
-        "subtitle": "The usual advice.",
-        "points": [
-          "Start with a well-organized monolith",
-          "Split out a service when a real need appears",
-          "Keep modules separated from day one"
-        ],
-        "examples": []
-      }
-    ],
-    "scenario": {
-      "situation": "A three-person startup splits its brand-new app into eight microservices.",
-      "problem": "They spend more time on deployments, networking and cross-service bugs than on building features.",
-      "fix": "Merge back into one modular monolith, and split out a service only when one part truly needs to scale alone.",
-      "takeaway": "Start simple; split when there's a real reason."
-    },
-    "cta": "Monolith or microservices at your company?",
-    "tags": [
-      "systemdesign",
-      "backend",
-      "softwarearchitecture"
-    ]
-  },
-  {
     "topic": "Debugging",
     "title": "How to Debug Like a Pro",
     "intro": "Debugging is a skill you can learn. This process works for almost any bug.",
@@ -2555,67 +3484,6 @@
       "debugging",
       "programming",
       "developer"
-    ]
-  },
-  {
-    "topic": "System Design",
-    "title": "What Is a Load Balancer?",
-    "intro": "When one server isn't enough, a load balancer spreads traffic across many. It's a building block of almost every large app.",
-    "slides": [
-      {
-        "heading": "The problem",
-        "subtitle": "One server can't do it all.",
-        "points": [
-          "Traffic grows beyond what one machine handles",
-          "One server is a single point of failure"
-        ],
-        "examples": []
-      },
-      {
-        "heading": "The solution",
-        "subtitle": "Spread requests across servers.",
-        "points": [
-          "Sits in front of your servers",
-          "Sends each request to a healthy server",
-          "Users still see one address"
-        ],
-        "examples": [
-          "Nginx",
-          "AWS Elastic Load Balancing"
-        ]
-      },
-      {
-        "heading": "Strategies",
-        "subtitle": "How it picks a server.",
-        "points": [
-          "Round robin: servers take turns",
-          "Least connections: pick the least busy",
-          "IP hash: same user, same server"
-        ],
-        "examples": []
-      },
-      {
-        "heading": "Health checks",
-        "subtitle": "Routing around failures.",
-        "points": [
-          "Checks each server regularly",
-          "Stops sending traffic to failing servers",
-          "Adds them back once they recover"
-        ],
-        "examples": []
-      }
-    ],
-    "scenario": {
-      "situation": "A product launch sends ten times the usual traffic to a site running on a single server.",
-      "problem": "The server maxes out, requests time out, and the site goes down at the worst possible moment.",
-      "fix": "Put a load balancer in front of several servers. Traffic is shared, and if one server fails the others keep serving.",
-      "takeaway": "Scale out and remove single points of failure."
-    },
-    "cta": "Have you set up a load balancer before?",
-    "tags": [
-      "systemdesign",
-      "backend",
-      "devops"
     ]
   },
   {
