@@ -1,0 +1,18 @@
+CSS Units: px vs rem vs em vs %
+
+Picking the right unit makes your layout scale nicely across screens and respect users' font settings.
+
+In this post, you'll learn:
+✅ px
+✅ rem
+✅ em
+✅ % and vw / vh
+✅ A real-world scenario
+
+Which unit do you reach for first?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#css #frontend #responsivedesign #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

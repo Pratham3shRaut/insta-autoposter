@@ -1,0 +1,66 @@
+{
+  "topic": "CSS",
+  "title": "CSS Units: px vs rem vs em vs %",
+  "intro": "Picking the right unit makes your layout scale nicely across screens and respect users' font settings.",
+  "slides": [
+    {
+      "heading": "px",
+      "subtitle": "A fixed size.",
+      "points": [
+        "Same size regardless of the parent",
+        "Good for borders and fine details",
+        "Doesn't scale with the user's font settings"
+      ],
+      "examples": [
+        "1px borders"
+      ]
+    },
+    {
+      "heading": "rem",
+      "subtitle": "Relative to the root font size.",
+      "points": [
+        "1rem equals the html font size (16px by default)",
+        "Scales when users change their browser font size",
+        "A great default for font sizes and spacing"
+      ],
+      "examples": [
+        "font-size: 1.25rem"
+      ]
+    },
+    {
+      "heading": "em",
+      "subtitle": "Relative to the parent's font size.",
+      "points": [
+        "Compounds when elements are nested",
+        "Handy for padding that scales with text"
+      ],
+      "examples": [
+        "Button padding: 0.5em 1em"
+      ]
+    },
+    {
+      "heading": "% and vw / vh",
+      "subtitle": "Relative to a container or the screen.",
+      "points": [
+        "% is relative to the parent element",
+        "1vw is 1% of the viewport width",
+        "1vh is 1% of the viewport height"
+      ],
+      "examples": [
+        "Full-screen hero: height: 100vh"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "A user with low vision sets their browser's default font size to 24px.",
+    "problem": "Your site uses font-size: 14px everywhere, so the text stays tiny and hard to read.",
+    "fix": "Switch font sizes to rem (14px becomes 0.875rem). The text now scales with the user's setting.",
+    "takeaway": "Use rem for text so it respects user preferences."
+  },
+  "cta": "Which unit do you reach for first?",
+  "tags": [
+    "css",
+    "frontend",
+    "responsivedesign"
+  ]
+}
