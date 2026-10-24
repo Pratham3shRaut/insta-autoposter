@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Only render the images (no commit, no posting)"
+        description: "Preview only: build the carousel and Reel, but don't post"
         type: boolean
         default: false
 
