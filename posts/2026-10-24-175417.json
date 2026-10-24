@@ -1,0 +1,90 @@
+{
+  "topic": "System Design #2",
+  "series": "System Design",
+  "part": 2,
+  "title": "How a Web Request Travels",
+  "intro": "Before scaling anything, you need to know the path a single request takes. Every later part of this series adds a component to this path.",
+  "slides": [
+    {
+      "heading": "The client",
+      "subtitle": "Where every request starts.",
+      "explain": "The client is the browser or mobile app. It doesn't know where your servers are; it only knows a domain name like api.example.com.",
+      "points": [
+        "Sends HTTP requests",
+        "Shows the response to the user"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "DNS",
+      "subtitle": "Finding the server's address.",
+      "explain": "DNS turns the domain name into an IP address, like a phone book. The answer is cached, so this step is usually skipped on repeat visits.",
+      "points": [
+        "api.example.com becomes an IP address",
+        "Cached by the browser, OS and resolvers"
+      ],
+      "flow": [
+        "Client",
+        "DNS",
+        "IP address"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The app server",
+      "subtitle": "Where your code runs.",
+      "explain": "The server receives the request, runs your business logic, such as checking a password or building a feed, and decides what data it needs.",
+      "points": [
+        "Runs your backend code",
+        "Validates input and checks permissions",
+        "Talks to the database"
+      ],
+      "examples": [
+        "Node.js, Django or Spring Boot apps"
+      ]
+    },
+    {
+      "heading": "The database",
+      "subtitle": "Where data lives permanently.",
+      "explain": "The server reads or writes data in the database, then sends the result back to the client, usually as JSON.",
+      "points": [
+        "Stores users, posts and orders",
+        "Often the slowest step in a request"
+      ],
+      "flow": [
+        "Client",
+        "Server",
+        "Database"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The full path",
+      "subtitle": "One request, end to end.",
+      "explain": "The client looks up DNS, connects to the server, the server queries the database, and the response travels back. Each hop adds time, which is why later parts add caches and CDNs.",
+      "points": [
+        "Every hop adds latency",
+        "Every component can fail"
+      ],
+      "flow": [
+        "Client",
+        "DNS",
+        "Server",
+        "Database"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A page takes 3 seconds to load and the team wants to make it faster.",
+    "problem": "Without knowing the request path, they spend a week optimizing frontend code that only took 100 milliseconds.",
+    "fix": "Timing each hop shows one database query takes 2.5 seconds. Adding an index removes most of the delay.",
+    "takeaway": "Know the request path before you optimize."
+  },
+  "cta": "Which part of the request path do you think is usually slowest?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

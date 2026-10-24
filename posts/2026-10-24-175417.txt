@@ -1,0 +1,21 @@
+How a Web Request Travels
+📚 Part 2 of our System Design series
+
+Before scaling anything, you need to know the path a single request takes. Every later part of this series adds a component to this path.
+
+In this post, you'll learn:
+✅ The client
+✅ DNS
+✅ The app server
+✅ The database
+✅ The full path
+✅ A real-world scenario
+
+Which part of the request path do you think is usually slowest?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 3.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
