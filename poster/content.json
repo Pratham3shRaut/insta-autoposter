@@ -12,7 +12,11 @@
           "Lightweight and easy to use",
           "Returns data mostly in JSON format"
         ],
-        "examples": ["Social media apps", "Weather apps", "E-commerce websites"]
+        "examples": [
+          "Social media apps",
+          "Weather apps",
+          "E-commerce websites"
+        ]
       },
       {
         "heading": "SOAP API",
@@ -22,7 +26,11 @@
           "Highly secure with built-in error handling",
           "Common in enterprise applications"
         ],
-        "examples": ["Banking systems", "Payment gateways", "Government services"]
+        "examples": [
+          "Banking systems",
+          "Payment gateways",
+          "Government services"
+        ]
       },
       {
         "heading": "GraphQL API",
@@ -32,7 +40,11 @@
           "Client decides the response shape",
           "Avoids over-fetching and under-fetching"
         ],
-        "examples": ["GitHub API", "Shopify storefronts", "Mobile apps with limited bandwidth"]
+        "examples": [
+          "GitHub API",
+          "Shopify storefronts",
+          "Mobile apps with limited bandwidth"
+        ]
       },
       {
         "heading": "WebSocket API",
@@ -42,7 +54,11 @@
           "Server can push data without a new request",
           "Much lower latency than polling"
         ],
-        "examples": ["Chat apps", "Live sports scores", "Multiplayer games"]
+        "examples": [
+          "Chat apps",
+          "Live sports scores",
+          "Multiplayer games"
+        ]
       },
       {
         "heading": "gRPC API",
@@ -52,11 +68,18 @@
           "Much faster than REST for service-to-service calls",
           "Strict, strongly-typed contracts"
         ],
-        "examples": ["Microservices", "Internal backend communication"]
+        "examples": [
+          "Microservices",
+          "Internal backend communication"
+        ]
       }
     ],
     "cta": "Which API have you used the most? Let me know in the comments.",
-    "tags": ["api", "webdevelopment", "backend"]
+    "tags": [
+      "api",
+      "webdevelopment",
+      "backend"
+    ]
   },
   {
     "topic": "HTTP",
@@ -71,7 +94,11 @@
           "201 Created — a new resource was made",
           "204 No Content — success, nothing to return"
         ],
-        "examples": ["Successful login", "Resource created", "Delete confirmed"]
+        "examples": [
+          "Successful login",
+          "Resource created",
+          "Delete confirmed"
+        ]
       },
       {
         "heading": "3xx Redirection",
@@ -81,7 +108,11 @@
           "302 Found — temporary redirect",
           "304 Not Modified — use your cached copy"
         ],
-        "examples": ["Domain migrations", "HTTPS redirects", "Cached assets"]
+        "examples": [
+          "Domain migrations",
+          "HTTPS redirects",
+          "Cached assets"
+        ]
       },
       {
         "heading": "4xx Client Error",
@@ -92,7 +123,11 @@
           "403 Forbidden — logged in, but not allowed",
           "404 Not Found — the resource doesn't exist"
         ],
-        "examples": ["Expired token", "Missing page", "Invalid form data"]
+        "examples": [
+          "Expired token",
+          "Missing page",
+          "Invalid form data"
+        ]
       },
       {
         "heading": "5xx Server Error",
@@ -102,11 +137,19 @@
           "502 Bad Gateway — upstream server failed",
           "503 Service Unavailable — server is overloaded"
         ],
-        "examples": ["Unhandled exception", "Database down", "Deployment in progress"]
+        "examples": [
+          "Unhandled exception",
+          "Database down",
+          "Deployment in progress"
+        ]
       }
     ],
     "cta": "Which status code do you see the most in your logs?",
-    "tags": ["http", "webdevelopment", "backend"]
+    "tags": [
+      "http",
+      "webdevelopment",
+      "backend"
+    ]
   },
   {
     "topic": "Databases",
@@ -121,7 +164,9 @@
           "Rows with no match on either side are excluded",
           "The most commonly used join"
         ],
-        "examples": ["Orders that have a matching customer"]
+        "examples": [
+          "Orders that have a matching customer"
+        ]
       },
       {
         "heading": "LEFT JOIN",
@@ -131,7 +176,9 @@
           "Unmatched right-side columns come back as NULL",
           "Useful for finding what's missing"
         ],
-        "examples": ["All customers, even those with zero orders"]
+        "examples": [
+          "All customers, even those with zero orders"
+        ]
       },
       {
         "heading": "RIGHT JOIN",
@@ -141,7 +188,9 @@
           "Unmatched left-side columns come back as NULL",
           "Rarely used — most people rewrite it as a LEFT JOIN"
         ],
-        "examples": ["All products, even unordered ones, from the orders table"]
+        "examples": [
+          "All products, even unordered ones, from the orders table"
+        ]
       },
       {
         "heading": "FULL JOIN",
@@ -151,11 +200,17 @@
           "Unmatched rows from either side get NULLs",
           "Good for finding mismatches between two tables"
         ],
-        "examples": ["Reconciling two systems that should be in sync"]
+        "examples": [
+          "Reconciling two systems that should be in sync"
+        ]
       }
     ],
     "cta": "Which JOIN trips you up the most?",
-    "tags": ["sql", "databases", "backend"]
+    "tags": [
+      "sql",
+      "databases",
+      "backend"
+    ]
   },
   {
     "topic": "Git",
@@ -170,7 +225,10 @@
           "git clone <url> — copy an existing repo",
           "git status — see what's changed"
         ],
-        "examples": ["New project setup", "Joining an existing codebase"]
+        "examples": [
+          "New project setup",
+          "Joining an existing codebase"
+        ]
       },
       {
         "heading": "Saving work",
@@ -180,7 +238,10 @@
           "git commit -m \"message\" — save staged changes",
           "git push — send commits to the remote"
         ],
-        "examples": ["End of a coding session", "Before switching tasks"]
+        "examples": [
+          "End of a coding session",
+          "Before switching tasks"
+        ]
       },
       {
         "heading": "Branching",
@@ -190,7 +251,10 @@
           "git switch <name> — move to an existing branch",
           "git merge <name> — bring a branch's changes in"
         ],
-        "examples": ["Feature branches", "Bug fix branches"]
+        "examples": [
+          "Feature branches",
+          "Bug fix branches"
+        ]
       },
       {
         "heading": "Undoing things",
@@ -200,11 +264,18 @@
           "git reset --soft HEAD~1 — undo last commit, keep changes",
           "git revert <commit> — safely undo a pushed commit"
         ],
-        "examples": ["Accidental commit", "Reverting a bad deploy"]
+        "examples": [
+          "Accidental commit",
+          "Reverting a bad deploy"
+        ]
       }
     ],
     "cta": "Which git command took you the longest to actually understand?",
-    "tags": ["git", "github", "developer"]
+    "tags": [
+      "git",
+      "github",
+      "developer"
+    ]
   },
   {
     "topic": "Security",
@@ -219,7 +290,11 @@
           "An attacker can read or delete your entire database",
           "Fixed with parameterized queries, never string building"
         ],
-        "examples": ["Login forms", "Search bars", "URL parameters"]
+        "examples": [
+          "Login forms",
+          "Search bars",
+          "URL parameters"
+        ]
       },
       {
         "heading": "XSS",
@@ -229,7 +304,11 @@
           "Can steal cookies, sessions, and user data",
           "Fixed by escaping output and using a strict CSP"
         ],
-        "examples": ["Comment sections", "User profile bios", "Chat messages"]
+        "examples": [
+          "Comment sections",
+          "User profile bios",
+          "Chat messages"
+        ]
       },
       {
         "heading": "CSRF",
@@ -239,7 +318,10 @@
           "Victim's own session is used against them",
           "Fixed with CSRF tokens and SameSite cookies"
         ],
-        "examples": ["Fake 'click here' links", "Hidden auto-submit forms"]
+        "examples": [
+          "Fake 'click here' links",
+          "Hidden auto-submit forms"
+        ]
       },
       {
         "heading": "Broken Auth",
@@ -249,11 +331,18 @@
           "Tokens that never expire stay valid forever if leaked",
           "Fixed with rate limiting, hashing, and short-lived tokens"
         ],
-        "examples": ["Admin panels", "Password reset flows"]
+        "examples": [
+          "Admin panels",
+          "Password reset flows"
+        ]
       }
     ],
     "cta": "Which of these have you actually seen in production code?",
-    "tags": ["security", "webdevelopment", "backend"]
+    "tags": [
+      "security",
+      "webdevelopment",
+      "backend"
+    ]
   },
   {
     "topic": "System Design",
@@ -268,7 +357,11 @@
           "Fastest possible response: zero network time",
           "Best for static assets like images, CSS, JS"
         ],
-        "examples": ["Logos", "Fonts", "Hashed JS bundles"]
+        "examples": [
+          "Logos",
+          "Fonts",
+          "Hashed JS bundles"
+        ]
       },
       {
         "heading": "CDN Cache",
@@ -278,7 +371,11 @@
           "Cuts latency by avoiding your origin server entirely",
           "Great for content that's the same for every user"
         ],
-        "examples": ["Public blog pages", "Product images", "Videos"]
+        "examples": [
+          "Public blog pages",
+          "Product images",
+          "Videos"
+        ]
       },
       {
         "heading": "Application Cache",
@@ -288,7 +385,11 @@
           "Needs an invalidation strategy or data goes stale",
           "Usually has a TTL as a safety net"
         ],
-        "examples": ["Session data", "Expensive aggregate queries", "Rate limit counters"]
+        "examples": [
+          "Session data",
+          "Expensive aggregate queries",
+          "Rate limit counters"
+        ]
       },
       {
         "heading": "Database Cache",
@@ -298,11 +399,18 @@
           "You don't control it directly, but indexes help it a lot",
           "Still the slowest layer in this whole chain"
         ],
-        "examples": ["Repeated identical queries", "Hot rows in a popular table"]
+        "examples": [
+          "Repeated identical queries",
+          "Hot rows in a popular table"
+        ]
       }
     ],
     "cta": "Which caching layer do you rely on most in your stack?",
-    "tags": ["systemdesign", "backend", "caching"]
+    "tags": [
+      "systemdesign",
+      "backend",
+      "caching"
+    ]
   },
   {
     "topic": "JavaScript",
@@ -317,7 +425,10 @@
           "Only one thing runs at a time here",
           "A long-running function here blocks everything else"
         ],
-        "examples": ["A synchronous for-loop", "A recursive function"]
+        "examples": [
+          "A synchronous for-loop",
+          "A recursive function"
+        ]
       },
       {
         "heading": "Web APIs",
@@ -327,7 +438,11 @@
           "Provided by the browser or Node, not JS itself",
           "They report back once finished, not immediately"
         ],
-        "examples": ["setTimeout", "fetch()", "addEventListener"]
+        "examples": [
+          "setTimeout",
+          "fetch()",
+          "addEventListener"
+        ]
       },
       {
         "heading": "Microtask Queue",
@@ -337,7 +452,10 @@
           "Always fully drained before the next macrotask runs",
           "This is why a resolved promise logs before a timer"
         ],
-        "examples": [".then() callbacks", "async/await continuations"]
+        "examples": [
+          ".then() callbacks",
+          "async/await continuations"
+        ]
       },
       {
         "heading": "Macrotask Queue",
@@ -347,11 +465,18 @@
           "Only one macrotask runs per loop iteration",
           "Runs only after the stack and microtasks are empty"
         ],
-        "examples": ["setTimeout callbacks", "click event handlers"]
+        "examples": [
+          "setTimeout callbacks",
+          "click event handlers"
+        ]
       }
     ],
     "cta": "Did you know microtasks always run before the next timer?",
-    "tags": ["javascript", "eventloop", "webdevelopment"]
+    "tags": [
+      "javascript",
+      "eventloop",
+      "webdevelopment"
+    ]
   },
   {
     "topic": "Career",
@@ -366,7 +491,9 @@
           "Lets you add context comments on tricky parts",
           "Shows reviewers you respect their time"
         ],
-        "examples": ["Before clicking 'Create Pull Request'"]
+        "examples": [
+          "Before clicking 'Create Pull Request'"
+        ]
       },
       {
         "heading": "Small PRs",
@@ -376,7 +503,10 @@
           "A 100-line PR gets reviewed same-day, a 1000-line one doesn't",
           "Smaller diffs mean fewer missed bugs"
         ],
-        "examples": ["One feature per PR", "Refactors separate from features"]
+        "examples": [
+          "One feature per PR",
+          "Refactors separate from features"
+        ]
       },
       {
         "heading": "Clear descriptions",
@@ -386,7 +516,9 @@
           "Mention tradeoffs you considered and rejected",
           "Add a test plan so reviewers know how to verify it"
         ],
-        "examples": ["PR template with context + test plan"]
+        "examples": [
+          "PR template with context + test plan"
+        ]
       },
       {
         "heading": "Respond fast",
@@ -396,11 +528,17 @@
           "Disagree directly in comments, don't go silent",
           "Thank reviewers for catching real issues"
         ],
-        "examples": ["Addressing comments same day they're posted"]
+        "examples": [
+          "Addressing comments same day they're posted"
+        ]
       }
     ],
     "cta": "What's one code review habit that changed how people saw your work?",
-    "tags": ["career", "codereview", "softwareengineering"]
+    "tags": [
+      "career",
+      "codereview",
+      "softwareengineering"
+    ]
   },
   {
     "topic": "Roadmap",
@@ -415,7 +553,10 @@
           "CSS controls layout, colors and fonts",
           "Learn Flexbox and Grid for layouts"
         ],
-        "examples": ["A personal portfolio page", "Cloning a simple landing page"]
+        "examples": [
+          "A personal portfolio page",
+          "Cloning a simple landing page"
+        ]
       },
       {
         "heading": "2. JavaScript",
@@ -425,7 +566,10 @@
           "Handling clicks and updating the page (the DOM)",
           "Loading data from APIs with fetch()"
         ],
-        "examples": ["A to-do list", "A weather widget"]
+        "examples": [
+          "A to-do list",
+          "A weather widget"
+        ]
       },
       {
         "heading": "3. Git & GitHub",
@@ -435,7 +579,10 @@
           "Push every project to GitHub",
           "Learn branches early, not later"
         ],
-        "examples": ["A portfolio of public repos", "Your first open-source fix"]
+        "examples": [
+          "A portfolio of public repos",
+          "Your first open-source fix"
+        ]
       },
       {
         "heading": "4. One Framework",
@@ -445,7 +592,10 @@
           "Learn components, props and state",
           "Avoid hopping between frameworks early"
         ],
-        "examples": ["A dashboard app", "A movie search app"]
+        "examples": [
+          "A dashboard app",
+          "A movie search app"
+        ]
       },
       {
         "heading": "5. Deploy It",
@@ -455,11 +605,18 @@
           "A live link beats a screenshot",
           "Add a README explaining what you built"
         ],
-        "examples": ["Sharing a link in your resume", "Showing projects in interviews"]
+        "examples": [
+          "Sharing a link in your resume",
+          "Showing projects in interviews"
+        ]
       }
     ],
     "cta": "Which step are you on right now? Tell me in the comments.",
-    "tags": ["webdevelopment", "learntocode", "codenewbie"]
+    "tags": [
+      "webdevelopment",
+      "learntocode",
+      "codenewbie"
+    ]
   },
   {
     "topic": "Web Dev",
@@ -474,7 +631,11 @@
           "Frameworks like React, Vue or Angular",
           "Cares about UI, accessibility and speed"
         ],
-        "examples": ["Buttons and forms", "Page layouts", "Animations"]
+        "examples": [
+          "Buttons and forms",
+          "Page layouts",
+          "Animations"
+        ]
       },
       {
         "heading": "Backend",
@@ -484,7 +645,11 @@
           "Handles databases, APIs and login",
           "Cares about security and reliability"
         ],
-        "examples": ["Login systems", "Payment processing", "Search"]
+        "examples": [
+          "Login systems",
+          "Payment processing",
+          "Search"
+        ]
       },
       {
         "heading": "Full Stack",
@@ -494,7 +659,10 @@
           "Broad skills, usually deeper on one side",
           "Common in startups and small teams"
         ],
-        "examples": ["Solo side projects", "Startup MVPs"]
+        "examples": [
+          "Solo side projects",
+          "Startup MVPs"
+        ]
       },
       {
         "heading": "Which to pick?",
@@ -508,7 +676,11 @@
       }
     ],
     "cta": "Frontend, backend or full stack: which one are you?",
-    "tags": ["frontend", "backend", "fullstackdeveloper"]
+    "tags": [
+      "frontend",
+      "backend",
+      "fullstackdeveloper"
+    ]
   },
   {
     "topic": "CSS",
@@ -523,7 +695,11 @@
           "justify-content aligns along the main axis",
           "align-items aligns along the cross axis"
         ],
-        "examples": ["Navbars", "Button groups", "Card footers"]
+        "examples": [
+          "Navbars",
+          "Button groups",
+          "Card footers"
+        ]
       },
       {
         "heading": "Grid",
@@ -533,7 +709,11 @@
           "grid-template-columns defines the columns",
           "gap adds space between items"
         ],
-        "examples": ["Photo galleries", "Page layouts", "Dashboards"]
+        "examples": [
+          "Photo galleries",
+          "Page layouts",
+          "Dashboards"
+        ]
       },
       {
         "heading": "When to use which",
@@ -543,7 +723,9 @@
           "Rows and columns together? Use Grid",
           "They work great combined"
         ],
-        "examples": ["Grid for the page, Flexbox inside each card"]
+        "examples": [
+          "Grid for the page, Flexbox inside each card"
+        ]
       },
       {
         "heading": "Centering, solved",
@@ -553,11 +735,18 @@
           "Grid: place-items: center",
           "Both center horizontally and vertically"
         ],
-        "examples": ["Centering a modal", "Centering a hero heading"]
+        "examples": [
+          "Centering a modal",
+          "Centering a hero heading"
+        ]
       }
     ],
     "cta": "Team Flexbox or team Grid?",
-    "tags": ["css", "frontend", "webdesign"]
+    "tags": [
+      "css",
+      "frontend",
+      "webdesign"
+    ]
   },
   {
     "topic": "JavaScript",
@@ -572,7 +761,10 @@
           "Deep nesting leads to \"callback hell\"",
           "Error handling gets messy fast"
         ],
-        "examples": ["setTimeout", "Older Node.js APIs"]
+        "examples": [
+          "setTimeout",
+          "Older Node.js APIs"
+        ]
       },
       {
         "heading": "Promises",
@@ -582,7 +774,10 @@
           "Chain with .then() and .catch()",
           "Promise.all runs tasks in parallel"
         ],
-        "examples": ["fetch()", "Loading several APIs at once"]
+        "examples": [
+          "fetch()",
+          "Loading several APIs at once"
+        ]
       },
       {
         "heading": "async / await",
@@ -592,7 +787,10 @@
           "await pauses until the Promise settles",
           "Use try/catch to handle errors"
         ],
-        "examples": ["Loading user data", "Submitting a form"]
+        "examples": [
+          "Loading user data",
+          "Submitting a form"
+        ]
       },
       {
         "heading": "Common mistakes",
@@ -606,7 +804,11 @@
       }
     ],
     "cta": "Which one clicked for you first: promises or async/await?",
-    "tags": ["javascript", "async", "webdevelopment"]
+    "tags": [
+      "javascript",
+      "async",
+      "webdevelopment"
+    ]
   },
   {
     "topic": "Security",
@@ -621,7 +823,10 @@
           "Passwords, one-time codes, passkeys or social login",
           "Always happens before authorization"
         ],
-        "examples": ["Logging in", "Two-factor codes"]
+        "examples": [
+          "Logging in",
+          "Two-factor codes"
+        ]
       },
       {
         "heading": "Authorization",
@@ -631,7 +836,10 @@
           "Often role-based: admin, editor, viewer",
           "Must be enforced on the server"
         ],
-        "examples": ["Admin-only pages", "Editing only your own posts"]
+        "examples": [
+          "Admin-only pages",
+          "Editing only your own posts"
+        ]
       },
       {
         "heading": "Sessions",
@@ -641,7 +849,10 @@
           "Easy to log a user out by deleting the session",
           "Classic choice for server-rendered apps"
         ],
-        "examples": ["Traditional web apps", "Admin dashboards"]
+        "examples": [
+          "Traditional web apps",
+          "Admin dashboards"
+        ]
       },
       {
         "heading": "JWT",
@@ -651,11 +862,18 @@
           "Can be verified without a database lookup",
           "Hard to revoke, so keep expiry short"
         ],
-        "examples": ["APIs", "Mobile apps"]
+        "examples": [
+          "APIs",
+          "Mobile apps"
+        ]
       }
     ],
     "cta": "Do you prefer sessions or JWTs in your projects?",
-    "tags": ["security", "authentication", "backend"]
+    "tags": [
+      "security",
+      "authentication",
+      "backend"
+    ]
   },
   {
     "topic": "DSA",
@@ -670,7 +888,9 @@
           "Ignores constants, focuses on growth",
           "Usually describes the worst case"
         ],
-        "examples": ["Comparing two ways to solve a problem"]
+        "examples": [
+          "Comparing two ways to solve a problem"
+        ]
       },
       {
         "heading": "O(1) Constant",
@@ -679,7 +899,10 @@
           "Reading an array item by its index",
           "Looking up a key in a hash map (on average)"
         ],
-        "examples": ["arr[5]", "map.get(key)"]
+        "examples": [
+          "arr[5]",
+          "map.get(key)"
+        ]
       },
       {
         "heading": "O(n) Linear",
@@ -688,7 +911,10 @@
           "Looping through every item once",
           "Double the input, roughly double the time"
         ],
-        "examples": ["Finding the max in an array", "Searching an unsorted list"]
+        "examples": [
+          "Finding the max in an array",
+          "Searching an unsorted list"
+        ]
       },
       {
         "heading": "O(log n)",
@@ -697,7 +923,10 @@
           "Binary search on a sorted array",
           "1 million items takes about 20 steps"
         ],
-        "examples": ["Binary search", "Balanced tree lookups"]
+        "examples": [
+          "Binary search",
+          "Balanced tree lookups"
+        ]
       },
       {
         "heading": "O(n²) Quadratic",
@@ -707,11 +936,18 @@
           "Gets slow quickly on large inputs",
           "Often fixable with a hash map"
         ],
-        "examples": ["Bubble sort", "Naive duplicate check"]
+        "examples": [
+          "Bubble sort",
+          "Naive duplicate check"
+        ]
       }
     ],
     "cta": "What's the slowest code you've ever had to fix?",
-    "tags": ["dsa", "algorithms", "codinginterview"]
+    "tags": [
+      "dsa",
+      "algorithms",
+      "codinginterview"
+    ]
   },
   {
     "topic": "DevOps",
@@ -726,7 +962,10 @@
           "Same environment on every machine",
           "Ends \"it works on my machine\""
         ],
-        "examples": ["Running a database locally", "Deploying web apps"]
+        "examples": [
+          "Running a database locally",
+          "Deploying web apps"
+        ]
       },
       {
         "heading": "Image vs Container",
@@ -747,7 +986,9 @@
           "RUN installs dependencies",
           "CMD sets the start command"
         ],
-        "examples": ["FROM node:20 for a Node.js app"]
+        "examples": [
+          "FROM node:20 for a Node.js app"
+        ]
       },
       {
         "heading": "Key commands",
@@ -762,7 +1003,11 @@
       }
     ],
     "cta": "Have you containerized a project yet?",
-    "tags": ["docker", "devops", "backend"]
+    "tags": [
+      "docker",
+      "devops",
+      "backend"
+    ]
   },
   {
     "topic": "APIs",
@@ -777,7 +1022,10 @@
           "Plural nouns for collections",
           "Nest related data: /users/42/orders"
         ],
-        "examples": ["/products", "/orders/17"]
+        "examples": [
+          "/products",
+          "/orders/17"
+        ]
       },
       {
         "heading": "HTTP methods",
@@ -809,11 +1057,18 @@
           "Paginate big lists: ?page=2&limit=20",
           "Keep response shapes consistent"
         ],
-        "examples": ["Public APIs", "Mobile app backends"]
+        "examples": [
+          "Public APIs",
+          "Mobile app backends"
+        ]
       }
     ],
     "cta": "What's the worst API design you've had to work with?",
-    "tags": ["api", "restapi", "backend"]
+    "tags": [
+      "api",
+      "restapi",
+      "backend"
+    ]
   },
   {
     "topic": "React",
@@ -828,7 +1083,11 @@
           "Calling the setter re-renders the component",
           "Use setX(prev => ...) for updates based on the old value"
         ],
-        "examples": ["Counters", "Form inputs", "Toggles"]
+        "examples": [
+          "Counters",
+          "Form inputs",
+          "Toggles"
+        ]
       },
       {
         "heading": "useEffect",
@@ -838,7 +1097,11 @@
           "The dependency array controls when it re-runs",
           "Return a cleanup function when needed"
         ],
-        "examples": ["Timers", "Subscriptions", "Fetching data"]
+        "examples": [
+          "Timers",
+          "Subscriptions",
+          "Fetching data"
+        ]
       },
       {
         "heading": "useRef",
@@ -848,7 +1111,10 @@
           "Store values that survive re-renders",
           "Changing .current doesn't re-render"
         ],
-        "examples": ["Focusing an input", "Storing a timer ID"]
+        "examples": [
+          "Focusing an input",
+          "Storing a timer ID"
+        ]
       },
       {
         "heading": "useMemo & useCallback",
@@ -858,11 +1124,18 @@
           "useCallback caches a function",
           "Add them when you notice real slowness"
         ],
-        "examples": ["Filtering a large list", "Callbacks passed to memoized children"]
+        "examples": [
+          "Filtering a large list",
+          "Callbacks passed to memoized children"
+        ]
       }
     ],
     "cta": "Which hook confused you the most when you started?",
-    "tags": ["reactjs", "react", "javascript"]
+    "tags": [
+      "reactjs",
+      "react",
+      "javascript"
+    ]
   },
   {
     "topic": "Networking",
@@ -876,7 +1149,9 @@
           "The browser asks DNS for the site's IP address",
           "Answers are cached to speed up repeat visits"
         ],
-        "examples": ["google.com becomes a numeric IP"]
+        "examples": [
+          "google.com becomes a numeric IP"
+        ]
       },
       {
         "heading": "2. Connecting",
@@ -911,7 +1186,11 @@
       }
     ],
     "cta": "Which step surprised you the most?",
-    "tags": ["networking", "webdevelopment", "computerscience"]
+    "tags": [
+      "networking",
+      "webdevelopment",
+      "computerscience"
+    ]
   },
   {
     "topic": "Linux",
@@ -948,7 +1227,10 @@
           "tail -f file follows a log live",
           "grep \"text\" file searches inside it"
         ],
-        "examples": ["Checking server logs", "Finding an error message"]
+        "examples": [
+          "Checking server logs",
+          "Finding an error message"
+        ]
       },
       {
         "heading": "Processes",
@@ -963,7 +1245,11 @@
       }
     ],
     "cta": "Which terminal command do you use the most?",
-    "tags": ["linux", "terminal", "developer"]
+    "tags": [
+      "linux",
+      "terminal",
+      "developer"
+    ]
   },
   {
     "topic": "Clean Code",
@@ -1012,7 +1298,11 @@
       }
     ],
     "cta": "What's one clean code habit you swear by?",
-    "tags": ["cleancode", "softwareengineering", "programming"]
+    "tags": [
+      "cleancode",
+      "softwareengineering",
+      "programming"
+    ]
   },
   {
     "topic": "HTML",
@@ -1038,7 +1328,10 @@
           "<section> for a themed group of content",
           "<aside> for side content"
         ],
-        "examples": ["Blog posts", "Sidebars"]
+        "examples": [
+          "Blog posts",
+          "Sidebars"
+        ]
       },
       {
         "heading": "Why it matters",
@@ -1062,7 +1355,11 @@
       }
     ],
     "cta": "Be honest: how many divs are in your last project?",
-    "tags": ["html", "frontend", "webdevelopment"]
+    "tags": [
+      "html",
+      "frontend",
+      "webdevelopment"
+    ]
   },
   {
     "topic": "CSS",
@@ -1085,7 +1382,9 @@
           "Pushes content away from the border",
           "Shows the element's background color"
         ],
-        "examples": ["Space inside a button"]
+        "examples": [
+          "Space inside a button"
+        ]
       },
       {
         "heading": "Border",
@@ -1094,7 +1393,10 @@
           "Set with a width, style and color",
           "Shorthand: border: 2px solid black"
         ],
-        "examples": ["Card outlines", "Input fields"]
+        "examples": [
+          "Card outlines",
+          "Input fields"
+        ]
       },
       {
         "heading": "Margin",
@@ -1104,7 +1406,9 @@
           "Always transparent",
           "Vertical margins can collapse into one"
         ],
-        "examples": ["Space between cards"]
+        "examples": [
+          "Space between cards"
+        ]
       },
       {
         "heading": "box-sizing",
@@ -1118,7 +1422,11 @@
       }
     ],
     "cta": "Did box-sizing: border-box ever save your layout?",
-    "tags": ["css", "frontend", "webdesign"]
+    "tags": [
+      "css",
+      "frontend",
+      "webdesign"
+    ]
   },
   {
     "topic": "CSS",
@@ -1133,7 +1441,9 @@
           "Good for borders and fine details",
           "Doesn't scale with the user's font settings"
         ],
-        "examples": ["1px borders"]
+        "examples": [
+          "1px borders"
+        ]
       },
       {
         "heading": "rem",
@@ -1143,7 +1453,9 @@
           "Scales when users change their browser font size",
           "A great default for font sizes and spacing"
         ],
-        "examples": ["font-size: 1.25rem"]
+        "examples": [
+          "font-size: 1.25rem"
+        ]
       },
       {
         "heading": "em",
@@ -1152,7 +1464,9 @@
           "Compounds when elements are nested",
           "Handy for padding that scales with text"
         ],
-        "examples": ["Button padding: 0.5em 1em"]
+        "examples": [
+          "Button padding: 0.5em 1em"
+        ]
       },
       {
         "heading": "% and vw / vh",
@@ -1162,11 +1476,23 @@
           "1vw is 1% of the viewport width",
           "1vh is 1% of the viewport height"
         ],
-        "examples": ["Full-screen hero: height: 100vh"]
+        "examples": [
+          "Full-screen hero: height: 100vh"
+        ]
       }
     ],
+    "scenario": {
+      "situation": "A user with low vision sets their browser's default font size to 24px.",
+      "problem": "Your site uses font-size: 14px everywhere, so the text stays tiny and hard to read.",
+      "fix": "Switch font sizes to rem (14px becomes 0.875rem). The text now scales with the user's setting.",
+      "takeaway": "Use rem for text so it respects user preferences."
+    },
     "cta": "Which unit do you reach for first?",
-    "tags": ["css", "frontend", "responsivedesign"]
+    "tags": [
+      "css",
+      "frontend",
+      "responsivedesign"
+    ]
   },
   {
     "topic": "JavaScript",
@@ -1191,7 +1517,10 @@
           "Can be reassigned",
           "Can't be used before it's declared"
         ],
-        "examples": ["Loop counters", "Running totals"]
+        "examples": [
+          "Loop counters",
+          "Running totals"
+        ]
       },
       {
         "heading": "const",
@@ -1201,7 +1530,10 @@
           "Can't be reassigned",
           "Objects and arrays inside can still change"
         ],
-        "examples": ["Config values", "Imported functions"]
+        "examples": [
+          "Config values",
+          "Imported functions"
+        ]
       },
       {
         "heading": "Rule of thumb",
@@ -1214,8 +1546,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "You loop with var i from 0 to 2 and start a setTimeout inside that logs i.",
+      "problem": "It logs 3, 3, 3. var creates one shared i, which is already 3 when the timers fire.",
+      "fix": "Change var to let. Each loop iteration gets its own i, so it logs 0, 1, 2.",
+      "takeaway": "let and const are block-scoped; var is not."
+    },
     "cta": "const by default: yes or no?",
-    "tags": ["javascript", "js", "webdevelopment"]
+    "tags": [
+      "javascript",
+      "js",
+      "webdevelopment"
+    ]
   },
   {
     "topic": "JavaScript",
@@ -1229,7 +1571,10 @@
           "Returns a new array of the same length",
           "Doesn't change the original array"
         ],
-        "examples": ["Users to a list of names", "Prices to formatted strings"]
+        "examples": [
+          "Users to a list of names",
+          "Prices to formatted strings"
+        ]
       },
       {
         "heading": "filter()",
@@ -1238,7 +1583,10 @@
           "Returns a new array",
           "Keeps items where the callback returns true"
         ],
-        "examples": ["Active users only", "In-stock products"]
+        "examples": [
+          "Active users only",
+          "In-stock products"
+        ]
       },
       {
         "heading": "find()",
@@ -1247,7 +1595,9 @@
           "Returns the first matching item",
           "Returns undefined if nothing matches"
         ],
-        "examples": ["Looking up a user by ID"]
+        "examples": [
+          "Looking up a user by ID"
+        ]
       },
       {
         "heading": "reduce()",
@@ -1256,7 +1606,10 @@
           "Carries an accumulator through each item",
           "Always pass a starting value"
         ],
-        "examples": ["Shopping cart total", "Counting items by type"]
+        "examples": [
+          "Shopping cart total",
+          "Counting items by type"
+        ]
       },
       {
         "heading": "some() & every()",
@@ -1265,11 +1618,24 @@
           "some: does at least one item match?",
           "every: do all items match?"
         ],
-        "examples": ["Any errors in the form?", "Are all fields filled?"]
+        "examples": [
+          "Any errors in the form?",
+          "Are all fields filled?"
+        ]
       }
     ],
+    "scenario": {
+      "situation": "An online store needs the total price of the in-stock items in a cart.",
+      "problem": "A manual for-loop with if checks and a running total is long and easy to get wrong.",
+      "fix": "cart.filter(i => i.inStock).reduce((sum, i) => sum + i.price, 0) does it in one readable line.",
+      "takeaway": "Chain filter and reduce instead of hand-written loops."
+    },
     "cta": "Which array method do you use the most?",
-    "tags": ["javascript", "js", "codingtips"]
+    "tags": [
+      "javascript",
+      "js",
+      "codingtips"
+    ]
   },
   {
     "topic": "JavaScript",
@@ -1304,7 +1670,9 @@
           "null, undefined and NaN",
           "Almost everything else is truthy"
         ],
-        "examples": ["if (name) skips empty strings"]
+        "examples": [
+          "if (name) skips empty strings"
+        ]
       },
       {
         "heading": "Watch out",
@@ -1317,8 +1685,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A form checks if (quantity == 0) to show an \"out of stock\" warning.",
+      "problem": "An empty input gives \"\", and \"\" == 0 is true, so the warning appears before the user types anything.",
+      "fix": "Check for an empty value first, then compare Number(quantity) === 0. Only a real 0 shows the warning.",
+      "takeaway": "Use === and convert types on purpose."
+    },
     "cta": "Which of these surprised you the first time?",
-    "tags": ["javascript", "js", "webdevelopment"]
+    "tags": [
+      "javascript",
+      "js",
+      "webdevelopment"
+    ]
   },
   {
     "topic": "Git",
@@ -1333,7 +1711,9 @@
           "Keeps the full branch history",
           "Safe to use on shared branches"
         ],
-        "examples": ["Merging a feature into main"]
+        "examples": [
+          "Merging a feature into main"
+        ]
       },
       {
         "heading": "git rebase",
@@ -1343,7 +1723,9 @@
           "Produces a straight, linear history",
           "Rewrites your commit IDs"
         ],
-        "examples": ["Updating a feature branch with main"]
+        "examples": [
+          "Updating a feature branch with main"
+        ]
       },
       {
         "heading": "The golden rule",
@@ -1366,8 +1748,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "Your feature branch is three days old, and main has moved ahead with your teammates' work.",
+      "problem": "Merging main in again and again fills your PR with noisy \"Merge branch main\" commits.",
+      "fix": "Since only you use the branch, run git rebase main. Your commits now sit cleanly on top of the latest main.",
+      "takeaway": "Rebase your own branches; merge shared ones."
+    },
     "cta": "Team merge or team rebase?",
-    "tags": ["git", "github", "developer"]
+    "tags": [
+      "git",
+      "github",
+      "developer"
+    ]
   },
   {
     "topic": "Node.js",
@@ -1425,8 +1817,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "Your app works on your laptop, but the CI build fails with an error inside a dependency.",
+      "problem": "No lock file was committed, so CI installed a newer version of a package that has a bug.",
+      "fix": "Commit package-lock.json and use npm ci in CI. Every machine now installs the exact same versions.",
+      "takeaway": "Commit the lock file; use npm ci in CI."
+    },
     "cta": "How big is your biggest node_modules folder?",
-    "tags": ["nodejs", "npm", "javascript"]
+    "tags": [
+      "nodejs",
+      "npm",
+      "javascript"
+    ]
   },
   {
     "topic": "Security",
@@ -1441,7 +1843,10 @@
           "Read in Node.js with process.env.NAME",
           "Different values per environment"
         ],
-        "examples": ["DATABASE_URL", "API_KEY"]
+        "examples": [
+          "DATABASE_URL",
+          "API_KEY"
+        ]
       },
       {
         "heading": ".env files",
@@ -1474,8 +1879,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A developer hard-codes a cloud API key in config.js and pushes it to a public GitHub repo.",
+      "problem": "Bots scan public repos for keys. Someone finds it and runs up charges on the account.",
+      "fix": "Revoke the key, put the new one in an environment variable, add .env to .gitignore and read it with process.env.",
+      "takeaway": "Secrets go in environment variables, never in code."
+    },
     "cta": "Have you ever accidentally committed a secret?",
-    "tags": ["security", "webdevelopment", "backend"]
+    "tags": [
+      "security",
+      "webdevelopment",
+      "backend"
+    ]
   },
   {
     "topic": "Web",
@@ -1523,8 +1938,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "Your React app on localhost:5173 calls your API on localhost:3000.",
+      "problem": "The browser blocks the response with a CORS error, even though the same request works in Postman.",
+      "fix": "Allow that origin on the API, for example in Express: app.use(cors({ origin: \"http://localhost:5173\" })).",
+      "takeaway": "CORS is fixed on the server, not the frontend."
+    },
     "cta": "How many hours has CORS cost you?",
-    "tags": ["webdevelopment", "api", "backend"]
+    "tags": [
+      "webdevelopment",
+      "api",
+      "backend"
+    ]
   },
   {
     "topic": "Web",
@@ -1539,7 +1964,9 @@
           "Sent to the server automatically",
           "Can be httpOnly so JavaScript can't read them"
         ],
-        "examples": ["Login sessions"]
+        "examples": [
+          "Login sessions"
+        ]
       },
       {
         "heading": "localStorage",
@@ -1549,7 +1976,10 @@
           "Stays until it's cleared",
           "Readable by any script on the page"
         ],
-        "examples": ["Theme preference", "Saved drafts"]
+        "examples": [
+          "Theme preference",
+          "Saved drafts"
+        ]
       },
       {
         "heading": "sessionStorage",
@@ -1559,7 +1989,9 @@
           "Cleared when the tab closes",
           "Not shared between tabs"
         ],
-        "examples": ["Multi-step form progress"]
+        "examples": [
+          "Multi-step form progress"
+        ]
       },
       {
         "heading": "Security tip",
@@ -1572,8 +2004,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "An app stores the user's login token in localStorage.",
+      "problem": "An XSS bug lets an injected script read localStorage and send the token to an attacker.",
+      "fix": "Keep the session in an httpOnly, Secure, SameSite cookie. JavaScript can't read it, so XSS can't steal it.",
+      "takeaway": "Keep auth tokens out of JavaScript's reach."
+    },
     "cta": "Where do you store auth tokens in your apps?",
-    "tags": ["webdevelopment", "javascript", "security"]
+    "tags": [
+      "webdevelopment",
+      "javascript",
+      "security"
+    ]
   },
   {
     "topic": "Databases",
@@ -1588,7 +2030,10 @@
           "Relationships through joins",
           "Strong consistency with transactions"
         ],
-        "examples": ["PostgreSQL", "MySQL"]
+        "examples": [
+          "PostgreSQL",
+          "MySQL"
+        ]
       },
       {
         "heading": "NoSQL databases",
@@ -1598,7 +2043,10 @@
           "Schema can change easily",
           "Often built to scale across many servers"
         ],
-        "examples": ["MongoDB", "Redis"]
+        "examples": [
+          "MongoDB",
+          "Redis"
+        ]
       },
       {
         "heading": "Pick SQL when",
@@ -1621,8 +2069,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A team builds a banking app on a document database because it felt quicker to start.",
+      "problem": "A transfer updates two accounts, and keeping both balances consistent becomes complicated and error-prone.",
+      "fix": "Use a relational database with transactions. Both updates succeed together or fail together.",
+      "takeaway": "Choose by your data and its rules, not by hype."
+    },
     "cta": "SQL or NoSQL for your current project?",
-    "tags": ["databases", "sql", "backend"]
+    "tags": [
+      "databases",
+      "sql",
+      "backend"
+    ]
   },
   {
     "topic": "Databases",
@@ -1669,8 +2127,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "Your login query, SELECT * FROM users WHERE email = ?, gets slower as the app reaches a million users.",
+      "problem": "There's no index on email, so the database scans every row on every single login.",
+      "fix": "CREATE INDEX idx_users_email ON users (email); lets the database jump straight to the matching row.",
+      "takeaway": "Index the columns you search by."
+    },
     "cta": "Have you ever fixed a slow query with one index?",
-    "tags": ["databases", "sql", "performance"]
+    "tags": [
+      "databases",
+      "sql",
+      "performance"
+    ]
   },
   {
     "topic": "Performance",
@@ -1718,8 +2186,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A blog's mobile LCP is 4.8 seconds, well above the 2.5 second target.",
+      "problem": "The hero image is a 3 MB PNG, so the main content takes a long time to appear.",
+      "fix": "Convert it to WebP, size it for the screen and preload it. That alone can bring LCP under 2.5 seconds.",
+      "takeaway": "Oversized images are a top cause of slow LCP."
+    },
     "cta": "What's your site's LCP right now?",
-    "tags": ["webperf", "corewebvitals", "frontend"]
+    "tags": [
+      "webperf",
+      "corewebvitals",
+      "frontend"
+    ]
   },
   {
     "topic": "Accessibility",
@@ -1767,8 +2245,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A checkout form uses grey placeholder text instead of labels.",
+      "problem": "Screen reader users can't tell what each field is, and the hint disappears as soon as anyone types.",
+      "fix": "Add a visible <label for=\"email\"> to every input, and keep placeholders for examples only.",
+      "takeaway": "Every input needs a real label."
+    },
     "cta": "Have you ever tried using your site with only a keyboard?",
-    "tags": ["a11y", "accessibility", "frontend"]
+    "tags": [
+      "a11y",
+      "accessibility",
+      "frontend"
+    ]
   },
   {
     "topic": "TypeScript",
@@ -1816,8 +2304,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "Your backend renames user.fullName to user.name.",
+      "problem": "In plain JavaScript, every screen still reading fullName quietly shows undefined in production.",
+      "fix": "With a User interface, update the type once and the compiler points to every line still using fullName.",
+      "takeaway": "Types turn runtime surprises into compile errors."
+    },
     "cta": "Do you write TypeScript or plain JavaScript?",
-    "tags": ["typescript", "javascript", "webdevelopment"]
+    "tags": [
+      "typescript",
+      "javascript",
+      "webdevelopment"
+    ]
   },
   {
     "topic": "Testing",
@@ -1832,7 +2330,10 @@
           "Test a single function or component",
           "Should be most of your tests"
         ],
-        "examples": ["Jest", "Vitest"]
+        "examples": [
+          "Jest",
+          "Vitest"
+        ]
       },
       {
         "heading": "Integration tests",
@@ -1842,7 +2343,9 @@
           "Often include a real database or API",
           "Slower than unit tests"
         ],
-        "examples": ["An API endpoint with its database"]
+        "examples": [
+          "An API endpoint with its database"
+        ]
       },
       {
         "heading": "E2E tests",
@@ -1852,7 +2355,10 @@
           "Catch issues across the whole stack",
           "Slowest and most fragile, so keep them few"
         ],
-        "examples": ["Playwright", "Cypress"]
+        "examples": [
+          "Playwright",
+          "Cypress"
+        ]
       },
       {
         "heading": "The pyramid",
@@ -1865,8 +2371,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A refactor of the discount function accidentally breaks coupons above 50%.",
+      "problem": "Nobody notices until customers start reporting wrong prices.",
+      "fix": "A few unit tests for calculateDiscount() would have failed instantly, before the change was merged.",
+      "takeaway": "Unit test your business logic first."
+    },
     "cta": "Which kind of test do you write the most?",
-    "tags": ["testing", "softwareengineering", "javascript"]
+    "tags": [
+      "testing",
+      "softwareengineering",
+      "javascript"
+    ]
   },
   {
     "topic": "CSS",
@@ -1914,8 +2430,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "Your site looks perfect on desktop, but on a phone the text is tiny and users have to zoom.",
+      "problem": "The viewport meta tag is missing, so the phone renders the page at desktop width and shrinks it.",
+      "fix": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> and build the layout mobile first.",
+      "takeaway": "The viewport tag is step one for mobile."
+    },
     "cta": "Do you design mobile first or desktop first?",
-    "tags": ["css", "responsivedesign", "frontend"]
+    "tags": [
+      "css",
+      "responsivedesign",
+      "frontend"
+    ]
   },
   {
     "topic": "System Design",
@@ -1930,7 +2456,9 @@
           "Easy to debug in one place",
           "Harder to scale parts independently"
         ],
-        "examples": ["Most early-stage startups"]
+        "examples": [
+          "Most early-stage startups"
+        ]
       },
       {
         "heading": "Microservices",
@@ -1940,7 +2468,9 @@
           "Teams can deploy independently",
           "Adds network calls and operational complexity"
         ],
-        "examples": ["Large companies with many teams"]
+        "examples": [
+          "Large companies with many teams"
+        ]
       },
       {
         "heading": "Where to start",
@@ -1953,8 +2483,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A three-person startup splits its brand-new app into eight microservices.",
+      "problem": "They spend more time on deployments, networking and cross-service bugs than on building features.",
+      "fix": "Merge back into one modular monolith, and split out a service only when one part truly needs to scale alone.",
+      "takeaway": "Start simple; split when there's a real reason."
+    },
     "cta": "Monolith or microservices at your company?",
-    "tags": ["systemdesign", "backend", "softwarearchitecture"]
+    "tags": [
+      "systemdesign",
+      "backend",
+      "softwarearchitecture"
+    ]
   },
   {
     "topic": "Debugging",
@@ -1999,11 +2539,23 @@
           "Check the official docs and GitHub issues",
           "Explain the problem out loud, step by step"
         ],
-        "examples": ["Rubber duck debugging"]
+        "examples": [
+          "Rubber duck debugging"
+        ]
       }
     ],
+    "scenario": {
+      "situation": "Your app crashes with \"Cannot read properties of undefined (reading 'map')\".",
+      "problem": "You start changing random code, hoping the error goes away.",
+      "fix": "The stack trace points to your line. Logging the value shows the API returned nothing. Fix: (data ?? []).map(...).",
+      "takeaway": "Read the error, find the line, check the value."
+    },
     "cta": "What's the longest you've spent on a single bug?",
-    "tags": ["debugging", "programming", "developer"]
+    "tags": [
+      "debugging",
+      "programming",
+      "developer"
+    ]
   },
   {
     "topic": "System Design",
@@ -2027,7 +2579,10 @@
           "Sends each request to a healthy server",
           "Users still see one address"
         ],
-        "examples": ["Nginx", "AWS Elastic Load Balancing"]
+        "examples": [
+          "Nginx",
+          "AWS Elastic Load Balancing"
+        ]
       },
       {
         "heading": "Strategies",
@@ -2050,8 +2605,18 @@
         "examples": []
       }
     ],
+    "scenario": {
+      "situation": "A product launch sends ten times the usual traffic to a site running on a single server.",
+      "problem": "The server maxes out, requests time out, and the site goes down at the worst possible moment.",
+      "fix": "Put a load balancer in front of several servers. Traffic is shared, and if one server fails the others keep serving.",
+      "takeaway": "Scale out and remove single points of failure."
+    },
     "cta": "Have you set up a load balancer before?",
-    "tags": ["systemdesign", "backend", "devops"]
+    "tags": [
+      "systemdesign",
+      "backend",
+      "devops"
+    ]
   },
   {
     "topic": "Programming",
@@ -2065,7 +2630,9 @@
           "Bundle data with the methods that use it",
           "Hide internal details behind a clear interface"
         ],
-        "examples": ["A BankAccount with deposit()"]
+        "examples": [
+          "A BankAccount with deposit()"
+        ]
       },
       {
         "heading": "Abstraction",
@@ -2074,7 +2641,9 @@
           "Expose simple methods, hide the complexity",
           "Like driving a car without knowing the engine"
         ],
-        "examples": ["sendEmail() hiding SMTP details"]
+        "examples": [
+          "sendEmail() hiding SMTP details"
+        ]
       },
       {
         "heading": "Inheritance",
@@ -2084,7 +2653,9 @@
           "Shares behavior without copying it",
           "Use it only for true \"is-a\" relationships"
         ],
-        "examples": ["Dog extends Animal"]
+        "examples": [
+          "Dog extends Animal"
+        ]
       },
       {
         "heading": "Polymorphism",
@@ -2093,10 +2664,22 @@
           "Different classes answer the same method",
           "Code works with any object that fits"
         ],
-        "examples": ["area() on circles and squares"]
+        "examples": [
+          "area() on circles and squares"
+        ]
       }
     ],
+    "scenario": {
+      "situation": "A payment app supports cards and now needs UPI and PayPal too.",
+      "problem": "One giant function with an if/else for every payment type gets harder to change with each new method.",
+      "fix": "Create a Payment interface with pay(). Card, UPI and PayPal each implement it, and checkout just calls pay().",
+      "takeaway": "Polymorphism lets you add new types without editing old code."
+    },
     "cta": "Which pillar was hardest to understand at first?",
-    "tags": ["oop", "programming", "softwareengineering"]
+    "tags": [
+      "oop",
+      "programming",
+      "softwareengineering"
+    ]
   }
 ]

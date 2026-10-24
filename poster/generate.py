@@ -29,20 +29,31 @@ Return ONLY JSON matching this shape:
     }}
     // 3 to 6 of these
   ],
+  "scenario": {{
+    "situation": str (a realistic developer moment, max 140 characters),
+    "problem": str (what goes wrong without this concept, max 140 characters),
+    "fix": str (how applying the concept solves it, concrete, max 170 characters),
+    "takeaway": str (one-line lesson, max 70 characters)
+  }},
   "cta": str (a question for the caption to invite comments, 1 sentence),
   "tags": [3 lowercase hashtags, no # sign]
 }}
 
-Content must be accurate and current. No emojis in heading/subtitle/points."""
+The scenario must be a believable, specific story (a real bug, slowdown or mistake), not a
+generic statement. Content must be accurate and current. No emojis anywhere."""
 
-REQUIRED_LESSON = {"topic", "title", "intro", "slides", "cta", "tags"}
+REQUIRED_LESSON = {"topic", "title", "intro", "slides", "scenario", "cta", "tags"}
 REQUIRED_SLIDE = {"heading", "subtitle", "points", "examples"}
+REQUIRED_SCENARIO = {"situation", "problem", "fix", "takeaway"}
 
 
 def valid(lesson: dict) -> bool:
     if not REQUIRED_LESSON <= lesson.keys():
         return False
     if len(lesson["title"]) > 70 or not isinstance(lesson["tags"], list):
+        return False
+    scenario = lesson["scenario"]
+    if not isinstance(scenario, dict) or not REQUIRED_SCENARIO <= scenario.keys():
         return False
     slides = lesson["slides"]
     if not isinstance(slides, list) or not 3 <= len(slides) <= 6:

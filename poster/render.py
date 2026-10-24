@@ -25,6 +25,8 @@ TEXT = (237, 239, 248)
 MUTED = (148, 155, 186)
 BLUE = (91, 140, 255)
 PURPLE = (168, 115, 255)
+GREEN = (84, 214, 160)
+RED = (244, 114, 128)
 WHITE = (255, 255, 255)
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -263,12 +265,69 @@ def render_explainer_slide(out_path: str, topic: str, slide: dict, handle: str, 
     return save(img, out_path)
 
 
+SCENARIO_PARTS = (
+    ("situation", "THE SITUATION", BLUE),
+    ("problem", "WHAT GOES WRONG", RED),
+    ("fix", "THE FIX", GREEN),
+)
+
+
+def render_scenario_slide(out_path: str, topic: str, scenario: dict, handle: str, slide_num: int, total: int) -> str:
+    """A short story that shows the concept solving a real problem: situation, problem, fix, takeaway."""
+    img = background()
+    layer = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    d = ImageDraw.Draw(layer)
+    y = 0
+
+    d.text((MARGIN, y), "Real-World Scenario", font=font("bold", 60), fill=TEXT)
+    y += 76
+    gradient_bar(layer, (MARGIN, y, MARGIN + 140, y + 8))
+    y += 44
+
+    body_font = font("regular", 30)
+    label_font = font("bold", 22)
+    for key, label, color in SCENARIO_PARTS:
+        lines = wrap(d, scenario[key], body_font, CONTENT_W - 72)
+        card_h = 70 + len(lines) * 40 + 24
+        d.rounded_rectangle([MARGIN, y, W - MARGIN, y + card_h], radius=20, fill=CARD, outline=CARD_BORDER, width=2)
+        d.rounded_rectangle([MARGIN, y, MARGIN + 10, y + card_h], radius=5, fill=color)
+        d.text((MARGIN + 38, y + 24), label, font=label_font, fill=color)
+        ty = y + 64
+        for line in lines:
+            d.text((MARGIN + 38, ty), line, font=body_font, fill=TEXT)
+            ty += 40
+        y += card_h + 18
+
+    if scenario.get("takeaway"):
+        y += 14
+        take_font = font("bold", 30)
+        lines = wrap(d, scenario["takeaway"], take_font, CONTENT_W - 72)
+        box_h = 64 + len(lines) * 40 + 22
+        gradient_bar(layer, (MARGIN, y, W - MARGIN, y + box_h), radius=20)
+        d.text((MARGIN + 36, y + 22), "KEY TAKEAWAY", font=label_font, fill=WHITE)
+        ty = y + 58
+        for line in lines:
+            d.text((MARGIN + 36, ty), line, font=take_font, fill=WHITE)
+            ty += 40
+        y += box_h
+
+    place_centered(img, layer, y, "Real-World Scenario")
+    draw_header(img, topic, slide_num, total)
+    draw_footer(img, handle, slide_num, total)
+    return save(img, out_path)
+
+
 def render_lesson(lesson: dict, handle: str, out_dir: str, slug: str) -> list[str]:
-    """Render a full carousel (title slide + one per lesson['slides']) and return the image paths in order."""
-    total = 1 + len(lesson["slides"])
+    """Render a full carousel (title, one per lesson['slides'], optional scenario) and return the paths in order."""
+    scenario = lesson.get("scenario")
+    total = 1 + len(lesson["slides"]) + (1 if scenario else 0)
     paths = [render_title_slide(os.path.join(out_dir, f"{slug}-1.jpg"), lesson, handle, total)]
     for i, slide in enumerate(lesson["slides"], start=2):
         paths.append(render_explainer_slide(
             os.path.join(out_dir, f"{slug}-{i}.jpg"), lesson["topic"], slide, handle, i, total,
+        ))
+    if scenario:
+        paths.append(render_scenario_slide(
+            os.path.join(out_dir, f"{slug}-{total}.jpg"), lesson["topic"], scenario, handle, total, total,
         ))
     return paths

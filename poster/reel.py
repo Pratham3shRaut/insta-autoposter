@@ -74,6 +74,9 @@ screens with writing, or human faces."""
 
 def write_script(lesson: dict, words: str = "55 to 65") -> dict:
     points = "\n".join(f"- {s['heading']}: {s.get('subtitle', '')}" for s in lesson["slides"])
+    if lesson.get("scenario"):
+        sc = lesson["scenario"]
+        points += f"\n- Real-world scenario (mention briefly at the end): {sc['problem']} Fix: {sc['fix']}"
     model = os.environ.get("GEMINI_MODEL", "gemini-2.5-flash")
     data = _request("POST", f"models/{model}:generateContent", {
         "contents": [{"parts": [{"text": SCRIPT_PROMPT.format(title=lesson["title"], points=points, words=words)}]}],

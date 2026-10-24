@@ -78,6 +78,8 @@ def build_caption(lesson: dict) -> str:
         lines += ["", lesson["intro"].strip()]
 
     covers = [s["heading"] for s in lesson["slides"]]
+    if lesson.get("scenario"):
+        covers.append("A real-world scenario")
     if covers:
         lines += ["", "In this post, you'll learn:"]
         lines += [f"✅ {c}" for c in covers]
