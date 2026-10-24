@@ -1,0 +1,17 @@
+Semantic HTML Tags You Should Be Using
+
+Semantic tags describe what content is, not just how it looks. They help screen readers, search engines and your teammates.
+
+In this post, you'll learn:
+✅ Page structure
+✅ Content tags
+✅ Why it matters
+✅ Avoid div soup
+
+Be honest: how many divs are in your last project?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#html #frontend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

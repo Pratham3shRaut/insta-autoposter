@@ -1,0 +1,57 @@
+{
+  "topic": "HTML",
+  "title": "Semantic HTML Tags You Should Be Using",
+  "intro": "Semantic tags describe what content is, not just how it looks. They help screen readers, search engines and your teammates.",
+  "slides": [
+    {
+      "heading": "Page structure",
+      "subtitle": "Tags that outline the page.",
+      "points": [
+        "<header> for the top of a page or section",
+        "<nav> for the main navigation links",
+        "<main> for the page's main content",
+        "<footer> for the bottom section"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Content tags",
+      "subtitle": "Group related content.",
+      "points": [
+        "<article> for standalone content",
+        "<section> for a themed group of content",
+        "<aside> for side content"
+      ],
+      "examples": [
+        "Blog posts",
+        "Sidebars"
+      ]
+    },
+    {
+      "heading": "Why it matters",
+      "subtitle": "More than tidy code.",
+      "points": [
+        "Screen readers can jump between landmarks",
+        "Search engines understand your page better",
+        "Code is easier to read and maintain"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Avoid div soup",
+      "subtitle": "Use a div only when nothing else fits.",
+      "points": [
+        "<button> instead of a clickable <div>",
+        "Headings in order: h1, then h2, then h3",
+        "<a> for navigation, <button> for actions"
+      ],
+      "examples": []
+    }
+  ],
+  "cta": "Be honest: how many divs are in your last project?",
+  "tags": [
+    "html",
+    "frontend",
+    "webdevelopment"
+  ]
+}
