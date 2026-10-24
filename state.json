@@ -166,6 +166,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 1
+    },
+    {
+      "date": "2026-10-24",
+      "title": "How a Web Request Travels",
+      "media_id": "18439455892196418",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 2
     }
   ]
 }
