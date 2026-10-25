@@ -1,0 +1,80 @@
+{
+  "topic": "System Design #6",
+  "series": "System Design",
+  "part": 6,
+  "title": "Database Replication",
+  "intro": "One database is a single point of failure and a read bottleneck. Replication keeps copies of your data on several machines.",
+  "slides": [
+    {
+      "heading": "What it is",
+      "subtitle": "Copies of the same data.",
+      "explain": "Replication continuously copies data from one database server to others. If one machine fails, another still has the data, and reads can be spread across the copies.",
+      "points": [
+        "Protects against hardware failure",
+        "Spreads read traffic"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Primary-replica",
+      "subtitle": "One writer, many readers.",
+      "explain": "All writes go to the primary. Replicas copy its changes and serve reads. Most apps read far more than they write, so this scales well.",
+      "points": [
+        "Writes: primary only",
+        "Reads: any replica",
+        "Add replicas to scale reads"
+      ],
+      "flow": [
+        "App",
+        "Primary DB",
+        "Read replicas"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Replication lag",
+      "subtitle": "Replicas can be slightly behind.",
+      "explain": "With asynchronous replication, a replica can lag behind the primary. A user who just edited their profile might briefly see the old version if the read hits a replica.",
+      "points": [
+        "Async: fast writes, possible lag",
+        "Sync: no lag, slower writes",
+        "Read your own writes from the primary"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Failover",
+      "subtitle": "When the primary dies.",
+      "explain": "If the primary fails, a replica is promoted to become the new primary. Managed databases can do this automatically.",
+      "points": [
+        "A replica becomes the new primary",
+        "Apps reconnect to it",
+        "Async setups can lose the latest writes"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "When to use it",
+      "subtitle": "Signs you need replicas.",
+      "explain": "Replication is usually the next step after caching when the database becomes the bottleneck.",
+      "points": [
+        "Read-heavy traffic",
+        "High availability needs",
+        "Backups without slowing the primary"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A social app's single database handles everything, and feed loads are most of the traffic.",
+    "problem": "Read traffic saturates the database, so writes like new posts become slow too.",
+    "fix": "Add two read replicas and send feed reads to them. The primary now handles mostly writes, and both get faster.",
+    "takeaway": "Replicas scale reads; the primary handles writes."
+  },
+  "cta": "Have you ever hit a replication lag bug?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

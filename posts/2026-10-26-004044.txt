@@ -1,0 +1,21 @@
+Database Replication
+📚 Part 6 of our System Design series
+
+One database is a single point of failure and a read bottleneck. Replication keeps copies of your data on several machines.
+
+In this post, you'll learn:
+✅ What it is
+✅ Primary-replica
+✅ Replication lag
+✅ Failover
+✅ When to use it
+✅ A real-world scenario
+
+Have you ever hit a replication lag bug?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 7.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
