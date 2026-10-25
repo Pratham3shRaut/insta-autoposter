@@ -1,0 +1,81 @@
+{
+  "topic": "System Design #5",
+  "series": "System Design",
+  "part": 5,
+  "title": "Caching in System Design",
+  "intro": "The fastest request is one that never reaches your database. Caching keeps frequently used data somewhere much faster.",
+  "slides": [
+    {
+      "heading": "Why cache?",
+      "subtitle": "Memory beats database queries.",
+      "explain": "Reading from an in-memory cache like Redis typically takes under a millisecond, while database queries often take far longer. Caching hot data cuts latency and database load.",
+      "points": [
+        "Faster responses",
+        "Less load on the database",
+        "Lower cost at scale"
+      ],
+      "flow": [
+        "App",
+        "Cache",
+        "Database"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Cache-aside",
+      "subtitle": "The most common pattern.",
+      "explain": "The app checks the cache first. On a miss, it reads from the database, saves the result in the cache, then returns it. The next request is a hit.",
+      "points": [
+        "Simple and widely used",
+        "Only caches data that's requested",
+        "The first request after a miss is slow"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Write-through",
+      "subtitle": "Write to both at once.",
+      "explain": "Every write goes to the cache and the database together, so the cache is always current. The trade-off is slower writes.",
+      "points": [
+        "Cache stays up to date",
+        "Writes take a little longer",
+        "Good for data read right after writing"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Expiry & eviction",
+      "subtitle": "Caches can't keep everything.",
+      "explain": "A TTL removes entries after a set time so stale data doesn't live forever. When memory fills up, a policy like LRU removes the least recently used items.",
+      "points": [
+        "TTL: expire after N seconds",
+        "LRU: drop the least recently used",
+        "Hit rate shows how well it works"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Invalidation",
+      "subtitle": "The hard part.",
+      "explain": "When the real data changes, the cached copy is wrong until it's updated or removed. Many systems delete the cache key on every write and keep a TTL as a safety net.",
+      "points": [
+        "Delete the key when data changes",
+        "Keep a TTL as a backup",
+        "Stale data is the main risk"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A news site's homepage runs the same heavy database query for every visitor.",
+    "problem": "During breaking news, thousands of identical queries per second overload the database and pages time out.",
+    "fix": "Cache the homepage data in Redis with a 30-second TTL. The database now runs that query about twice a minute instead of thousands of times a second.",
+    "takeaway": "Cache data that's read often and changes rarely."
+  },
+  "cta": "Redis, Memcached, or something else in your stack?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

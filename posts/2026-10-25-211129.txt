@@ -1,0 +1,21 @@
+Caching in System Design
+📚 Part 5 of our System Design series
+
+The fastest request is one that never reaches your database. Caching keeps frequently used data somewhere much faster.
+
+In this post, you'll learn:
+✅ Why cache?
+✅ Cache-aside
+✅ Write-through
+✅ Expiry & eviction
+✅ Invalidation
+✅ A real-world scenario
+
+Redis, Memcached, or something else in your stack?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 6.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
