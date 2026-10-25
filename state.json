@@ -182,6 +182,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 3
+    },
+    {
+      "date": "2026-10-25",
+      "title": "Load Balancers Explained",
+      "media_id": "18214599454318546",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 4
     }
   ]
 }
