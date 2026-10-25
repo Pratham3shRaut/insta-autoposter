@@ -1,0 +1,81 @@
+{
+  "topic": "System Design #4",
+  "series": "System Design",
+  "part": 4,
+  "title": "Load Balancers Explained",
+  "intro": "Once you have more than one server, something has to decide which server handles each request. That's the load balancer.",
+  "slides": [
+    {
+      "heading": "What it does",
+      "subtitle": "A traffic manager for your servers.",
+      "explain": "The load balancer sits between users and your servers. Users connect to one address, and it forwards each request to a healthy server behind it.",
+      "points": [
+        "One public address for many servers",
+        "Spreads load across them"
+      ],
+      "flow": [
+        "Users",
+        "Load balancer",
+        "Servers"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Algorithms",
+      "subtitle": "How it picks a server.",
+      "explain": "Different strategies suit different workloads. Round robin is the simplest; least connections copes better when some requests take much longer.",
+      "points": [
+        "Round robin: servers take turns",
+        "Least connections: pick the least busy",
+        "IP hash: same client, same server"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Health checks",
+      "subtitle": "Avoiding broken servers.",
+      "explain": "The load balancer regularly checks each server. If one stops responding, it's taken out of rotation until it recovers, so users don't hit it.",
+      "points": [
+        "Detects failed servers automatically",
+        "Makes zero-downtime deploys possible"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Layer 4 vs Layer 7",
+      "subtitle": "How deep it looks.",
+      "explain": "A Layer 4 balancer routes by IP and port only, so it's very fast. A Layer 7 balancer reads the HTTP request and can route by URL path or headers.",
+      "points": [
+        "L4: fast and simple",
+        "L7: smart routing, e.g. /api to API servers"
+      ],
+      "examples": [
+        "Nginx",
+        "HAProxy",
+        "AWS load balancers"
+      ]
+    },
+    {
+      "heading": "Don't add a weak spot",
+      "subtitle": "The balancer can fail too.",
+      "explain": "If the load balancer goes down, everything behind it does too. Production setups run at least two, or use a managed cloud load balancer.",
+      "points": [
+        "Run redundant load balancers",
+        "Managed options handle this for you"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A site runs three servers behind a round-robin load balancer, and one server's disk fills up.",
+    "problem": "Without health checks, one in three requests still goes to the broken server, so a third of users see errors.",
+    "fix": "Turn on health checks. The balancer notices the failing server within seconds and sends traffic only to the two healthy ones.",
+    "takeaway": "A load balancer without health checks spreads failures too."
+  },
+  "cta": "Do you use Nginx, a cloud load balancer, or something else?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

@@ -1,0 +1,21 @@
+Load Balancers Explained
+📚 Part 4 of our System Design series
+
+Once you have more than one server, something has to decide which server handles each request. That's the load balancer.
+
+In this post, you'll learn:
+✅ What it does
+✅ Algorithms
+✅ Health checks
+✅ Layer 4 vs Layer 7
+✅ Don't add a weak spot
+✅ A real-world scenario
+
+Do you use Nginx, a cloud load balancer, or something else?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 5.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
