@@ -190,6 +190,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 4
+    },
+    {
+      "date": "2026-10-25",
+      "title": "Caching in System Design",
+      "media_id": "17877759261572884",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 5
     }
   ]
 }
