@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-25",
+  "last_published_date": "2026-10-26",
   "history": [
     {
       "date": "2026-10-14",
@@ -198,6 +198,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 5
+    },
+    {
+      "date": "2026-10-26",
+      "title": "Database Replication",
+      "media_id": "18034124198854353",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 6
     }
   ]
 }
