@@ -1,0 +1,21 @@
+The CAP Theorem, Simply
+📚 Part 8 of our System Design series
+
+In a distributed system, network problems are unavoidable. CAP describes the choice you must make when they happen.
+
+In this post, you'll learn:
+✅ C, A and P
+✅ The real choice
+✅ CP systems
+✅ AP systems
+✅ Eventual consistency
+✅ A real-world scenario
+
+Would you pick CP or AP for a chat app, and why?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 9.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

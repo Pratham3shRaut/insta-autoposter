@@ -1,0 +1,79 @@
+{
+  "topic": "System Design #8",
+  "series": "System Design",
+  "part": 8,
+  "title": "The CAP Theorem, Simply",
+  "intro": "In a distributed system, network problems are unavoidable. CAP describes the choice you must make when they happen.",
+  "slides": [
+    {
+      "heading": "C, A and P",
+      "subtitle": "Three properties.",
+      "explain": "Consistency: every read sees the latest write. Availability: every request gets a response. Partition tolerance: the system keeps working when links between nodes fail.",
+      "points": [
+        "C: everyone sees the same data",
+        "A: every request gets an answer",
+        "P: survives network splits"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The real choice",
+      "subtitle": "During a partition, pick C or A.",
+      "explain": "Networks do fail, so distributed systems must tolerate partitions. When one happens, a cut-off node must either refuse requests or answer with possibly stale data.",
+      "points": [
+        "Partitions will happen",
+        "CP: refuse rather than be wrong",
+        "AP: answer, even if stale"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "CP systems",
+      "subtitle": "Correctness first.",
+      "explain": "CP systems return an error or wait rather than show outdated data. Choose this when wrong data is worse than no data.",
+      "points": [
+        "Bank balances",
+        "Payments and inventory"
+      ],
+      "examples": [
+        "ZooKeeper",
+        "etcd"
+      ]
+    },
+    {
+      "heading": "AP systems",
+      "subtitle": "Always respond.",
+      "explain": "AP systems keep serving and sync up later, which is called eventual consistency. Choose this when staying up matters more than being perfectly current.",
+      "points": [
+        "Social feeds and like counts",
+        "Shopping carts"
+      ],
+      "examples": [
+        "Cassandra",
+        "DynamoDB's default reads"
+      ]
+    },
+    {
+      "heading": "Eventual consistency",
+      "subtitle": "Correct, just not instantly.",
+      "explain": "Copies may disagree for a short time, but they converge once updates spread. For likes or view counts, a short delay is fine.",
+      "points": [
+        "Brief disagreement is acceptable",
+        "All copies converge over time"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A ticketing site lets two data centers sell seats independently during a network split.",
+    "problem": "Both sides keep selling, and the same seat is sold to two different people.",
+    "fix": "Treat seat booking as CP: if a data center can't confirm with the other, it pauses sales instead of risking a double booking.",
+    "takeaway": "Choose consistency where mistakes are costly."
+  },
+  "cta": "Would you pick CP or AP for a chat app, and why?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}
