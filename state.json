@@ -206,6 +206,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 6
+    },
+    {
+      "date": "2026-10-26",
+      "title": "Database Sharding",
+      "media_id": "17911654872483277",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 7
     }
   ]
 }
