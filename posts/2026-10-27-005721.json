@@ -1,0 +1,79 @@
+{
+  "topic": "System Design #9",
+  "series": "System Design",
+  "part": 9,
+  "title": "Message Queues Explained",
+  "intro": "Not everything needs to happen while the user waits. Message queues let you do slow work in the background, reliably.",
+  "slides": [
+    {
+      "heading": "The problem",
+      "subtitle": "Slow work blocks requests.",
+      "explain": "If signing up sends an email, resizes an avatar and updates analytics before responding, the user waits for all of it, and one failing step breaks the whole request.",
+      "points": [
+        "Slow responses",
+        "One failure breaks everything"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "What a queue is",
+      "subtitle": "A to-do list between services.",
+      "explain": "A producer adds a message to the queue and returns right away. A consumer picks messages up and processes them in the background at its own pace.",
+      "points": [
+        "Producer: adds jobs",
+        "Consumer: processes jobs"
+      ],
+      "flow": [
+        "Producer",
+        "Queue",
+        "Consumer"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Benefits",
+      "subtitle": "Why systems use them.",
+      "explain": "Queues decouple services so each can scale and fail on its own. They also absorb traffic spikes: messages simply wait until consumers catch up.",
+      "points": [
+        "Faster user-facing responses",
+        "Absorbs traffic spikes",
+        "Retries when a job fails"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Delivery guarantees",
+      "subtitle": "What happens on failure.",
+      "explain": "Many queues deliver at least once, so a message can occasionally be processed twice. Consumers should be idempotent: running a job twice has the same effect as once.",
+      "points": [
+        "At-least-once is common",
+        "Make consumers idempotent",
+        "Failed messages go to a dead-letter queue"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Popular tools",
+      "subtitle": "What teams use.",
+      "explain": "Pick based on throughput, ordering needs and how much you want to manage yourself.",
+      "points": [
+        "RabbitMQ: classic message broker",
+        "Kafka: high-throughput event streams",
+        "Amazon SQS: fully managed"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "An online store sends the order confirmation email inside the checkout request.",
+    "problem": "When the email provider is slow, checkout takes 10 seconds, and when it's down, orders fail completely.",
+    "fix": "Checkout saves the order and adds a \"send email\" message to a queue. A worker sends it in the background and retries if the provider is down.",
+    "takeaway": "If the user doesn't need to wait for it, queue it."
+  },
+  "cta": "Which have you used: RabbitMQ, Kafka or SQS?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

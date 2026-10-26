@@ -1,0 +1,21 @@
+Message Queues Explained
+📚 Part 9 of our System Design series
+
+Not everything needs to happen while the user waits. Message queues let you do slow work in the background, reliably.
+
+In this post, you'll learn:
+✅ The problem
+✅ What a queue is
+✅ Benefits
+✅ Delivery guarantees
+✅ Popular tools
+✅ A real-world scenario
+
+Which have you used: RabbitMQ, Kafka or SQS?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 10.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
