@@ -214,6 +214,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 7
+    },
+    {
+      "date": "2026-10-26",
+      "title": "The CAP Theorem, Simply",
+      "media_id": "18132494251744009",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 8
     }
   ]
 }
