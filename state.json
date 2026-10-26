@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-26",
+  "last_published_date": "2026-10-27",
   "history": [
     {
       "date": "2026-10-14",
@@ -222,6 +222,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 8
+    },
+    {
+      "date": "2026-10-27",
+      "title": "Message Queues Explained",
+      "media_id": "18397431607162820",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 9
     }
   ]
 }
