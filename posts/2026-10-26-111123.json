@@ -1,0 +1,80 @@
+{
+  "topic": "System Design #7",
+  "series": "System Design",
+  "part": 7,
+  "title": "Database Sharding",
+  "intro": "Replicas help with reads, but every replica still holds all the data. When the data or the writes outgrow one machine, you shard.",
+  "slides": [
+    {
+      "heading": "What is sharding?",
+      "subtitle": "Splitting data across databases.",
+      "explain": "Sharding splits a big table into pieces called shards, each on its own server. Each shard holds part of the rows, so no single machine stores or writes everything.",
+      "points": [
+        "Each shard holds part of the data",
+        "Writes are spread across shards"
+      ],
+      "flow": [
+        "App",
+        "Shard router",
+        "Shards"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The shard key",
+      "subtitle": "How rows are assigned.",
+      "explain": "The shard key decides which shard a row lives on, for example user_id. A good key spreads data evenly and keeps related data together.",
+      "points": [
+        "Often user_id or tenant_id",
+        "Must spread load evenly",
+        "Hard to change later"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Strategies",
+      "subtitle": "Ways to split the data.",
+      "explain": "Range sharding groups nearby keys, which is simple but can create hot spots. Hash sharding spreads keys evenly but makes range queries harder.",
+      "points": [
+        "Range: IDs 1 to 1M on shard 1, and so on",
+        "Hash: hash(user_id) decides the shard",
+        "Directory: a lookup table maps keys"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The downsides",
+      "subtitle": "Sharding adds real complexity.",
+      "explain": "Queries across shards, like joins or global counts, become slow and complicated. Moving data when you add shards is also hard.",
+      "points": [
+        "Cross-shard joins are hard",
+        "Uneven keys create hot shards",
+        "Rebalancing is painful"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Before you shard",
+      "subtitle": "Try cheaper options first.",
+      "explain": "Indexes, caching, read replicas and bigger machines solve most problems. Sharding is usually the last step.",
+      "points": [
+        "Optimize queries and indexes",
+        "Add caching and replicas",
+        "Shard when one machine truly can't cope"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A messaging app shards by country, putting each country's users on its own shard.",
+    "problem": "One large country has most of the users, so its shard is overloaded while the others sit nearly idle.",
+    "fix": "Re-shard by a hash of user_id. Users spread evenly across shards and the hot spot disappears.",
+    "takeaway": "Pick a shard key that spreads load evenly."
+  },
+  "cta": "Have you ever had to shard a database?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

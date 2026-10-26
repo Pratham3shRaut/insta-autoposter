@@ -1,0 +1,21 @@
+Database Sharding
+📚 Part 7 of our System Design series
+
+Replicas help with reads, but every replica still holds all the data. When the data or the writes outgrow one machine, you shard.
+
+In this post, you'll learn:
+✅ What is sharding?
+✅ The shard key
+✅ Strategies
+✅ The downsides
+✅ Before you shard
+✅ A real-world scenario
+
+Have you ever had to shard a database?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 8.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
