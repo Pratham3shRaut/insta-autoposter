@@ -1,0 +1,21 @@
+Case Study: Design a URL Shortener
+📚 Part 12 of our System Design series
+
+Time to combine everything from this series. Let's design a service like bit.ly, step by step.
+
+In this post, you'll learn:
+✅ Requirements
+✅ Estimate the scale
+✅ Short codes
+✅ The read path
+✅ The full design
+✅ A real-world scenario
+
+What should we design next in this series?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 13.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

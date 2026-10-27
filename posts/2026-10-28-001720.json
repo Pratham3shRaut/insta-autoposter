@@ -1,0 +1,82 @@
+{
+  "topic": "System Design #12",
+  "series": "System Design",
+  "part": 12,
+  "title": "Case Study: Design a URL Shortener",
+  "intro": "Time to combine everything from this series. Let's design a service like bit.ly, step by step.",
+  "slides": [
+    {
+      "heading": "Requirements",
+      "subtitle": "Start with what it must do.",
+      "explain": "Functional: turn a long URL into a short one, and redirect short links to the original. Non-functional: redirects must be fast and always available.",
+      "points": [
+        "Create short links",
+        "Redirect quickly",
+        "Reads far outnumber writes"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Estimate the scale",
+      "subtitle": "Rough numbers.",
+      "explain": "Assume 100 million new links a month, each opened about 100 times. That's roughly 40 writes and 4,000 redirects per second on average.",
+      "points": [
+        "About 40 writes per second",
+        "About 4,000 reads per second",
+        "Read-heavy: optimize redirects"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Short codes",
+      "subtitle": "Short, unique and compact.",
+      "explain": "Encode a unique ID in base62, using a-z, A-Z and 0-9. Seven characters give 62^7, about 3.5 trillion codes, which is plenty.",
+      "points": [
+        "Unique ID from a counter or ID service",
+        "Encode it in base62",
+        "7 characters is about 3.5 trillion codes"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The read path",
+      "subtitle": "Make redirects fast.",
+      "explain": "Redirects check a cache first, so popular links rarely touch the database. On a miss, read from a replica and cache the result.",
+      "points": [
+        "Cache hot links in Redis",
+        "Read replicas behind the cache",
+        "Use 302 if you want to count every click"
+      ],
+      "flow": [
+        "Client",
+        "Load balancer",
+        "App server",
+        "Cache"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The full design",
+      "subtitle": "Putting it together.",
+      "explain": "A load balancer spreads requests across stateless app servers. Redis caches popular links, a replicated database stores every mapping, and rate limiting protects link creation.",
+      "points": [
+        "Stateless servers scale out",
+        "Cache and replicas handle reads",
+        "Rate limit creation to stop spam"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "The shortener launches and one link goes viral, getting millions of clicks in an hour.",
+    "problem": "If every click queried the database, that single hot row could overwhelm it.",
+    "fix": "After the first click, the link is served from the Redis cache, so the database barely notices the spike.",
+    "takeaway": "Design for your heaviest path: here, the redirect."
+  },
+  "cta": "What should we design next in this series?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}
