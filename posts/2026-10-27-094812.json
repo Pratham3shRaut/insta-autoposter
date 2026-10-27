@@ -1,0 +1,83 @@
+{
+  "topic": "System Design #10",
+  "series": "System Design",
+  "part": 10,
+  "title": "CDNs: Content Delivery Networks",
+  "intro": "Your servers might be in one city, but your users are everywhere. A CDN brings content physically closer to them.",
+  "slides": [
+    {
+      "heading": "The distance problem",
+      "subtitle": "Data takes time to travel.",
+      "explain": "A request from Mumbai to a server in the US crosses the world and back. Even over fiber, that distance adds noticeable delay to every file.",
+      "points": [
+        "Far servers mean slow loads",
+        "Every image and script pays the cost"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "What a CDN is",
+      "subtitle": "Servers around the world.",
+      "explain": "A CDN is a network of edge servers in many cities. Users are routed to a nearby edge, which serves a cached copy of your content.",
+      "points": [
+        "Edge servers cache your files",
+        "The origin is only hit on a cache miss"
+      ],
+      "flow": [
+        "User",
+        "Nearby edge",
+        "Origin server"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "What to put on it",
+      "subtitle": "Best for static content.",
+      "explain": "Files that are the same for everyone are perfect for a CDN. Many CDNs can also cache public API responses and run code at the edge.",
+      "points": [
+        "Images, videos and fonts",
+        "CSS and JavaScript bundles",
+        "Public, cacheable pages"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Cache control",
+      "subtitle": "Telling the CDN what to keep.",
+      "explain": "Cache-Control headers decide how long edges keep a file. Hashed filenames like app.3f9a.js let you cache for a year and still ship updates instantly.",
+      "points": [
+        "Long max-age for hashed files",
+        "Purge the cache for urgent changes",
+        "Don't cache personal data publicly"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Extra benefits",
+      "subtitle": "More than speed.",
+      "explain": "Because edges absorb most of the traffic, your own servers handle far less. Many CDNs also help absorb DDoS attacks.",
+      "points": [
+        "Less load on your servers",
+        "Lower bandwidth costs",
+        "DDoS protection"
+      ],
+      "examples": [
+        "Cloudflare",
+        "Amazon CloudFront",
+        "Fastly"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "A startup serves product images from one server in Mumbai, but many customers are in the US and Europe.",
+    "problem": "Overseas users wait seconds for each image, and many leave before the page finishes loading.",
+    "fix": "Put the images behind a CDN. Overseas users now load them from a nearby edge server instead of from Mumbai.",
+    "takeaway": "Serve static files from close to your users."
+  },
+  "cta": "Which CDN do you use for your projects?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

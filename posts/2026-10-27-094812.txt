@@ -1,0 +1,21 @@
+CDNs: Content Delivery Networks
+📚 Part 10 of our System Design series
+
+Your servers might be in one city, but your users are everywhere. A CDN brings content physically closer to them.
+
+In this post, you'll learn:
+✅ The distance problem
+✅ What a CDN is
+✅ What to put on it
+✅ Cache control
+✅ Extra benefits
+✅ A real-world scenario
+
+Which CDN do you use for your projects?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 11.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
