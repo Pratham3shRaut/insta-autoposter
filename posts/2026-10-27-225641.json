@@ -1,0 +1,79 @@
+{
+  "topic": "System Design #11",
+  "series": "System Design",
+  "part": 11,
+  "title": "Rate Limiting Explained",
+  "intro": "One buggy client or attacker can flood your API. Rate limiting caps how many requests each client can make.",
+  "slides": [
+    {
+      "heading": "Why limit?",
+      "subtitle": "Protect the system for everyone.",
+      "explain": "Without limits, one script can overload your servers, run up your costs or brute-force passwords. Limits keep the service fair and stable.",
+      "points": [
+        "Stops abuse and brute force",
+        "Prevents one client hogging resources",
+        "Keeps costs under control"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Fixed window",
+      "subtitle": "Count requests per time window.",
+      "explain": "Allow N requests per minute and reset the count each minute. It's simple, but a burst at the end of one window plus the start of the next can allow double the limit.",
+      "points": [
+        "Simple to build",
+        "Bursts at window edges"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Sliding window",
+      "subtitle": "A smoother count.",
+      "explain": "Instead of resetting at fixed times, it counts requests over the last rolling minute. This removes the edge-burst problem at the cost of a bit more memory.",
+      "points": [
+        "More accurate limits",
+        "Slightly more storage"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Token bucket",
+      "subtitle": "Allows controlled bursts.",
+      "explain": "Each client has a bucket that refills with tokens at a steady rate. Every request spends a token; when the bucket is empty, requests are rejected until it refills.",
+      "points": [
+        "Allows short bursts",
+        "Enforces an average rate",
+        "Widely used by public APIs"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "In practice",
+      "subtitle": "Where it lives and what it returns.",
+      "explain": "Rate limiting usually sits at the API gateway or load balancer, with counters in a fast shared store like Redis so every server sees the same count.",
+      "points": [
+        "Return HTTP 429 Too Many Requests",
+        "Add a Retry-After header",
+        "Limit per user, API key or IP"
+      ],
+      "flow": [
+        "Client",
+        "Rate limiter",
+        "API"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A login endpoint has no limit on attempts.",
+    "problem": "An attacker's script tries thousands of passwords per minute against user accounts.",
+    "fix": "Limit each IP and account to 5 attempts per minute with a token bucket in Redis, returning 429 when exceeded. Brute force becomes impractical.",
+    "takeaway": "Rate limit every public endpoint, especially login."
+  },
+  "cta": "Have you ever been rate limited by an API?",
+  "tags": [
+    "systemdesign",
+    "softwarearchitecture",
+    "backend"
+  ]
+}

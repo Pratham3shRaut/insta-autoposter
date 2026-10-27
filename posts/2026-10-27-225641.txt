@@ -1,0 +1,21 @@
+Rate Limiting Explained
+📚 Part 11 of our System Design series
+
+One buggy client or attacker can flood your API. Rate limiting caps how many requests each client can make.
+
+In this post, you'll learn:
+✅ Why limit?
+✅ Fixed window
+✅ Sliding window
+✅ Token bucket
+✅ In practice
+✅ A real-world scenario
+
+Have you ever been rate limited by an API?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 12.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #softwarearchitecture #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
