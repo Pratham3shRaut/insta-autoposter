@@ -1,0 +1,65 @@
+{
+  "topic": "JavaScript",
+  "title": "var vs let vs const in JavaScript",
+  "intro": "Three ways to declare a variable, each with different rules. Modern code mostly uses const and let.",
+  "slides": [
+    {
+      "heading": "var",
+      "subtitle": "The old way.",
+      "points": [
+        "Function-scoped, not block-scoped",
+        "Hoisted and starts as undefined",
+        "Can be redeclared, which hides bugs"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "let",
+      "subtitle": "For values that change.",
+      "points": [
+        "Block-scoped: lives inside { }",
+        "Can be reassigned",
+        "Can't be used before it's declared"
+      ],
+      "examples": [
+        "Loop counters",
+        "Running totals"
+      ]
+    },
+    {
+      "heading": "const",
+      "subtitle": "For values that won't be reassigned.",
+      "points": [
+        "Block-scoped, just like let",
+        "Can't be reassigned",
+        "Objects and arrays inside can still change"
+      ],
+      "examples": [
+        "Config values",
+        "Imported functions"
+      ]
+    },
+    {
+      "heading": "Rule of thumb",
+      "subtitle": "What most teams do.",
+      "points": [
+        "Use const by default",
+        "Switch to let when you need to reassign",
+        "Avoid var in new code"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "You loop with var i from 0 to 2 and start a setTimeout inside that logs i.",
+    "problem": "It logs 3, 3, 3. var creates one shared i, which is already 3 when the timers fire.",
+    "fix": "Change var to let. Each loop iteration gets its own i, so it logs 0, 1, 2.",
+    "takeaway": "let and const are block-scoped; var is not."
+  },
+  "cta": "const by default: yes or no?",
+  "tags": [
+    "javascript",
+    "js",
+    "webdevelopment"
+  ]
+}

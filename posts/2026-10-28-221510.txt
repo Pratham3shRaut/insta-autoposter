@@ -1,0 +1,18 @@
+var vs let vs const in JavaScript
+
+Three ways to declare a variable, each with different rules. Modern code mostly uses const and let.
+
+In this post, you'll learn:
+✅ var
+✅ let
+✅ const
+✅ Rule of thumb
+✅ A real-world scenario
+
+const by default: yes or no?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#javascript #js #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
