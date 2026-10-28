@@ -1,0 +1,78 @@
+{
+  "topic": "JavaScript",
+  "title": "JavaScript Array Methods You'll Use Daily",
+  "intro": "These built-in methods replace most manual for-loops and make your code easier to read.",
+  "slides": [
+    {
+      "heading": "map()",
+      "subtitle": "Transform every item.",
+      "points": [
+        "Returns a new array of the same length",
+        "Doesn't change the original array"
+      ],
+      "examples": [
+        "Users to a list of names",
+        "Prices to formatted strings"
+      ]
+    },
+    {
+      "heading": "filter()",
+      "subtitle": "Keep only the matching items.",
+      "points": [
+        "Returns a new array",
+        "Keeps items where the callback returns true"
+      ],
+      "examples": [
+        "Active users only",
+        "In-stock products"
+      ]
+    },
+    {
+      "heading": "find()",
+      "subtitle": "Get the first match.",
+      "points": [
+        "Returns the first matching item",
+        "Returns undefined if nothing matches"
+      ],
+      "examples": [
+        "Looking up a user by ID"
+      ]
+    },
+    {
+      "heading": "reduce()",
+      "subtitle": "Boil an array down to one value.",
+      "points": [
+        "Carries an accumulator through each item",
+        "Always pass a starting value"
+      ],
+      "examples": [
+        "Shopping cart total",
+        "Counting items by type"
+      ]
+    },
+    {
+      "heading": "some() & every()",
+      "subtitle": "Yes-or-no questions about an array.",
+      "points": [
+        "some: does at least one item match?",
+        "every: do all items match?"
+      ],
+      "examples": [
+        "Any errors in the form?",
+        "Are all fields filled?"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "An online store needs the total price of the in-stock items in a cart.",
+    "problem": "A manual for-loop with if checks and a running total is long and easy to get wrong.",
+    "fix": "cart.filter(i => i.inStock).reduce((sum, i) => sum + i.price, 0) does it in one readable line.",
+    "takeaway": "Chain filter and reduce instead of hand-written loops."
+  },
+  "cta": "Which array method do you use the most?",
+  "tags": [
+    "javascript",
+    "js",
+    "codingtips"
+  ]
+}
