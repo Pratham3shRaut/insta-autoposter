@@ -254,6 +254,12 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 12
+    },
+    {
+      "date": "2026-10-28",
+      "title": "var vs let vs const in JavaScript",
+      "media_id": "18118073959792740",
+      "kind": "carousel"
     }
   ]
 }
