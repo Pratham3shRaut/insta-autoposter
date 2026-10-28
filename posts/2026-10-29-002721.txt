@@ -1,0 +1,18 @@
+== vs === and Truthy vs Falsy
+
+Two JavaScript quirks behind many beginner bugs. Here's how to stay out of trouble.
+
+In this post, you'll learn:
+✅ == (loose)
+✅ === (strict)
+✅ Falsy values
+✅ Watch out
+✅ A real-world scenario
+
+Which of these surprised you the first time?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#javascript #js #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

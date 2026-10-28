@@ -1,0 +1,61 @@
+{
+  "topic": "JavaScript",
+  "title": "== vs === and Truthy vs Falsy",
+  "intro": "Two JavaScript quirks behind many beginner bugs. Here's how to stay out of trouble.",
+  "slides": [
+    {
+      "heading": "== (loose)",
+      "subtitle": "Converts types before comparing.",
+      "points": [
+        "0 == \"\" is true",
+        "null == undefined is true",
+        "The conversion rules are easy to forget"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "=== (strict)",
+      "subtitle": "No type conversion.",
+      "points": [
+        "Type and value must both match",
+        "0 === \"\" is false",
+        "Predictable, so use it by default"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Falsy values",
+      "subtitle": "The main values that count as false.",
+      "points": [
+        "false, 0 and \"\" (empty string)",
+        "null, undefined and NaN",
+        "Almost everything else is truthy"
+      ],
+      "examples": [
+        "if (name) skips empty strings"
+      ]
+    },
+    {
+      "heading": "Watch out",
+      "subtitle": "Common surprises.",
+      "points": [
+        "[] and {} are truthy, even when empty",
+        "The strings \"0\" and \"false\" are truthy",
+        "Check array.length when testing for empty"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A form checks if (quantity == 0) to show an \"out of stock\" warning.",
+    "problem": "An empty input gives \"\", and \"\" == 0 is true, so the warning appears before the user types anything.",
+    "fix": "Check for an empty value first, then compare Number(quantity) === 0. Only a real 0 shows the warning.",
+    "takeaway": "Use === and convert types on purpose."
+  },
+  "cta": "Which of these surprised you the first time?",
+  "tags": [
+    "javascript",
+    "js",
+    "webdevelopment"
+  ]
+}
