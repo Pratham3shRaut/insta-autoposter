@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-29",
+  "last_published_date": "2026-10-30",
   "history": [
     {
       "date": "2026-10-14",
@@ -271,6 +271,12 @@
       "date": "2026-10-29",
       "title": "== vs === and Truthy vs Falsy",
       "media_id": "18133730218788286",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-10-30",
+      "title": "Git Merge vs Rebase, Explained Simply",
+      "media_id": "18116058908129634",
       "kind": "carousel"
     }
   ]
