@@ -1,0 +1,18 @@
+Git Merge vs Rebase, Explained Simply
+
+Both bring changes from one branch into another. They just leave behind a different history.
+
+In this post, you'll learn:
+✅ git merge
+✅ git rebase
+✅ The golden rule
+✅ Which to use?
+✅ A real-world scenario
+
+Team merge or team rebase?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#git #github #developer #webdevelopment #webdev #programming #coding #softwareengineering #100daysofcode

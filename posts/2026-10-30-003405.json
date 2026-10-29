@@ -1,0 +1,63 @@
+{
+  "topic": "Git",
+  "title": "Git Merge vs Rebase, Explained Simply",
+  "intro": "Both bring changes from one branch into another. They just leave behind a different history.",
+  "slides": [
+    {
+      "heading": "git merge",
+      "subtitle": "Join two histories together.",
+      "points": [
+        "Creates a merge commit",
+        "Keeps the full branch history",
+        "Safe to use on shared branches"
+      ],
+      "examples": [
+        "Merging a feature into main"
+      ]
+    },
+    {
+      "heading": "git rebase",
+      "subtitle": "Replay your commits on top.",
+      "points": [
+        "Moves your commits onto the latest base",
+        "Produces a straight, linear history",
+        "Rewrites your commit IDs"
+      ],
+      "examples": [
+        "Updating a feature branch with main"
+      ]
+    },
+    {
+      "heading": "The golden rule",
+      "subtitle": "Never rebase shared history.",
+      "points": [
+        "Rebase only branches nobody else uses",
+        "Rewriting pushed commits breaks teammates' copies",
+        "If you must push, use --force-with-lease"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Which to use?",
+      "subtitle": "A simple default.",
+      "points": [
+        "Updating your own branch: rebase",
+        "Bringing a feature into main: merge",
+        "Follow your team's convention"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "Your feature branch is three days old, and main has moved ahead with your teammates' work.",
+    "problem": "Merging main in again and again fills your PR with noisy \"Merge branch main\" commits.",
+    "fix": "Since only you use the branch, run git rebase main. Your commits now sit cleanly on top of the latest main.",
+    "takeaway": "Rebase your own branches; merge shared ones."
+  },
+  "cta": "Team merge or team rebase?",
+  "tags": [
+    "git",
+    "github",
+    "developer"
+  ]
+}
