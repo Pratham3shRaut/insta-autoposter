@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-30",
+  "last_published_date": "2026-10-31",
   "history": [
     {
       "date": "2026-10-14",
@@ -277,6 +277,12 @@
       "date": "2026-10-30",
       "title": "Git Merge vs Rebase, Explained Simply",
       "media_id": "18116058908129634",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-10-31",
+      "title": "npm Basics Every JavaScript Developer Needs",
+      "media_id": "17989466283088435",
       "kind": "carousel"
     }
   ]
