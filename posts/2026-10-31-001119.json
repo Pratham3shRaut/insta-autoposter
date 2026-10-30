@@ -1,0 +1,69 @@
+{
+  "topic": "Node.js",
+  "title": "npm Basics Every JavaScript Developer Needs",
+  "intro": "npm installs and manages the packages your JavaScript projects depend on. Here's what you need day to day.",
+  "slides": [
+    {
+      "heading": "package.json",
+      "subtitle": "Your project's ID card.",
+      "points": [
+        "Lists the name, version and scripts",
+        "Lists the packages you depend on",
+        "Create one with npm init -y"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Installing",
+      "subtitle": "Adding packages to a project.",
+      "points": [
+        "npm install express adds a dependency",
+        "npm install -D eslint adds a dev dependency",
+        "npm install alone installs everything listed"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Lock file",
+      "subtitle": "package-lock.json",
+      "points": [
+        "Records the exact installed versions",
+        "Makes installs repeatable on every machine",
+        "Commit it to git"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Scripts",
+      "subtitle": "Shortcuts for common tasks.",
+      "points": [
+        "Defined under \"scripts\" in package.json",
+        "Run them with npm run dev or npm run build",
+        "npm start and npm test work without run"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "node_modules",
+      "subtitle": "Where packages are installed.",
+      "points": [
+        "Can get very large",
+        "Never commit it to git",
+        "Delete and reinstall to fix odd issues"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "Your app works on your laptop, but the CI build fails with an error inside a dependency.",
+    "problem": "No lock file was committed, so CI installed a newer version of a package that has a bug.",
+    "fix": "Commit package-lock.json and use npm ci in CI. Every machine now installs the exact same versions.",
+    "takeaway": "Commit the lock file; use npm ci in CI."
+  },
+  "cta": "How big is your biggest node_modules folder?",
+  "tags": [
+    "nodejs",
+    "npm",
+    "javascript"
+  ]
+}

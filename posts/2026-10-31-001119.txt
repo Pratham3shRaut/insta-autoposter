@@ -1,0 +1,19 @@
+npm Basics Every JavaScript Developer Needs
+
+npm installs and manages the packages your JavaScript projects depend on. Here's what you need day to day.
+
+In this post, you'll learn:
+✅ package.json
+✅ Installing
+✅ Lock file
+✅ Scripts
+✅ node_modules
+✅ A real-world scenario
+
+How big is your biggest node_modules folder?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#nodejs #npm #javascript #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
