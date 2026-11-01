@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-10-31",
+  "last_published_date": "2026-11-01",
   "history": [
     {
       "date": "2026-10-14",
@@ -283,6 +283,12 @@
       "date": "2026-10-31",
       "title": "npm Basics Every JavaScript Developer Needs",
       "media_id": "17989466283088435",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-11-01",
+      "title": "Environment Variables and Secrets 101",
+      "media_id": "17949250386071965",
       "kind": "carousel"
     }
   ]
