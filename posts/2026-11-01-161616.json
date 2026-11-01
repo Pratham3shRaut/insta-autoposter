@@ -1,0 +1,62 @@
+{
+  "topic": "Security",
+  "title": "Environment Variables and Secrets 101",
+  "intro": "API keys and passwords should never live in your code. Environment variables keep them separate and safe.",
+  "slides": [
+    {
+      "heading": "What they are",
+      "subtitle": "Settings that live outside your code.",
+      "points": [
+        "Key-value pairs set in the environment",
+        "Read in Node.js with process.env.NAME",
+        "Different values per environment"
+      ],
+      "examples": [
+        "DATABASE_URL",
+        "API_KEY"
+      ]
+    },
+    {
+      "heading": ".env files",
+      "subtitle": "Local secrets for development.",
+      "points": [
+        "One KEY=value per line",
+        "Loaded by dotenv or node --env-file",
+        "Add .env to your .gitignore"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Never commit secrets",
+      "subtitle": "Git history remembers everything.",
+      "points": [
+        "Deleting the file later doesn't erase history",
+        "Bots scan public repos for leaked keys",
+        "If a key leaks, revoke it and make a new one"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "In production",
+      "subtitle": "Where secrets should live.",
+      "points": [
+        "Your hosting provider's environment settings",
+        "CI secrets, like GitHub Actions secrets",
+        "A secrets manager for larger teams"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A developer hard-codes a cloud API key in config.js and pushes it to a public GitHub repo.",
+    "problem": "Bots scan public repos for keys. Someone finds it and runs up charges on the account.",
+    "fix": "Revoke the key, put the new one in an environment variable, add .env to .gitignore and read it with process.env.",
+    "takeaway": "Secrets go in environment variables, never in code."
+  },
+  "cta": "Have you ever accidentally committed a secret?",
+  "tags": [
+    "security",
+    "webdevelopment",
+    "backend"
+  ]
+}

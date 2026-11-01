@@ -1,0 +1,18 @@
+Environment Variables and Secrets 101
+
+API keys and passwords should never live in your code. Environment variables keep them separate and safe.
+
+In this post, you'll learn:
+✅ What they are
+✅ .env files
+✅ Never commit secrets
+✅ In production
+✅ A real-world scenario
+
+Have you ever accidentally committed a secret?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#security #webdevelopment #backend #webdev #programming #coding #developer #softwareengineering #100daysofcode
