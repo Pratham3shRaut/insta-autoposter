@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-01",
+  "last_published_date": "2026-11-02",
   "history": [
     {
       "date": "2026-10-14",
@@ -289,6 +289,12 @@
       "date": "2026-11-01",
       "title": "Environment Variables and Secrets 101",
       "media_id": "17949250386071965",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-11-02",
+      "title": "CORS Errors Explained Simply",
+      "media_id": "18113892086129866",
       "kind": "carousel"
     }
   ]
