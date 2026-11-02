@@ -1,0 +1,59 @@
+{
+  "topic": "Web",
+  "title": "CORS Errors Explained Simply",
+  "intro": "Seen \"blocked by CORS policy\" in your console? Here's what's actually happening and how to fix it.",
+  "slides": [
+    {
+      "heading": "Same-origin policy",
+      "subtitle": "The browser's default rule.",
+      "points": [
+        "Origin = protocol + domain + port",
+        "Pages can't read responses from other origins by default",
+        "It protects users from malicious sites"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "What CORS is",
+      "subtitle": "A way for servers to opt in.",
+      "points": [
+        "The server sends Access-Control-Allow-Origin",
+        "The browser checks it before sharing the response",
+        "The server decides, not the frontend"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Preflight requests",
+      "subtitle": "The browser asks first.",
+      "points": [
+        "An OPTIONS request sent before some requests",
+        "Triggered by methods like PUT or custom headers",
+        "The server must reply with what it allows"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "How to fix it",
+      "subtitle": "Fix it on the server.",
+      "points": [
+        "Configure CORS in your backend",
+        "Allow specific origins, especially with cookies",
+        "Use a dev-server proxy during local development"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "Your React app on localhost:5173 calls your API on localhost:3000.",
+    "problem": "The browser blocks the response with a CORS error, even though the same request works in Postman.",
+    "fix": "Allow that origin on the API, for example in Express: app.use(cors({ origin: \"http://localhost:5173\" })).",
+    "takeaway": "CORS is fixed on the server, not the frontend."
+  },
+  "cta": "How many hours has CORS cost you?",
+  "tags": [
+    "webdevelopment",
+    "api",
+    "backend"
+  ]
+}

@@ -1,0 +1,18 @@
+CORS Errors Explained Simply
+
+Seen "blocked by CORS policy" in your console? Here's what's actually happening and how to fix it.
+
+In this post, you'll learn:
+✅ Same-origin policy
+✅ What CORS is
+✅ Preflight requests
+✅ How to fix it
+✅ A real-world scenario
+
+How many hours has CORS cost you?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#webdevelopment #api #backend #webdev #programming #coding #developer #softwareengineering #100daysofcode
