@@ -1,0 +1,18 @@
+Cookies vs localStorage vs sessionStorage
+
+Three ways to store data in the browser, each built for a different job.
+
+In this post, you'll learn:
+✅ Cookies
+✅ localStorage
+✅ sessionStorage
+✅ Security tip
+✅ A real-world scenario
+
+Where do you store auth tokens in your apps?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#webdevelopment #javascript #security #webdev #programming #coding #developer #softwareengineering #100daysofcode

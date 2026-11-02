@@ -1,0 +1,66 @@
+{
+  "topic": "Web",
+  "title": "Cookies vs localStorage vs sessionStorage",
+  "intro": "Three ways to store data in the browser, each built for a different job.",
+  "slides": [
+    {
+      "heading": "Cookies",
+      "subtitle": "Small data sent with requests.",
+      "points": [
+        "About 4KB per cookie",
+        "Sent to the server automatically",
+        "Can be httpOnly so JavaScript can't read them"
+      ],
+      "examples": [
+        "Login sessions"
+      ]
+    },
+    {
+      "heading": "localStorage",
+      "subtitle": "Browser storage that persists.",
+      "points": [
+        "Around 5MB per site in most browsers",
+        "Stays until it's cleared",
+        "Readable by any script on the page"
+      ],
+      "examples": [
+        "Theme preference",
+        "Saved drafts"
+      ]
+    },
+    {
+      "heading": "sessionStorage",
+      "subtitle": "Storage for a single tab.",
+      "points": [
+        "Same API as localStorage",
+        "Cleared when the tab closes",
+        "Not shared between tabs"
+      ],
+      "examples": [
+        "Multi-step form progress"
+      ]
+    },
+    {
+      "heading": "Security tip",
+      "subtitle": "Choose storage carefully.",
+      "points": [
+        "Never store passwords in the browser",
+        "Prefer httpOnly cookies for auth tokens",
+        "Treat stored data as user-editable"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "An app stores the user's login token in localStorage.",
+    "problem": "An XSS bug lets an injected script read localStorage and send the token to an attacker.",
+    "fix": "Keep the session in an httpOnly, Secure, SameSite cookie. JavaScript can't read it, so XSS can't steal it.",
+    "takeaway": "Keep auth tokens out of JavaScript's reach."
+  },
+  "cta": "Where do you store auth tokens in your apps?",
+  "tags": [
+    "webdevelopment",
+    "javascript",
+    "security"
+  ]
+}
