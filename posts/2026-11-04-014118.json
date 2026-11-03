@@ -1,0 +1,65 @@
+{
+  "topic": "Databases",
+  "title": "SQL vs NoSQL Databases Explained",
+  "intro": "Both store data, but in very different ways. The right choice depends on your data and how you read it.",
+  "slides": [
+    {
+      "heading": "SQL databases",
+      "subtitle": "Tables with a fixed schema.",
+      "points": [
+        "Rows and columns, like a spreadsheet",
+        "Relationships through joins",
+        "Strong consistency with transactions"
+      ],
+      "examples": [
+        "PostgreSQL",
+        "MySQL"
+      ]
+    },
+    {
+      "heading": "NoSQL databases",
+      "subtitle": "Flexible data models.",
+      "points": [
+        "Document, key-value, graph or wide-column",
+        "Schema can change easily",
+        "Often built to scale across many servers"
+      ],
+      "examples": [
+        "MongoDB",
+        "Redis"
+      ]
+    },
+    {
+      "heading": "Pick SQL when",
+      "subtitle": "Structure and correctness matter.",
+      "points": [
+        "Your data is highly related",
+        "Correctness is critical, like payments",
+        "You need complex queries and reports"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Pick NoSQL when",
+      "subtitle": "Flexibility and scale matter.",
+      "points": [
+        "The data shape changes often",
+        "You mostly read data by a single key",
+        "You need very high write volume"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A team builds a banking app on a document database because it felt quicker to start.",
+    "problem": "A transfer updates two accounts, and keeping both balances consistent becomes complicated and error-prone.",
+    "fix": "Use a relational database with transactions. Both updates succeed together or fail together.",
+    "takeaway": "Choose by your data and its rules, not by hype."
+  },
+  "cta": "SQL or NoSQL for your current project?",
+  "tags": [
+    "databases",
+    "sql",
+    "backend"
+  ]
+}

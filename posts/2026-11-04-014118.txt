@@ -1,0 +1,18 @@
+SQL vs NoSQL Databases Explained
+
+Both store data, but in very different ways. The right choice depends on your data and how you read it.
+
+In this post, you'll learn:
+✅ SQL databases
+✅ NoSQL databases
+✅ Pick SQL when
+✅ Pick NoSQL when
+✅ A real-world scenario
+
+SQL or NoSQL for your current project?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#databases #sql #backend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
