@@ -1,0 +1,18 @@
+Database Indexes Explained Simply
+
+An index works like the index in a book: it lets the database find rows without reading every page.
+
+In this post, you'll learn:
+✅ Without an index
+✅ With an index
+✅ The trade-off
+✅ Check your query
+✅ A real-world scenario
+
+Have you ever fixed a slow query with one index?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#databases #sql #performance #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

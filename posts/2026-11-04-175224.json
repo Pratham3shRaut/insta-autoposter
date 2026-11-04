@@ -1,0 +1,58 @@
+{
+  "topic": "Databases",
+  "title": "Database Indexes Explained Simply",
+  "intro": "An index works like the index in a book: it lets the database find rows without reading every page.",
+  "slides": [
+    {
+      "heading": "Without an index",
+      "subtitle": "The database reads every row.",
+      "points": [
+        "Called a full table scan",
+        "Gets slow as tables grow"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "With an index",
+      "subtitle": "Jump straight to the right rows.",
+      "points": [
+        "Usually stored as a sorted B-tree",
+        "Lookups take a few steps, not millions",
+        "Speeds up WHERE, JOIN and ORDER BY"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "The trade-off",
+      "subtitle": "Indexes aren't free.",
+      "points": [
+        "Each index uses extra storage",
+        "Inserts and updates get slower",
+        "Index the columns you actually query"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Check your query",
+      "subtitle": "Don't guess, measure.",
+      "points": [
+        "Run EXPLAIN to see the query plan",
+        "A full scan on a big table hints at a missing index",
+        "CREATE INDEX idx_email ON users (email);"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "Your login query, SELECT * FROM users WHERE email = ?, gets slower as the app reaches a million users.",
+    "problem": "There's no index on email, so the database scans every row on every single login.",
+    "fix": "CREATE INDEX idx_users_email ON users (email); lets the database jump straight to the matching row.",
+    "takeaway": "Index the columns you search by."
+  },
+  "cta": "Have you ever fixed a slow query with one index?",
+  "tags": [
+    "databases",
+    "sql",
+    "performance"
+  ]
+}
