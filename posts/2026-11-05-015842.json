@@ -1,0 +1,59 @@
+{
+  "topic": "Performance",
+  "title": "Core Web Vitals Explained Simply",
+  "intro": "Google's three metrics for how fast and smooth your page feels to real users.",
+  "slides": [
+    {
+      "heading": "LCP",
+      "subtitle": "Largest Contentful Paint: loading.",
+      "points": [
+        "Time until the main content appears",
+        "Good: 2.5 seconds or less",
+        "Fix: optimize images, use a CDN"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "INP",
+      "subtitle": "Interaction to Next Paint: responsiveness.",
+      "points": [
+        "How fast the page responds to clicks and taps",
+        "Good: 200 milliseconds or less",
+        "Fix: break up long JavaScript tasks"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "CLS",
+      "subtitle": "Cumulative Layout Shift: stability.",
+      "points": [
+        "How much the layout jumps while loading",
+        "Good: 0.1 or less",
+        "Fix: set image sizes, reserve space for ads"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Measure it",
+      "subtitle": "Free tools to check your site.",
+      "points": [
+        "Lighthouse in Chrome DevTools",
+        "PageSpeed Insights for real-user data",
+        "The web-vitals library for your own analytics"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A blog's mobile LCP is 4.8 seconds, well above the 2.5 second target.",
+    "problem": "The hero image is a 3 MB PNG, so the main content takes a long time to appear.",
+    "fix": "Convert it to WebP, size it for the screen and preload it. That alone can bring LCP under 2.5 seconds.",
+    "takeaway": "Oversized images are a top cause of slow LCP."
+  },
+  "cta": "What's your site's LCP right now?",
+  "tags": [
+    "webperf",
+    "corewebvitals",
+    "frontend"
+  ]
+}

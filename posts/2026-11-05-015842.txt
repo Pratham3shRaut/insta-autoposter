@@ -1,0 +1,18 @@
+Core Web Vitals Explained Simply
+
+Google's three metrics for how fast and smooth your page feels to real users.
+
+In this post, you'll learn:
+✅ LCP
+✅ INP
+✅ CLS
+✅ Measure it
+✅ A real-world scenario
+
+What's your site's LCP right now?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#webperf #corewebvitals #frontend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
