@@ -1,0 +1,59 @@
+{
+  "topic": "Accessibility",
+  "title": "Web Accessibility Basics Every Dev Should Know",
+  "intro": "Accessible sites work for everyone, including people using screen readers, keyboards or zoom.",
+  "slides": [
+    {
+      "heading": "Alt text",
+      "subtitle": "Describe your images.",
+      "points": [
+        "Screen readers read alt text aloud",
+        "Describe the purpose, not just the look",
+        "Use alt=\"\" for purely decorative images"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Keyboard access",
+      "subtitle": "Not everyone uses a mouse.",
+      "points": [
+        "Everything clickable works with Tab and Enter",
+        "Keep a visible focus outline",
+        "Use real <button> and <a> elements"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Color contrast",
+      "subtitle": "Make text easy to read.",
+      "points": [
+        "WCAG AA asks for 4.5:1 for normal text",
+        "Don't rely on color alone to show meaning",
+        "Test with a contrast checker"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Forms",
+      "subtitle": "Where accessibility breaks most often.",
+      "points": [
+        "Every input needs a <label>",
+        "Error messages should say how to fix it",
+        "Placeholder text is not a label"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A checkout form uses grey placeholder text instead of labels.",
+    "problem": "Screen reader users can't tell what each field is, and the hint disappears as soon as anyone types.",
+    "fix": "Add a visible <label for=\"email\"> to every input, and keep placeholders for examples only.",
+    "takeaway": "Every input needs a real label."
+  },
+  "cta": "Have you ever tried using your site with only a keyboard?",
+  "tags": [
+    "a11y",
+    "accessibility",
+    "frontend"
+  ]
+}

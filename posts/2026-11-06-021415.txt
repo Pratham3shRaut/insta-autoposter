@@ -1,0 +1,18 @@
+Web Accessibility Basics Every Dev Should Know
+
+Accessible sites work for everyone, including people using screen readers, keyboards or zoom.
+
+In this post, you'll learn:
+✅ Alt text
+✅ Keyboard access
+✅ Color contrast
+✅ Forms
+✅ A real-world scenario
+
+Have you ever tried using your site with only a keyboard?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#a11y #accessibility #frontend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
