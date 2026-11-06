@@ -1,0 +1,59 @@
+{
+  "topic": "TypeScript",
+  "title": "Why Developers Love TypeScript",
+  "intro": "TypeScript is JavaScript with types. It catches many bugs before your code ever runs.",
+  "slides": [
+    {
+      "heading": "What it is",
+      "subtitle": "JavaScript plus a type system.",
+      "points": [
+        "Compiles to plain JavaScript",
+        "Types are checked, then removed at build time",
+        "You can adopt it gradually"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Basic types",
+      "subtitle": "The building blocks.",
+      "points": [
+        "string, number and boolean",
+        "string[] for an array of strings",
+        "Unions: \"admin\" | \"user\""
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Interfaces",
+      "subtitle": "Describe the shape of objects.",
+      "points": [
+        "interface User { id: number; name: string }",
+        "Your editor autocompletes properties",
+        "Typos in property names become errors"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Why it helps",
+      "subtitle": "Benefits you feel every day.",
+      "points": [
+        "Catches bugs while you type",
+        "Makes refactoring much safer",
+        "Works as living documentation"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "Your backend renames user.fullName to user.name.",
+    "problem": "In plain JavaScript, every screen still reading fullName quietly shows undefined in production.",
+    "fix": "With a User interface, update the type once and the compiler points to every line still using fullName.",
+    "takeaway": "Types turn runtime surprises into compile errors."
+  },
+  "cta": "Do you write TypeScript or plain JavaScript?",
+  "tags": [
+    "typescript",
+    "javascript",
+    "webdevelopment"
+  ]
+}

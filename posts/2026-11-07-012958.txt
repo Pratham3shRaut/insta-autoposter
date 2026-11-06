@@ -1,0 +1,18 @@
+Why Developers Love TypeScript
+
+TypeScript is JavaScript with types. It catches many bugs before your code ever runs.
+
+In this post, you'll learn:
+✅ What it is
+✅ Basic types
+✅ Interfaces
+✅ Why it helps
+✅ A real-world scenario
+
+Do you write TypeScript or plain JavaScript?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#typescript #javascript #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
