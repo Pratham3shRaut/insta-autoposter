@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-07",
+  "last_published_date": "2026-11-08",
   "history": [
     {
       "date": "2026-10-14",
@@ -331,6 +331,12 @@
       "date": "2026-11-07",
       "title": "Why Developers Love TypeScript",
       "media_id": "18077399588734897",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-11-08",
+      "title": "Unit vs Integration vs E2E Testing",
+      "media_id": "17901655494674653",
       "kind": "carousel"
     }
   ]
