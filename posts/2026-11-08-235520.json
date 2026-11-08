@@ -1,0 +1,67 @@
+{
+  "topic": "Testing",
+  "title": "Unit vs Integration vs E2E Testing",
+  "intro": "Different tests catch different bugs. The testing pyramid shows how to balance them.",
+  "slides": [
+    {
+      "heading": "Unit tests",
+      "subtitle": "Test one small piece in isolation.",
+      "points": [
+        "Fast and cheap to run",
+        "Test a single function or component",
+        "Should be most of your tests"
+      ],
+      "examples": [
+        "Jest",
+        "Vitest"
+      ]
+    },
+    {
+      "heading": "Integration tests",
+      "subtitle": "Test pieces working together.",
+      "points": [
+        "Check modules work correctly together",
+        "Often include a real database or API",
+        "Slower than unit tests"
+      ],
+      "examples": [
+        "An API endpoint with its database"
+      ]
+    },
+    {
+      "heading": "E2E tests",
+      "subtitle": "Test the app like a real user.",
+      "points": [
+        "Run in a real browser",
+        "Catch issues across the whole stack",
+        "Slowest and most fragile, so keep them few"
+      ],
+      "examples": [
+        "Playwright",
+        "Cypress"
+      ]
+    },
+    {
+      "heading": "The pyramid",
+      "subtitle": "How to balance them.",
+      "points": [
+        "Many unit tests at the base",
+        "Fewer integration tests in the middle",
+        "A handful of E2E tests on top"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "A refactor of the discount function accidentally breaks coupons above 50%.",
+    "problem": "Nobody notices until customers start reporting wrong prices.",
+    "fix": "A few unit tests for calculateDiscount() would have failed instantly, before the change was merged.",
+    "takeaway": "Unit test your business logic first."
+  },
+  "cta": "Which kind of test do you write the most?",
+  "tags": [
+    "testing",
+    "softwareengineering",
+    "javascript"
+  ]
+}

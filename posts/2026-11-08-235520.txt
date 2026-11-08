@@ -1,0 +1,18 @@
+Unit vs Integration vs E2E Testing
+
+Different tests catch different bugs. The testing pyramid shows how to balance them.
+
+In this post, you'll learn:
+✅ Unit tests
+✅ Integration tests
+✅ E2E tests
+✅ The pyramid
+✅ A real-world scenario
+
+Which kind of test do you write the most?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#testing #softwareengineering #javascript #webdevelopment #webdev #programming #coding #developer #100daysofcode
