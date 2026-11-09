@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-08",
+  "last_published_date": "2026-11-10",
   "history": [
     {
       "date": "2026-10-14",
@@ -337,6 +337,12 @@
       "date": "2026-11-08",
       "title": "Unit vs Integration vs E2E Testing",
       "media_id": "17901655494674653",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-11-10",
+      "title": "Responsive Design Basics",
+      "media_id": "18050376827820493",
       "kind": "carousel"
     }
   ]
