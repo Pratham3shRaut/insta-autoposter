@@ -1,0 +1,18 @@
+Responsive Design Basics
+
+Most visitors browse on phones. These basics make your site look good on every screen size.
+
+In this post, you'll learn:
+✅ Viewport meta tag
+✅ Mobile first
+✅ Media queries
+✅ Flexible media
+✅ A real-world scenario
+
+Do you design mobile first or desktop first?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#css #responsivedesign #frontend #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

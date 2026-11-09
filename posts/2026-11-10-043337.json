@@ -1,0 +1,59 @@
+{
+  "topic": "CSS",
+  "title": "Responsive Design Basics",
+  "intro": "Most visitors browse on phones. These basics make your site look good on every screen size.",
+  "slides": [
+    {
+      "heading": "Viewport meta tag",
+      "subtitle": "Step one for mobile.",
+      "points": [
+        "Tells phones to use the device's real width",
+        "Without it, pages render zoomed out",
+        "Goes in the <head> of every page"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Mobile first",
+      "subtitle": "Start small, then scale up.",
+      "points": [
+        "Write base styles for small screens",
+        "Add min-width media queries for bigger ones",
+        "Usually leads to simpler CSS"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Media queries",
+      "subtitle": "Change the layout at breakpoints.",
+      "points": [
+        "@media (min-width: 768px) { ... }",
+        "Switch columns, sizes or visibility",
+        "Add breakpoints where your design breaks"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Flexible media",
+      "subtitle": "Images that never overflow.",
+      "points": [
+        "img { max-width: 100%; height: auto; }",
+        "Use srcset to serve different image sizes",
+        "Prefer fluid widths over fixed pixels"
+      ],
+      "examples": []
+    }
+  ],
+  "scenario": {
+    "situation": "Your site looks perfect on desktop, but on a phone the text is tiny and users have to zoom.",
+    "problem": "The viewport meta tag is missing, so the phone renders the page at desktop width and shrinks it.",
+    "fix": "Add <meta name=\"viewport\" content=\"width=device-width, initial-scale=1\"> and build the layout mobile first.",
+    "takeaway": "The viewport tag is step one for mobile."
+  },
+  "cta": "Do you design mobile first or desktop first?",
+  "tags": [
+    "css",
+    "responsivedesign",
+    "frontend"
+  ]
+}
