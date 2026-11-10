@@ -1,0 +1,61 @@
+{
+  "topic": "Debugging",
+  "title": "How to Debug Like a Pro",
+  "intro": "Debugging is a skill you can learn. This process works for almost any bug.",
+  "slides": [
+    {
+      "heading": "Read the error",
+      "subtitle": "It often tells you exactly what's wrong.",
+      "points": [
+        "Read the whole message, not just the first line",
+        "The stack trace shows where it happened",
+        "Find the first line from your own code"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Reproduce it",
+      "subtitle": "Make it happen on demand.",
+      "points": [
+        "Find the exact steps that trigger it",
+        "Shrink it to the smallest failing case",
+        "A bug you can reproduce is half fixed"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Use your tools",
+      "subtitle": "Stop guessing, start looking.",
+      "points": [
+        "Set breakpoints in DevTools or your editor",
+        "Log values at key points",
+        "Check the Network tab for failed requests"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Search smart",
+      "subtitle": "Someone has probably seen it before.",
+      "points": [
+        "Search the exact error message",
+        "Check the official docs and GitHub issues",
+        "Explain the problem out loud, step by step"
+      ],
+      "examples": [
+        "Rubber duck debugging"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your app crashes with \"Cannot read properties of undefined (reading 'map')\".",
+    "problem": "You start changing random code, hoping the error goes away.",
+    "fix": "The stack trace points to your line. Logging the value shows the API returned nothing. Fix: (data ?? []).map(...).",
+    "takeaway": "Read the error, find the line, check the value."
+  },
+  "cta": "What's the longest you've spent on a single bug?",
+  "tags": [
+    "debugging",
+    "programming",
+    "developer"
+  ]
+}

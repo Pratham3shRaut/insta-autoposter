@@ -1,0 +1,18 @@
+How to Debug Like a Pro
+
+Debugging is a skill you can learn. This process works for almost any bug.
+
+In this post, you'll learn:
+✅ Read the error
+✅ Reproduce it
+✅ Use your tools
+✅ Search smart
+✅ A real-world scenario
+
+What's the longest you've spent on a single bug?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#debugging #programming #developer #webdevelopment #webdev #coding #softwareengineering #100daysofcode
