@@ -1,0 +1,18 @@
+The 4 Pillars of Object-Oriented Programming
+
+OOP shows up in interviews and in languages like Java, Python and C#. Here are the four core ideas in plain words.
+
+In this post, you'll learn:
+✅ Encapsulation
+✅ Abstraction
+✅ Inheritance
+✅ Polymorphism
+✅ A real-world scenario
+
+Which pillar was hardest to understand at first?
+
+📌 Save this post for later
+
+Follow @pr.devtips for more posts like this.
+
+#oop #programming #softwareengineering #webdevelopment #webdev #coding #developer #100daysofcode

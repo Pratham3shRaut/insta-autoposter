@@ -1,0 +1,64 @@
+{
+  "topic": "Programming",
+  "title": "The 4 Pillars of Object-Oriented Programming",
+  "intro": "OOP shows up in interviews and in languages like Java, Python and C#. Here are the four core ideas in plain words.",
+  "slides": [
+    {
+      "heading": "Encapsulation",
+      "subtitle": "Keep data and behavior together.",
+      "points": [
+        "Bundle data with the methods that use it",
+        "Hide internal details behind a clear interface"
+      ],
+      "examples": [
+        "A BankAccount with deposit()"
+      ]
+    },
+    {
+      "heading": "Abstraction",
+      "subtitle": "Show only what matters.",
+      "points": [
+        "Expose simple methods, hide the complexity",
+        "Like driving a car without knowing the engine"
+      ],
+      "examples": [
+        "sendEmail() hiding SMTP details"
+      ]
+    },
+    {
+      "heading": "Inheritance",
+      "subtitle": "Reuse code from a parent class.",
+      "points": [
+        "A child class extends a parent class",
+        "Shares behavior without copying it",
+        "Use it only for true \"is-a\" relationships"
+      ],
+      "examples": [
+        "Dog extends Animal"
+      ]
+    },
+    {
+      "heading": "Polymorphism",
+      "subtitle": "One interface, many forms.",
+      "points": [
+        "Different classes answer the same method",
+        "Code works with any object that fits"
+      ],
+      "examples": [
+        "area() on circles and squares"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "A payment app supports cards and now needs UPI and PayPal too.",
+    "problem": "One giant function with an if/else for every payment type gets harder to change with each new method.",
+    "fix": "Create a Payment interface with pay(). Card, UPI and PayPal each implement it, and checkout just calls pay().",
+    "takeaway": "Polymorphism lets you add new types without editing old code."
+  },
+  "cta": "Which pillar was hardest to understand at first?",
+  "tags": [
+    "oop",
+    "programming",
+    "softwareengineering"
+  ]
+}
