@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-11",
+  "last_published_date": "2026-11-12",
   "history": [
     {
       "date": "2026-10-14",
@@ -349,6 +349,12 @@
       "date": "2026-11-11",
       "title": "How to Debug Like a Pro",
       "media_id": "17895345165616073",
+      "kind": "carousel"
+    },
+    {
+      "date": "2026-11-12",
+      "title": "The 4 Pillars of Object-Oriented Programming",
+      "media_id": "18114963230628121",
       "kind": "carousel"
     }
   ]
