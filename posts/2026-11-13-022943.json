@@ -1,0 +1,102 @@
+{
+  "topic": "System Design #13",
+  "title": "Observability: See What Your System Is Doing",
+  "intro": "As systems grow more complex and distributed, understanding their behavior becomes a major challenge. Observability is your system's superpower, allowing you to peek inside and understand exactly what's happening. It's crucial for diagnosing issues and ensuring optimal performance.",
+  "slides": [
+    {
+      "heading": "What is Observability?",
+      "subtitle": "Understanding your system's internal state",
+      "explain": "Observability is the ability to infer the internal state of a system by examining its external outputs. It's like giving your system senses so you can understand its health and performance. This is crucial for complex, distributed applications, especially in a microservices architecture.",
+      "points": [
+        "Go beyond just 'is it up?'",
+        "Understand 'why' it's failing",
+        "Predict potential issues"
+      ],
+      "examples": [
+        "Microservices",
+        "Cloud deployments"
+      ]
+    },
+    {
+      "heading": "Pillar 1: Logs",
+      "subtitle": "Detailed records of specific events",
+      "explain": "Logs are immutable, time-stamped records of discrete events that occur in your application or infrastructure. They capture specific actions, errors, or state changes. Analyzing logs helps pinpoint exact moments of failure, unusual activity, or user interactions, crucial for debugging post-mortem.",
+      "points": [
+        "Timestamps, event details",
+        "Error messages, user actions",
+        "Debugging issues post-mortem"
+      ],
+      "examples": [
+        "Server access logs",
+        "Application error logs"
+      ]
+    },
+    {
+      "heading": "Pillar 2: Metrics",
+      "subtitle": "Quantifiable data over time",
+      "explain": "Metrics are numerical values measured over intervals, representing the health and performance of your system. They are aggregated data points like CPU usage, request counts, or latency, helping identify trends and anomalies. Dashboards visualize these trends to give you a high-level overview.",
+      "points": [
+        "CPU, memory, network I/O",
+        "Request rate, error rate",
+        "Latency, throughput"
+      ],
+      "flow": [
+        "Application",
+        "Metric Collector",
+        "Dashboard"
+      ],
+      "examples": [
+        "Prometheus",
+        "Grafana"
+      ]
+    },
+    {
+      "heading": "Pillar 3: Tracing",
+      "subtitle": "Follow a single request end-to-end",
+      "explain": "Distributed tracing tracks the full lifecycle of a single request as it flows through multiple services in a distributed system. It helps visualize dependencies, identify bottlenecks, and understand latency contributions from different components. This is vital for debugging performance in microservices.",
+      "points": [
+        "Unique trace ID for requests",
+        "Spans show service calls",
+        "Pinpoint slow service calls"
+      ],
+      "flow": [
+        "User",
+        "Service A",
+        "Service B",
+        "Database"
+      ],
+      "examples": [
+        "Jaeger",
+        "OpenTelemetry"
+      ]
+    },
+    {
+      "heading": "Why All Three?",
+      "subtitle": "A holistic view for robust systems",
+      "explain": "Each pillar provides a unique perspective. Logs tell you what happened at a specific point, metrics show how much and how often things occur, and traces reveal where and why a request performed a certain way across services. Together, they offer a complete, holistic picture of your system's health and behavior.",
+      "points": [
+        "Logs: Specific events",
+        "Metrics: System trends",
+        "Tracing: Request flow"
+      ],
+      "examples": [
+        "SRE practices",
+        "DevOps workflows"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce site is occasionally slow, but only for specific user requests during checkout. Users complain it takes forever sometimes.",
+    "problem": "You see generic HTTP 500 errors in your basic application logs, but no specific service fault. It's impossible to tell which microservice (payment, inventory, shipping) is causing the delay for a particular user's checkout.",
+    "fix": "By implementing distributed tracing, when a user reports a slow checkout, you can find their specific request's trace. This visualizes its path through all services, quickly pinpointing which service added the most latency and caused the bottleneck.",
+    "takeaway": "Observability is key to debugging complex, distributed systems effectively."
+  },
+  "cta": "What's your favorite observability tool for debugging production issues?",
+  "tags": [
+    "systemdesign",
+    "observability",
+    "devops"
+  ],
+  "series": "System Design",
+  "part": 13
+}

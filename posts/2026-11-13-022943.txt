@@ -1,0 +1,21 @@
+Observability: See What Your System Is Doing
+📚 Part 13 of our System Design series
+
+As systems grow more complex and distributed, understanding their behavior becomes a major challenge. Observability is your system's superpower, allowing you to peek inside and understand exactly what's happening. It's crucial for diagnosing issues and ensuring optimal performance.
+
+In this post, you'll learn:
+✅ What is Observability?
+✅ Pillar 1: Logs
+✅ Pillar 2: Metrics
+✅ Pillar 3: Tracing
+✅ Why All Three?
+✅ A real-world scenario
+
+What's your favorite observability tool for debugging production issues?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 14.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #observability #devops #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
