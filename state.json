@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-12",
+  "last_published_date": "2026-11-13",
   "history": [
     {
       "date": "2026-10-14",
@@ -356,6 +356,14 @@
       "title": "The 4 Pillars of Object-Oriented Programming",
       "media_id": "18114963230628121",
       "kind": "carousel"
+    },
+    {
+      "date": "2026-11-13",
+      "title": "Observability: See What Your System Is Doing",
+      "media_id": "18644747155036321",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 13
     }
   ]
 }
