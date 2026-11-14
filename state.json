@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-13",
+  "last_published_date": "2026-11-15",
   "history": [
     {
       "date": "2026-10-14",
@@ -364,6 +364,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 13
+    },
+    {
+      "date": "2026-11-15",
+      "title": "API Gateways: Your System's Front Door",
+      "media_id": "17997033183105934",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 14
     }
   ]
 }
