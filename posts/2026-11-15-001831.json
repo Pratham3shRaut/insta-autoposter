@@ -1,0 +1,122 @@
+{
+  "topic": "System Design #14",
+  "title": "API Gateways: Your System's Front Door",
+  "intro": "An API Gateway acts as a single entry point for all client requests, routing them to the correct backend services. It centralizes common tasks, simplifying client-side interactions and improving system security.",
+  "slides": [
+    {
+      "heading": "The Front Door",
+      "subtitle": "Single entry point for all client requests",
+      "explain": "Imagine your microservices as many different rooms in a building. An API Gateway is the reception desk. All external requests first hit the Gateway, which then intelligently directs them to the appropriate backend service. This abstracts the internal architecture from clients.",
+      "points": [
+        "Centralizes request handling",
+        "Shields internal services",
+        "Simplifies client integration"
+      ],
+      "flow": [
+        "Client",
+        "API Gateway",
+        "Backend Service"
+      ],
+      "examples": [
+        "Netflix API Gateway",
+        "Amazon API Gateway"
+      ]
+    },
+    {
+      "heading": "Why Use One?",
+      "subtitle": "Simplifies clients, secures services, and optimizes traffic",
+      "explain": "For clients, they only need to know one URL to access various services. For backend services, they don't have to handle cross-cutting concerns like authentication or rate limiting. The Gateway can also manage traffic efficiently, ensuring fair access and preventing overload. It's a win-win for both sides.",
+      "points": [
+        "Client simplification",
+        "Enhanced security",
+        "Traffic management"
+      ],
+      "examples": [
+        "Easier mobile app dev",
+        "Centralized security"
+      ]
+    },
+    {
+      "heading": "Request Routing",
+      "subtitle": "Directs incoming requests to the right service",
+      "explain": "Based on the incoming request's path, header, or query parameters, the API Gateway knows which backend microservice should handle it. It acts as a reverse proxy, mapping external URLs to internal service addresses. This is crucial for orchestrating requests in a microservices environment.",
+      "points": [
+        "Maps external to internal",
+        "Service discovery integration",
+        "Dynamic routing rules"
+      ],
+      "flow": [
+        "Request",
+        "API Gateway",
+        "User Service",
+        "Product Service"
+      ],
+      "examples": [
+        "/users -> User Service",
+        "/orders -> Order Service"
+      ]
+    },
+    {
+      "heading": "Authentication & Security",
+      "subtitle": "Protects services from abuse and overloads",
+      "explain": "API Gateways enforce security policies and traffic control. They can authenticate users, authorize access to specific endpoints, and apply rate limits to prevent denial-of-service attacks or excessive usage. This protects your backend services from direct exposure and misuse.",
+      "points": [
+        "Authentication checks",
+        "Authorization rules",
+        "Rate limiting enforcement"
+      ],
+      "examples": [
+        "API Key validation",
+        "IP-based rate limits"
+      ]
+    },
+    {
+      "heading": "Gateway vs. LB",
+      "subtitle": "Similar but distinct roles in your architecture",
+      "explain": "A Load Balancer distributes traffic across multiple instances of the same service to ensure high availability and performance. An API Gateway routes traffic to different types of services (e.g., User Service, Product Service) and adds application-level functionality. They often work together, with the Gateway sitting behind the Load Balancer.",
+      "points": [
+        "LB: distributes same service",
+        "Gateway: routes different services",
+        "LB operates at L4/L7, Gateway at L7"
+      ],
+      "flow": [
+        "Client",
+        "Load Balancer",
+        "API Gateway",
+        "Service Instances"
+      ],
+      "examples": [
+        "NGINX (LB & Gateway)",
+        "AWS ALB vs API Gateway"
+      ]
+    },
+    {
+      "heading": "When to Use One?",
+      "subtitle": "Essential for microservices, optional for monoliths",
+      "explain": "API Gateways shine in microservices architectures where many services need a unified entry point and shared cross-cutting concerns. For simple monolithic applications, a reverse proxy or load balancer might suffice. Over-engineering with a Gateway can add unnecessary complexity if not truly needed.",
+      "points": [
+        "Microservices entry point",
+        "Centralized policy enforcement",
+        "Avoid for simple monoliths"
+      ],
+      "examples": [
+        "Large-scale e-commerce",
+        "Mobile backend services"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your team has 5 microservices (Users, Products, Orders, Payments, Notifications), each with its own URL and authentication logic. Your new mobile app needs to call all of them for a single user dashboard screen.",
+    "problem": "The mobile app code becomes overly complex, making multiple network calls and managing 5 different authentication tokens. Each service also has its own inconsistent rate limiting, leading to unpredictable user experiences and backend overhead.",
+    "fix": "Implement an API Gateway. The mobile app now calls one central endpoint on the Gateway, which handles unified authentication, applies consistent rate limiting, and intelligently routes requests to the correct internal microservice. This simplifies client logic and centralizes security policies.",
+    "takeaway": "An API Gateway streamlines interactions with complex microservice landscapes."
+  },
+  "cta": "Have you worked with an API Gateway before? Share your experience or favorite feature below!",
+  "tags": [
+    "systemdesign",
+    "apigateway",
+    "microservices"
+  ],
+  "series": "System Design",
+  "part": 14
+}

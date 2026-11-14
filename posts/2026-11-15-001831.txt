@@ -1,0 +1,22 @@
+API Gateways: Your System's Front Door
+📚 Part 14 of our System Design series
+
+An API Gateway acts as a single entry point for all client requests, routing them to the correct backend services. It centralizes common tasks, simplifying client-side interactions and improving system security.
+
+In this post, you'll learn:
+✅ The Front Door
+✅ Why Use One?
+✅ Request Routing
+✅ Authentication & Security
+✅ Gateway vs. LB
+✅ When to Use One?
+✅ A real-world scenario
+
+Have you worked with an API Gateway before? Share your experience or favorite feature below!
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 15.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #apigateway #microservices #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
