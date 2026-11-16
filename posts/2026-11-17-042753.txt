@@ -1,0 +1,22 @@
+Distributed Tracing Explained
+📚 Part 15 of our System Design series
+
+As systems grow, a single user request might touch many different services. How do you track its journey, find bottlenecks, or pinpoint errors across this complex web? Enter Distributed Tracing.
+
+In this post, you'll learn:
+✅ What is it?
+✅ The Problem It Solves
+✅ Spans & Traces
+✅ How it Works (Instrumentation)
+✅ Visualization
+✅ Key Benefits
+✅ A real-world scenario
+
+What's the trickiest bug you've had to solve across multiple services?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 16.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #microservices #observability #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

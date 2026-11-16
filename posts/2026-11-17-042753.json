@@ -1,0 +1,128 @@
+{
+  "topic": "System Design #15",
+  "title": "Distributed Tracing Explained",
+  "intro": "As systems grow, a single user request might touch many different services. How do you track its journey, find bottlenecks, or pinpoint errors across this complex web? Enter Distributed Tracing.",
+  "slides": [
+    {
+      "heading": "What is it?",
+      "subtitle": "Track a single request across multiple services",
+      "explain": "Distributed tracing is a technique used to monitor and profile applications, especially those built on a microservices architecture. It allows developers to visualize how a request propagates through various services, databases, and message queues. It's like giving each request a unique ID and following its path.",
+      "points": [
+        "Monitors microservices applications",
+        "Visualizes request flow end-to-end",
+        "Crucial for complex systems"
+      ],
+      "flow": [
+        "User Request",
+        "Service A",
+        "Service B",
+        "Database"
+      ],
+      "examples": [
+        "Order processing",
+        "User login",
+        "Payment flow"
+      ]
+    },
+    {
+      "heading": "The Problem It Solves",
+      "subtitle": "Debugging microservices is hard!",
+      "explain": "In a monolithic application, logs from a single request are usually in one place. With microservices, a request generates logs across many independent services. Pinpointing where a slowdown occurred or which service failed without tracing is extremely difficult and time-consuming. It's like finding a needle in a haystack of logs.",
+      "points": [
+        "Identify performance bottlenecks",
+        "Pinpoint error origins quickly",
+        "Reduce mean time to resolution (MTTR)"
+      ],
+      "examples": [
+        "Slow API response",
+        "Failed payment",
+        "User timeout"
+      ]
+    },
+    {
+      "heading": "Spans & Traces",
+      "subtitle": "Building blocks of a traced request",
+      "explain": "A 'Trace' represents the complete journey of a single request through the system. A 'Span' is a single operation or unit of work within that trace, like an HTTP request to another service or a database query. Spans are nested, forming a tree-like structure, showing parent-child relationships.",
+      "points": [
+        "Trace: Full path of a request",
+        "Span: A single operation within a trace",
+        "Spans are nested (parent-child)"
+      ],
+      "examples": [
+        "Auth service call",
+        "DB query",
+        "External API call"
+      ]
+    },
+    {
+      "heading": "How it Works (Instrumentation)",
+      "subtitle": "Services pass trace context",
+      "explain": "To enable tracing, each service needs to be 'instrumented.' This means adding code that extracts incoming trace IDs and injects new ones into outgoing requests (usually via HTTP headers). This context includes the trace ID, parent span ID, and current span ID, linking all operations together.",
+      "points": [
+        "Extracts incoming trace IDs",
+        "Injects new IDs to outgoing requests",
+        "Uses HTTP headers or similar methods"
+      ],
+      "flow": [
+        "Service 1",
+        "Adds TraceID",
+        "Service 2",
+        "Adds SpanID"
+      ],
+      "examples": [
+        "OpenTelemetry",
+        "Zipkin B3 headers"
+      ]
+    },
+    {
+      "heading": "Visualization",
+      "subtitle": "See the request's journey",
+      "explain": "Traces are sent to a 'tracing backend' (like Jaeger or Zipkin) which collects, stores, and aggregates the span data. These tools then visualize the trace as a waterfall diagram or a timeline. This allows you to see the exact sequence of operations, their duration, and any errors.",
+      "points": [
+        "Tracing backends collect data",
+        "Visualize as waterfall diagrams",
+        "Shows timing and dependencies"
+      ],
+      "flow": [
+        "Instrumented Service",
+        "Send Span Data",
+        "Tracing Backend",
+        "Visualize"
+      ],
+      "examples": [
+        "Jaeger UI",
+        "Zipkin UI",
+        "Lightstep"
+      ]
+    },
+    {
+      "heading": "Key Benefits",
+      "subtitle": "Faster debugging, better performance",
+      "explain": "Distributed tracing significantly improves the ability to understand and troubleshoot complex distributed systems. It helps developers quickly identify bottlenecks, reduce latency, and ensure the reliability of their applications. It's an indispensable tool for maintaining healthy microservices.",
+      "points": [
+        "Faster root cause analysis",
+        "Optimize system performance",
+        "Improve overall system reliability"
+      ],
+      "examples": [
+        "Latency reduction",
+        "Error isolation",
+        "Service map"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce site is experiencing intermittent slowdowns during checkout. Users complain of pages loading forever, but not every time.",
+    "problem": "Your monitoring shows overall service health is good, but logs are scattered across payment, inventory, and order services. You can't tell which part of the checkout flow is actually slow.",
+    "fix": "You implement distributed tracing. Now, you can see individual checkout requests. Traces reveal that the 'update inventory' call to a third-party API is occasionally taking 5 seconds, causing the bottleneck.",
+    "takeaway": "Distributed tracing pinpoints performance issues in complex systems."
+  },
+  "cta": "What's the trickiest bug you've had to solve across multiple services?",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "observability"
+  ],
+  "series": "System Design",
+  "part": 15
+}
