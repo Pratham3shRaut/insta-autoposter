@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-15",
+  "last_published_date": "2026-11-17",
   "history": [
     {
       "date": "2026-10-14",
@@ -372,6 +372,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 14
+    },
+    {
+      "date": "2026-11-17",
+      "title": "Distributed Tracing Explained",
+      "media_id": "18076772090485569",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 15
     }
   ]
 }
