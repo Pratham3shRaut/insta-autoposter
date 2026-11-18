@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-17",
+  "last_published_date": "2026-11-19",
   "history": [
     {
       "date": "2026-10-14",
@@ -380,6 +380,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 15
+    },
+    {
+      "date": "2026-11-19",
+      "title": "Microservices Explained Simply",
+      "media_id": "18380249359240921",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 16
     }
   ]
 }
