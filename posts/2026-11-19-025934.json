@@ -1,0 +1,100 @@
+{
+  "topic": "System Design #16",
+  "title": "Microservices Explained Simply",
+  "intro": "Understanding how to structure large applications is key in system design. Microservices offer a powerful way to build scalable and resilient systems, breaking down complex apps into manageable parts. Let's explore what they are and why they matter.",
+  "slides": [
+    {
+      "heading": "What Are They?",
+      "subtitle": "Small, independent services for specific functions.",
+      "explain": "Microservices architecture structures an application as a collection of loosely coupled services. Each service performs a specific business capability, like 'User Management' or 'Order Processing'. They communicate through lightweight mechanisms, often APIs, allowing them to operate independently.",
+      "points": [
+        "Application as small, independent services",
+        "Each service handles a single business function",
+        "Communicate via APIs (HTTP/message queues)"
+      ],
+      "examples": [
+        "User Service",
+        "Order Service",
+        "Product Service"
+      ]
+    },
+    {
+      "heading": "Monolith vs. Microservices",
+      "subtitle": "A big app vs. many small, connected apps.",
+      "explain": "A monolithic application is a single, large codebase where all components are tightly coupled and run as one process. Microservices break this into many smaller, independent services, each with its own codebase, database (often), and deployment pipeline. This offers more flexibility.",
+      "points": [
+        "Monolith: one big app, tight coupling",
+        "Microservices: many small apps, loose coupling",
+        "Different deployment strategies"
+      ],
+      "flow": [
+        "User Interface",
+        "API Gateway",
+        "Auth Service",
+        "Product Service"
+      ],
+      "examples": [
+        "E-commerce",
+        "Banking",
+        "Social Media"
+      ]
+    },
+    {
+      "heading": "Key Principles",
+      "subtitle": "Independence, single responsibility, fault isolation.",
+      "explain": "Each microservice should be independently deployable, meaning you can update one service without affecting others. They adhere to the single responsibility principle, focusing on one task. This design also means if one service fails, it doesn't necessarily bring down the entire system, promoting fault tolerance.",
+      "points": [
+        "Independent deployment & scaling",
+        "Single responsibility principle",
+        "Data ownership by service"
+      ],
+      "examples": [
+        "Netflix",
+        "Amazon",
+        "Spotify"
+      ]
+    },
+    {
+      "heading": "Benefits",
+      "subtitle": "Scalability, flexibility, faster development.",
+      "explain": "Microservices allow teams to develop and deploy services independently, accelerating development cycles. You can scale specific services that experience high demand, rather than scaling the entire application, optimizing resource use. They also allow for diverse technology choices per service.",
+      "points": [
+        "Independent teams & faster delivery",
+        "Service-specific scaling",
+        "Technology freedom (polyglot)"
+      ],
+      "examples": [
+        "Faster feature rollout",
+        "Better resource utilization"
+      ]
+    },
+    {
+      "heading": "Challenges",
+      "subtitle": "Complexity, operational overhead, distributed data.",
+      "explain": "Managing many independent services introduces significant operational complexity, requiring robust monitoring, deployment, and orchestration tools. Distributed transactions and maintaining data consistency across multiple services can also be difficult. Debugging across services is harder due to network latency and failures.",
+      "points": [
+        "Increased operational complexity",
+        "Distributed data management",
+        "Inter-service communication overhead"
+      ],
+      "examples": [
+        "Debugging failures",
+        "Consistent data updates"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "A large e-commerce platform built as a monolith is experiencing slow deployments and difficulty scaling specific parts of the application.",
+    "problem": "When the 'Product Catalog' part gets a traffic spike, the entire monolithic application must be scaled, wasting resources. Deploying a small bug fix requires redeploying the whole large application, causing downtime risks.",
+    "fix": "Refactoring the platform into microservices. The 'Product Catalog' can become its own service, scaled independently during peak times. Other services like 'Order Processing' are separate, isolating issues and speeding up deployments.",
+    "takeaway": "Microservices enable independent scaling and faster, safer deployments."
+  },
+  "cta": "What's the biggest challenge you've faced with monolithic applications?",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "architecture"
+  ],
+  "series": "System Design",
+  "part": 16
+}
