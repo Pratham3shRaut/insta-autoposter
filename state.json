@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-19",
+  "last_published_date": "2026-11-20",
   "history": [
     {
       "date": "2026-10-14",
@@ -388,6 +388,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 16
+    },
+    {
+      "date": "2026-11-20",
+      "title": "Service Discovery Explained Simply",
+      "media_id": "18127111559291763",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 17
     }
   ]
 }
