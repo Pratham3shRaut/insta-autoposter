@@ -1,0 +1,22 @@
+Service Discovery Explained Simply
+📚 Part 17 of our System Design series
+
+In microservices, services need to find each other to communicate. But how do they know where other services are running, especially when IPs and ports constantly change? That's where Service Discovery comes in.
+
+In this post, you'll learn:
+✅ The Microservices Maze
+✅ What It Is
+✅ Service Registration
+✅ Service Lookup
+✅ Client-Side Discovery
+✅ Server-Side Discovery
+✅ A real-world scenario
+
+What challenges have you faced with service communication in distributed systems?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 18.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #microservices #servicediscovery #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

@@ -1,0 +1,131 @@
+{
+  "topic": "System Design #17",
+  "title": "Service Discovery Explained Simply",
+  "intro": "In microservices, services need to find each other to communicate. But how do they know where other services are running, especially when IPs and ports constantly change? That's where Service Discovery comes in.",
+  "slides": [
+    {
+      "heading": "The Microservices Maze",
+      "subtitle": "Services need to find each other dynamically",
+      "explain": "In microservice architectures, service instances are often deployed and scaled dynamically. Their network locations (IPs, ports) are not fixed and can change frequently. This makes it impossible to hardcode addresses for inter-service communication.",
+      "points": [
+        "Dynamic IPs & ports",
+        "Manual configuration fails",
+        "Services scale up/down constantly"
+      ],
+      "examples": [
+        "User Service",
+        "Product Service",
+        "Order Service"
+      ]
+    },
+    {
+      "heading": "What It Is",
+      "subtitle": "Finding services automatically in a distributed system",
+      "explain": "Service Discovery is a core mechanism that allows services to automatically register their network locations and for client applications to find these services. It acts like a dynamic phone book or directory for your distributed system, ensuring services can always locate each other.",
+      "points": [
+        "Automated registration",
+        "Dynamic lookup",
+        "Central registry component"
+      ],
+      "examples": [
+        "User Service",
+        "Payment Service"
+      ]
+    },
+    {
+      "heading": "Service Registration",
+      "subtitle": "Services announce their presence to a central registry",
+      "explain": "When a new instance of a service starts up, it registers itself with a central Service Registry. It provides its network address (IP, port) and often its health status. This can be done automatically by the service itself (self-registration) or by a sidecar agent.",
+      "points": [
+        "Service starts up",
+        "Sends info to registry",
+        "Includes IP, port, health checks"
+      ],
+      "flow": [
+        "Service Instance",
+        "Registers With",
+        "Service Registry"
+      ],
+      "examples": [
+        "Eureka",
+        "Consul",
+        "ZooKeeper"
+      ]
+    },
+    {
+      "heading": "Service Lookup",
+      "subtitle": "Clients query the registry to find service locations",
+      "explain": "When a client service needs to communicate with another service, it queries the Service Registry. The registry provides a list of available instances for the requested service. The client then selects an instance to send its request to.",
+      "points": [
+        "Client needs a service",
+        "Queries the registry",
+        "Gets available instances"
+      ],
+      "flow": [
+        "Client Service",
+        "Queries",
+        "Service Registry",
+        "Gets Locations"
+      ],
+      "examples": [
+        "User Service",
+        "Order Service"
+      ]
+    },
+    {
+      "heading": "Client-Side Discovery",
+      "subtitle": "Client handles lookup and load balancing directly",
+      "explain": "In client-side discovery, the client service is responsible for querying the Service Registry for service instances. After receiving the list, the client applies its own load-balancing algorithm (e.g., round-robin) to pick an instance. It then makes the direct network call.",
+      "points": [
+        "Client queries registry",
+        "Client applies load balancing",
+        "Direct call to instance"
+      ],
+      "flow": [
+        "Client",
+        "Query Registry",
+        "Select Instance",
+        "Call Service"
+      ],
+      "examples": [
+        "Netflix Eureka Client",
+        "Spring Cloud LoadBalancer"
+      ]
+    },
+    {
+      "heading": "Server-Side Discovery",
+      "subtitle": "Load balancer abstracts discovery from the client",
+      "explain": "With server-side discovery, a dedicated component (like a load balancer or API Gateway) handles the lookup. The client makes a request to a well-known URL of this component. The load balancer queries the registry to find an available service instance and forwards the request, abstracting discovery from the client.",
+      "points": [
+        "Client calls load balancer",
+        "Load balancer queries registry",
+        "Load balancer forwards request"
+      ],
+      "flow": [
+        "Client",
+        "Call LB",
+        "LB Queries Registry",
+        "LB Forwards To Service"
+      ],
+      "examples": [
+        "AWS ELB/ALB",
+        "Kubernetes Kube-proxy",
+        "Nginx"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce app uses microservices. You just deployed 5 new instances of your 'ProductService' on new VMs to handle Black Friday traffic.",
+    "problem": "The 'UserService' can't display product details. It's still trying to use old, hardcoded IP addresses for 'ProductService' that are no longer valid, or it doesn't know about the new instances.",
+    "fix": "You implement a Service Registry (e.g., Consul). When 'ProductService' instances start, they register themselves. 'UserService' queries the registry to get current 'ProductService' locations dynamically, ensuring communication.",
+    "takeaway": "Service Discovery eliminates hardcoding service addresses, enabling dynamic scaling."
+  },
+  "cta": "What challenges have you faced with service communication in distributed systems?",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "servicediscovery"
+  ],
+  "series": "System Design",
+  "part": 17
+}
