@@ -1,0 +1,109 @@
+{
+  "topic": "System Design #18",
+  "title": "Idempotency Explained Simply",
+  "intro": "In distributed systems, requests can fail or get duplicated. Idempotency ensures that performing an operation multiple times has the same effect as performing it once, preventing unwanted side effects.",
+  "slides": [
+    {
+      "heading": "What is Idempotency?",
+      "subtitle": "Operations that can be safely retried",
+      "explain": "An idempotent operation yields the same result whether executed once or many times. It's about the final state of the system, not how many times the request was sent. This is crucial for reliability in networked systems.",
+      "points": [
+        "Same result, no matter how many times.",
+        "Focuses on the system's final state.",
+        "Key for reliable distributed systems."
+      ],
+      "examples": [
+        "Read data (GET)",
+        "Delete resource (DELETE)",
+        "Update specific field"
+      ]
+    },
+    {
+      "heading": "Idempotent vs Not",
+      "subtitle": "Understand the difference with examples",
+      "explain": "A `GET` request is idempotent; fetching data multiple times doesn't change it. A `DELETE` is also idempotent; deleting an already deleted resource has no further effect. However, a `POST` to create a new resource is often not idempotent, as multiple calls create multiple resources.",
+      "points": [
+        "GET, DELETE: Typically idempotent.",
+        "POST (create): Often non-idempotent.",
+        "PUT (update entire): Can be idempotent."
+      ],
+      "examples": [
+        "GET /users/1",
+        "DELETE /order/X",
+        "POST /orders"
+      ]
+    },
+    {
+      "heading": "Why It Matters",
+      "subtitle": "Prevents errors from retries and duplicate events",
+      "explain": "In microservices, network issues or service failures often lead to retries. If an operation isn't idempotent, a retried payment might charge a customer twice. Message queues with \"at-least-once\" delivery can also send the same message multiple times, requiring idempotent processing.",
+      "points": [
+        "Network retries cause duplicates.",
+        "At-least-once delivery duplicates messages.",
+        "Avoids unintended side effects."
+      ],
+      "flow": [
+        "Client",
+        "Retry Logic",
+        "Service"
+      ],
+      "examples": [
+        "Double payment",
+        "Duplicate emails"
+      ]
+    },
+    {
+      "heading": "How to Build It",
+      "subtitle": "Use idempotency keys or unique constraints",
+      "explain": "The most common pattern is using an \"idempotency key,\" usually a unique UUID provided by the client with each request. The server stores this key and the result of the first successful operation. Subsequent requests with the same key return the stored result.",
+      "points": [
+        "Client sends a unique key.",
+        "Server stores key and result.",
+        "Subsequent calls return stored result."
+      ],
+      "flow": [
+        "Client Req",
+        "Server Check",
+        "DB"
+      ],
+      "examples": [
+        "Stripe-Idempotency-Key"
+      ]
+    },
+    {
+      "heading": "Key Example",
+      "subtitle": "Processing an order creation request",
+      "explain": "When a user places an order, the frontend generates a unique idempotency key and sends it with the `POST /orders` request. The backend checks if this key has already been processed. If yes, it returns the previous order status. If no, it creates the order, stores the key, and then returns the new order details.",
+      "points": [
+        "Client provides unique `id`.",
+        "Server checks `id` in storage.",
+        "Process or return existing result."
+      ],
+      "flow": [
+        "Client",
+        "API",
+        "Idempotency Store",
+        "DB"
+      ],
+      "examples": [
+        "Payment",
+        "Order Creation",
+        "Fund Transfer"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce site processes payments. A user clicks \"Pay Now,\" but their network briefly glitches.",
+    "problem": "The frontend, not getting an immediate response, automatically retries the payment request. Without idempotency, the user is charged twice for the same order.",
+    "fix": "Implement idempotency keys. Frontend generates a unique key per payment. Backend processes first, stores key. Retried request with same key returns original success, preventing double charge.",
+    "takeaway": "Idempotency keys prevent duplicate operations from retries."
+  },
+  "cta": "What's the trickiest duplicate operation you've encountered in a system?",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "reliability"
+  ],
+  "series": "System Design",
+  "part": 18
+}

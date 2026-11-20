@@ -1,0 +1,21 @@
+Idempotency Explained Simply
+📚 Part 18 of our System Design series
+
+In distributed systems, requests can fail or get duplicated. Idempotency ensures that performing an operation multiple times has the same effect as performing it once, preventing unwanted side effects.
+
+In this post, you'll learn:
+✅ What is Idempotency?
+✅ Idempotent vs Not
+✅ Why It Matters
+✅ How to Build It
+✅ Key Example
+✅ A real-world scenario
+
+What's the trickiest duplicate operation you've encountered in a system?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 19.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #microservices #reliability #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
