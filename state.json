@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-21",
+  "last_published_date": "2026-11-22",
   "history": [
     {
       "date": "2026-10-14",
@@ -412,6 +412,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 19
+    },
+    {
+      "date": "2026-11-22",
+      "title": "Event-Driven Architecture Simply",
+      "media_id": "18134071312856287",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 20
     }
   ]
 }
