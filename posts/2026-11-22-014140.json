@@ -1,0 +1,119 @@
+{
+  "topic": "System Design #20",
+  "title": "Event-Driven Architecture Simply",
+  "intro": "Dive into Event-Driven Architecture (EDA)! It's a powerful way for services to communicate by reacting to 'events' instead of direct calls. This pattern boosts flexibility, scalability, and resilience in distributed systems.",
+  "slides": [
+    {
+      "heading": "Event-Driven Arch",
+      "subtitle": "React to changes, not just requests",
+      "explain": "A software design pattern where components communicate by sending and receiving \"events.\" Instead of direct calls, services publish events about things that happened, and other services react to these events. This promotes loose coupling and responsiveness.",
+      "points": [
+        "Services communicate via events",
+        "Decoupled components",
+        "Responsive and scalable"
+      ],
+      "flow": [
+        "Producer",
+        "Event Bus",
+        "Consumer"
+      ],
+      "examples": [
+        "Payment processed",
+        "Order placed"
+      ]
+    },
+    {
+      "heading": "What are Events?",
+      "subtitle": "A record of something that happened",
+      "explain": "An event is a message signifying that a state change has occurred. It's a fact, immutable, and typically contains a small amount of data relevant to the change, like \"OrderCreated\" with an orderId. Events don't contain commands or instructions.",
+      "points": [
+        "Immutable fact",
+        "Contains state change data",
+        "Not a command"
+      ],
+      "examples": [
+        "User registered",
+        "Product updated"
+      ]
+    },
+    {
+      "heading": "Publishers & Subs",
+      "subtitle": "Who sends, who listens",
+      "explain": "A \"publisher\" (or producer) is a service that creates and sends events when something happens within its domain. A \"subscriber\" (or consumer) is a service that expresses interest in certain events and takes action when it receives them.",
+      "points": [
+        "Publisher: Emits events",
+        "Subscriber: Reacts to events",
+        "Don't know each other"
+      ],
+      "flow": [
+        "Publisher",
+        "Event",
+        "Subscriber"
+      ],
+      "examples": [
+        "Order Service",
+        "Email Service"
+      ]
+    },
+    {
+      "heading": "The Event Broker",
+      "subtitle": "The central message hub",
+      "explain": "The event broker (or event bus) is the central component that receives events from publishers and routes them to interested subscribers. It ensures reliable delivery and acts as a buffer, allowing services to operate independently without direct knowledge of each other.",
+      "points": [
+        "Receives and routes events",
+        "Ensures reliable delivery",
+        "Decouples services"
+      ],
+      "flow": [
+        "Publisher",
+        "Broker",
+        "Subscriber"
+      ],
+      "examples": [
+        "Kafka",
+        "RabbitMQ"
+      ]
+    },
+    {
+      "heading": "Key Benefits",
+      "subtitle": "Loose coupling, scalability, resilience",
+      "explain": "EDA makes systems more flexible and scalable. Services don't need to know who consumes their events, making it easy to add new features or scale specific parts. It also enhances resilience, as services can process events asynchronously, tolerating temporary failures.",
+      "points": [
+        "Loose coupling",
+        "High scalability",
+        "Improved resilience"
+      ],
+      "examples": [
+        "Add new feature (new listener)"
+      ]
+    },
+    {
+      "heading": "When to use EDA",
+      "subtitle": "Complex systems, real-time needs",
+      "explain": "EDA shines in complex distributed systems, especially microservices, where many services need to react to changes. It's great for scenarios requiring real-time updates, parallel processing, or integrating disparate systems. Not always ideal for simple request/response.",
+      "points": [
+        "Microservices",
+        "Real-time processing",
+        "Integrating systems"
+      ],
+      "examples": [
+        "E-commerce",
+        "IoT platforms"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce microservices (Order, Inventory, Shipping, Email) are tightly coupled. Order service directly calls others after an order is placed.",
+    "problem": "If the Email service is down, the entire order processing fails. Adding a new \"Loyalty Points\" service means modifying the Order service, leading to brittle code.",
+    "fix": "Order service publishes \"OrderPlaced\" event to a broker. Inventory, Shipping, Email, and Loyalty services subscribe independently, reacting to the event without direct calls.",
+    "takeaway": "EDA decouples services, making systems flexible, scalable, and resilient."
+  },
+  "cta": "What's one challenge you foresee when implementing an Event-Driven Architecture? Share below!",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "architecture"
+  ],
+  "series": "System Design",
+  "part": 20
+}

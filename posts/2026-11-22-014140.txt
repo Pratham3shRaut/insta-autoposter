@@ -1,0 +1,22 @@
+Event-Driven Architecture Simply
+📚 Part 20 of our System Design series
+
+Dive into Event-Driven Architecture (EDA)! It's a powerful way for services to communicate by reacting to 'events' instead of direct calls. This pattern boosts flexibility, scalability, and resilience in distributed systems.
+
+In this post, you'll learn:
+✅ Event-Driven Arch
+✅ What are Events?
+✅ Publishers & Subs
+✅ The Event Broker
+✅ Key Benefits
+✅ When to use EDA
+✅ A real-world scenario
+
+What's one challenge you foresee when implementing an Event-Driven Architecture? Share below!
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 21.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #microservices #architecture #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode
