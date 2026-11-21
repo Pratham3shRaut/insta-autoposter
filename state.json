@@ -404,6 +404,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 18
+    },
+    {
+      "date": "2026-11-21",
+      "title": "Circuit Breaker Pattern: Stop Cascading Failures",
+      "media_id": "17935856487422815",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 19
     }
   ]
 }
