@@ -1,0 +1,21 @@
+Circuit Breaker Pattern: Stop Cascading Failures
+📚 Part 19 of our System Design series
+
+In distributed systems, a single failing service can take down others. Learn how the Circuit Breaker pattern prevents cascading failures and keeps your system resilient.
+
+In this post, you'll learn:
+✅ The Problem
+✅ What It Is
+✅ Circuit States
+✅ How It Helps
+✅ Fallbacks & Metrics
+✅ A real-world scenario
+
+Have you ever seen a cascading failure? How did you solve it?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 20.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #microservices #resilience #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

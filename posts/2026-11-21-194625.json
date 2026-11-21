@@ -1,0 +1,104 @@
+{
+  "topic": "System Design #19",
+  "title": "Circuit Breaker Pattern: Stop Cascading Failures",
+  "intro": "In distributed systems, a single failing service can take down others. Learn how the Circuit Breaker pattern prevents cascading failures and keeps your system resilient.",
+  "slides": [
+    {
+      "heading": "The Problem",
+      "subtitle": "Cascading failures in microservices.",
+      "explain": "Imagine one microservice calls another. If the called service is slow or unresponsive, the calling service waits. If many calls to the failing service pile up, the calling service's resources get exhausted, eventually causing it to fail too. This can spread quickly.",
+      "points": [
+        "Service A calls Service B.",
+        "Service B fails or is slow.",
+        "Service A's requests pile up.",
+        "Service A exhausts resources and fails."
+      ],
+      "flow": [
+        "Client",
+        "Service A",
+        "Service B (Fails)"
+      ],
+      "examples": [
+        "Payment gateway slowdown",
+        "User profile DB down"
+      ]
+    },
+    {
+      "heading": "What It Is",
+      "subtitle": "A safety mechanism for service calls.",
+      "explain": "The Circuit Breaker pattern is like an electrical circuit breaker. When a service experiences too many failures (e.g., timeouts, errors) within a set period, the circuit \"trips\" open. Instead of retrying the failing service, requests immediately fail fast or fall back to a default.",
+      "points": [
+        "Monitors outgoing service calls.",
+        "Trips open on repeated failures.",
+        "Prevents retrying a failing service."
+      ],
+      "examples": [
+        "Hystrix library",
+        "Resilience4j"
+      ]
+    },
+    {
+      "heading": "Circuit States",
+      "subtitle": "Closed, Open, and Half-Open.",
+      "explain": "It operates in three states. Closed is normal. Too many failures shift it to Open, where all requests fail fast. After a timeout, it tries Half-Open with a few test requests. If successful, back to Closed; if not, back to Open.",
+      "points": [
+        "Closed: Normal operation.",
+        "Open: Block all calls for a duration.",
+        "Half-Open: Test if service recovered."
+      ],
+      "flow": [
+        "Closed",
+        "Open",
+        "Half-Open",
+        "Closed/Open"
+      ],
+      "examples": [
+        "Service healthy",
+        "Service down",
+        "Probing service"
+      ]
+    },
+    {
+      "heading": "How It Helps",
+      "subtitle": "Improves resilience and responsiveness.",
+      "explain": "By failing fast when a downstream service is struggling, the calling service saves its own resources. It avoids tying up threads, memory, and CPU waiting for an unresponsive service. This allows the calling service to remain operational and serve other requests or use fallback mechanisms.",
+      "points": [
+        "Prevents resource exhaustion.",
+        "Protects calling service from overload.",
+        "Allows time for failing service to recover."
+      ],
+      "examples": [
+        "Fast error responses",
+        "Degraded functionality"
+      ]
+    },
+    {
+      "heading": "Fallbacks & Metrics",
+      "subtitle": "Graceful degradation and insights.",
+      "explain": "When the circuit is open, you can provide a fallback response, like cached data, a default value, or an empty list. This ensures a degraded but still functional experience. Circuit breakers also provide metrics on success/failure rates, giving insights into service health.",
+      "points": [
+        "Offer fallback data/logic.",
+        "Provide monitoring metrics.",
+        "Enhance overall system stability."
+      ],
+      "examples": [
+        "Show cached user data",
+        "Display 'feature unavailable'"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce microservice calls a third-party payment gateway to finalize orders.",
+    "problem": "The payment gateway fails. Your service's payment calls hang, exhausting connection pools and crashing your entire order processing service.",
+    "fix": "A Circuit Breaker detects payment gateway failures, trips open, and returns an error. Your order service continues processing, protected from the external outage. It avoids crashing.",
+    "takeaway": "Circuit breakers prevent external failures from crashing your own system."
+  },
+  "cta": "Have you ever seen a cascading failure? How did you solve it?",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "resilience"
+  ],
+  "series": "System Design",
+  "part": 19
+}
