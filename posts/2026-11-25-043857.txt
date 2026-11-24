@@ -1,0 +1,21 @@
+Leader Election in Distributed Systems
+📚 Part 21 of our System Design series
+
+In a distributed system, how do multiple servers agree on who's in charge? Leader Election ensures consistency and coordination, even when things go wrong. It's vital for robust systems.
+
+In this post, you'll learn:
+✅ Leader Election Basics
+✅ Why Do We Need It?
+✅ Basic Election Flow
+✅ The Bully Algorithm
+✅ Raft Algorithm (Lite)
+✅ A real-world scenario
+
+What's the trickiest distributed system problem you've faced?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 22.
+Missed the earlier parts? They're on our profile.
+
+#distributedsystems #systemdesign #consensus #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

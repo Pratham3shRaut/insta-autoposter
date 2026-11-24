@@ -1,0 +1,107 @@
+{
+  "topic": "System Design #21",
+  "title": "Leader Election in Distributed Systems",
+  "intro": "In a distributed system, how do multiple servers agree on who's in charge? Leader Election ensures consistency and coordination, even when things go wrong. It's vital for robust systems.",
+  "slides": [
+    {
+      "heading": "Leader Election Basics",
+      "subtitle": "How distributed systems choose a single coordinator.",
+      "explain": "It's a process where nodes in a distributed system agree to designate one node as the \"leader.\" This leader is responsible for coordinating tasks, making decisions, or maintaining a consistent state. It prevents conflicts and ensures smooth operation.",
+      "points": [
+        "Designates one node as \"leader\"",
+        "Coordinates tasks, makes decisions",
+        "Prevents conflicts, ensures consistency"
+      ],
+      "examples": [
+        "Database primary",
+        "Kubernetes master"
+      ]
+    },
+    {
+      "heading": "Why Do We Need It?",
+      "subtitle": "Avoiding chaos and ensuring unique actions.",
+      "explain": "Without a leader, multiple nodes might try to perform the same unique task, leading to data corruption or wasted resources. For example, in a replicated database, only one node should be the writable primary to avoid \"split-brain\" issues where two primaries diverge.",
+      "points": [
+        "Prevent data corruption",
+        "Avoid duplicate tasks",
+        "Ensure consistent state"
+      ],
+      "examples": [
+        "Split-brain",
+        "Duplicate job processing"
+      ]
+    },
+    {
+      "heading": "Basic Election Flow",
+      "subtitle": "Detecting failures and initiating a new vote.",
+      "explain": "Typically, the leader sends regular \"heartbeat\" messages to followers. If a follower doesn't receive a heartbeat within a timeout period, it assumes the leader is down. This triggers an election process where nodes vote or compete to become the new leader.",
+      "points": [
+        "Leader sends heartbeats",
+        "Followers detect failure",
+        "Initiate new election"
+      ],
+      "flow": [
+        "Leader",
+        "Heartbeat",
+        "Follower"
+      ],
+      "examples": [
+        "Timeout trigger"
+      ]
+    },
+    {
+      "heading": "The Bully Algorithm",
+      "subtitle": "A simpler, often less efficient approach.",
+      "explain": "When a node detects a leader failure, it sends an \"election\" message to all nodes with higher IDs. If no higher-ID node responds within a timeout, the initiator becomes the leader. If a higher-ID node responds, it takes over the election.",
+      "points": [
+        "Higher ID nodes \"win\"",
+        "Simpler to implement",
+        "Can be inefficient"
+      ],
+      "flow": [
+        "Node A",
+        "Election Msg",
+        "Node B",
+        "OK, I'm higher"
+      ],
+      "examples": [
+        "Small clusters"
+      ]
+    },
+    {
+      "heading": "Raft Algorithm (Lite)",
+      "subtitle": "A robust, widely used consensus algorithm.",
+      "explain": "Raft focuses on understandability and fault tolerance. Nodes can be Followers, Candidates, or Leaders. When a leader fails, followers become candidates, request votes from peers, and the one with the majority of votes becomes the new leader, ensuring strong consistency.",
+      "points": [
+        "Fault-tolerant & consistent",
+        "Nodes vote for a candidate",
+        "Majority vote wins"
+      ],
+      "flow": [
+        "Candidate",
+        "RequestVote",
+        "Peers",
+        "Vote Granted"
+      ],
+      "examples": [
+        "etcd",
+        "Kubernetes",
+        "Kafka"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Our microservice deployment has multiple instances, each able to process a unique, time-consuming report generation job.",
+    "problem": "Without a leader, multiple instances might pick up the same job, leading to duplicate reports, wasted resources, and inconsistent data.",
+    "fix": "Implement a leader election mechanism using a coordination service (e.g., ZooKeeper or etcd). Only the elected leader instance processes report jobs, preventing duplicates.",
+    "takeaway": "Leader election prevents conflicts and ensures unique task execution."
+  },
+  "cta": "What's the trickiest distributed system problem you've faced?",
+  "tags": [
+    "distributedsystems",
+    "systemdesign",
+    "consensus"
+  ],
+  "series": "System Design",
+  "part": 21
+}
