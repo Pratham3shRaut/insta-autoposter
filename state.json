@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-22",
+  "last_published_date": "2026-11-25",
   "history": [
     {
       "date": "2026-10-14",
@@ -420,6 +420,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 20
+    },
+    {
+      "date": "2026-11-25",
+      "title": "Leader Election in Distributed Systems",
+      "media_id": "18100985693227384",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 21
     }
   ]
 }
