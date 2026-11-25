@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-25",
+  "last_published_date": "2026-11-26",
   "history": [
     {
       "date": "2026-10-14",
@@ -428,6 +428,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 21
+    },
+    {
+      "date": "2026-11-26",
+      "title": "Distributed Transactions: Keeping Data Consistent",
+      "media_id": "17998974729102629",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 22
     }
   ]
 }
