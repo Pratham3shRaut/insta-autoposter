@@ -1,0 +1,21 @@
+Distributed Transactions: Keeping Data Consistent
+📚 Part 22 of our System Design series
+
+In distributed systems, operations often involve multiple independent services. How do you ensure all parts of an operation succeed or fail together, maintaining data integrity? That's where distributed transactions come in.
+
+In this post, you'll learn:
+✅ The Challenge
+✅ Monolithic ACID
+✅ Microservices Problem
+✅ Two-Phase Commit (2PC)
+✅ Saga Pattern
+✅ A real-world scenario
+
+What challenges have you faced trying to maintain data consistency in microservices?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 23.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #microservices #transactions #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

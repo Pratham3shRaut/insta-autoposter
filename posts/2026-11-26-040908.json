@@ -1,0 +1,101 @@
+{
+  "topic": "System Design #22",
+  "title": "Distributed Transactions: Keeping Data Consistent",
+  "intro": "In distributed systems, operations often involve multiple independent services. How do you ensure all parts of an operation succeed or fail together, maintaining data integrity? That's where distributed transactions come in.",
+  "slides": [
+    {
+      "heading": "The Challenge",
+      "subtitle": "Operations span multiple services, single outcome needed.",
+      "explain": "Imagine booking a trip: you need to book a flight, a hotel, and a car. Each might be a separate service. If the flight booking succeeds but the hotel fails, you don't want to be left with just a flight. All parts must succeed or all must fail.",
+      "points": [
+        "Multiple services involved",
+        "Need atomic operations",
+        "Ensuring data integrity"
+      ],
+      "flow": [
+        "User Request",
+        "Service A",
+        "Service B",
+        "Service C"
+      ],
+      "examples": [
+        "E-commerce order",
+        "Bank transfer"
+      ]
+    },
+    {
+      "heading": "Monolithic ACID",
+      "subtitle": "Simple transactions within a single database.",
+      "explain": "In a monolithic application, all related data often lives in one database. You can use standard ACID (Atomicity, Consistency, Isolation, Durability) transactions. If any step fails, the entire transaction is rolled back, guaranteeing consistency easily.",
+      "points": [
+        "Single database context",
+        "ACID properties apply",
+        "Easy rollback on failure"
+      ],
+      "examples": [
+        "SQL `BEGIN`/`COMMIT`"
+      ]
+    },
+    {
+      "heading": "Microservices Problem",
+      "subtitle": "No shared database means ACID isn't simple.",
+      "explain": "With microservices, each service typically owns its data, often in its own database. There's no single transaction coordinator across these independent databases. This makes achieving atomicity for cross-service operations challenging, leading to potential inconsistencies.",
+      "points": [
+        "Each service has own DB",
+        "No global transaction manager",
+        "Atomicity is hard to achieve"
+      ],
+      "examples": []
+    },
+    {
+      "heading": "Two-Phase Commit (2PC)",
+      "subtitle": "A classic but often avoided coordination protocol.",
+      "explain": "2PC uses a coordinator to ensure all participating services either commit or abort. In Phase 1 (Prepare), the coordinator asks all participants if they can commit. If all say yes, Phase 2 (Commit) begins, and all are instructed to commit. If any say no, all are told to abort.",
+      "points": [
+        "Coordinator-based approach",
+        "Prepare phase, then Commit phase",
+        "Can be slow & blocking"
+      ],
+      "flow": [
+        "Coordinator",
+        "Participant 1",
+        "Participant 2"
+      ],
+      "examples": [
+        "XA Transactions (JTA)"
+      ]
+    },
+    {
+      "heading": "Saga Pattern",
+      "subtitle": "Flexible way to manage distributed transactions.",
+      "explain": "The Saga pattern manages distributed transactions as a sequence of local transactions, each updating its own service's database. If a step fails, a series of compensating transactions are executed to undo the previous successful steps. It can be Orchestrated or Choreographed.",
+      "points": [
+        "Sequence of local transactions",
+        "Uses compensating actions",
+        "Orchestration or Choreography"
+      ],
+      "flow": [
+        "Order Service",
+        "Payment Service",
+        "Shipping Service"
+      ],
+      "examples": [
+        "Event-driven flows"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your e-commerce platform uses microservices. A customer places an order, which involves deducting inventory, processing payment, and creating a shipping label.",
+    "problem": "Inventory deducted, payment processed, but shipping fails. Customer is charged, inventory gone, but no label created. This leaves an inconsistent system state.",
+    "fix": "By implementing a Saga pattern, if the shipping service fails, compensating transactions are triggered. The payment is refunded, and inventory is restored, ensuring the system remains consistent despite the distributed failure.",
+    "takeaway": "Distributed transactions ensure atomic outcomes across multiple services."
+  },
+  "cta": "What challenges have you faced trying to maintain data consistency in microservices?",
+  "tags": [
+    "systemdesign",
+    "microservices",
+    "transactions"
+  ],
+  "series": "System Design",
+  "part": 22
+}
