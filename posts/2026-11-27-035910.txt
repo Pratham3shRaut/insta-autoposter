@@ -1,0 +1,21 @@
+Consensus Algorithms: Making Systems Agree
+📚 Part 23 of our System Design series
+
+In distributed systems, multiple machines need to agree on a single value or state, even when some nodes fail. Consensus algorithms are the bedrock for this crucial agreement.
+
+In this post, you'll learn:
+✅ The Big Picture
+✅ Why Is It Hard?
+✅ Key Properties
+✅ Raft in a Nutshell
+✅ Where It's Used
+✅ A real-world scenario
+
+What's the most complex distributed system concept you've encountered?
+
+📌 Save this post for later
+
+Follow @pr.devtips so you don't miss Part 24.
+Missed the earlier parts? They're on our profile.
+
+#systemdesign #distributedsystems #consensus #webdevelopment #webdev #programming #coding #developer #softwareengineering #100daysofcode

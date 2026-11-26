@@ -1,0 +1,101 @@
+{
+  "topic": "System Design #23",
+  "title": "Consensus Algorithms: Making Systems Agree",
+  "intro": "In distributed systems, multiple machines need to agree on a single value or state, even when some nodes fail. Consensus algorithms are the bedrock for this crucial agreement.",
+  "slides": [
+    {
+      "heading": "The Big Picture",
+      "subtitle": "How multiple nodes agree on a single outcome.",
+      "explain": "Consensus is the process where a group of distributed processes agree on a single data value. This agreement is vital for maintaining data consistency and ensuring system reliability when individual components might fail. It ensures all participants see the same state.",
+      "points": [
+        "Multiple nodes must agree.",
+        "Essential for data consistency.",
+        "Handles node failures gracefully."
+      ],
+      "examples": [
+        "Leader election",
+        "Transaction commit"
+      ]
+    },
+    {
+      "heading": "Why Is It Hard?",
+      "subtitle": "Dealing with failures and network unpredictability.",
+      "explain": "Achieving consensus is tricky because nodes can fail, messages can be lost or delayed, and network partitions can occur. These uncertainties make it difficult for all nodes to reach a uniform decision without knowing the exact state of others.",
+      "points": [
+        "Network delays and failures.",
+        "Node crashes or restarts.",
+        "Asynchronous communication."
+      ],
+      "flow": [
+        "Node A",
+        "Network",
+        "Node B"
+      ],
+      "examples": [
+        "Network partition",
+        "Server crash"
+      ]
+    },
+    {
+      "heading": "Key Properties",
+      "subtitle": "Safety, Liveness, and Agreement guarantees.",
+      "explain": "Consensus algorithms aim for three main properties: Safety, Liveness, and Agreement. Safety ensures that conflicting decisions are never made. Liveness guarantees that the system will eventually reach a decision. Agreement means all non-faulty nodes will decide on the same valid value.",
+      "points": [
+        "Agreement: All honest nodes decide on same value.",
+        "Validity: Value must be proposed by a node.",
+        "Termination: All honest nodes eventually decide."
+      ],
+      "examples": [
+        "Single leader",
+        "Consistent log"
+      ]
+    },
+    {
+      "heading": "Raft in a Nutshell",
+      "subtitle": "A popular and understandable consensus algorithm.",
+      "explain": "Raft simplifies consensus by focusing on leader election and log replication. Nodes are either Leaders, Followers, or Candidates. The Leader manages the replicated log, ensuring all committed entries are consistent across the cluster. If the leader fails, a new one is elected.",
+      "points": [
+        "Leader-based approach.",
+        "Strong consistency.",
+        "Easier to understand than Paxos."
+      ],
+      "flow": [
+        "Client",
+        "Leader",
+        "Followers"
+      ],
+      "examples": [
+        "etcd",
+        "HashiCorp Consul"
+      ]
+    },
+    {
+      "heading": "Where It's Used",
+      "subtitle": "Practical applications in real-world systems.",
+      "explain": "Consensus algorithms are fundamental for distributed databases, reliable messaging queues, and maintaining cluster metadata. They ensure critical system components like leader election, configuration management, and distributed locks operate correctly and consistently, even under adverse conditions.",
+      "points": [
+        "Distributed Key-Value Stores.",
+        "Coordinating Microservices.",
+        "Distributed Locks."
+      ],
+      "examples": [
+        "Apache ZooKeeper",
+        "Kubernetes"
+      ]
+    }
+  ],
+  "scenario": {
+    "situation": "Your microservices application uses a distributed lock manager to ensure only one service instance processes a critical scheduled task at a time, preventing duplicate work.",
+    "problem": "Occasionally, due to network glitches or server reboots, two instances simultaneously acquire the 'lock,' leading to the same task being processed twice, corrupting data.",
+    "fix": "Implementing a distributed lock manager powered by a robust consensus algorithm (e.g., Raft in etcd or ZooKeeper) ensures that despite failures, only one instance can hold the lock, guaranteeing task uniqueness.",
+    "takeaway": "Consensus algorithms are crucial for reliable coordination in distributed systems."
+  },
+  "cta": "What's the most complex distributed system concept you've encountered?",
+  "tags": [
+    "systemdesign",
+    "distributedsystems",
+    "consensus"
+  ],
+  "series": "System Design",
+  "part": 23
+}
