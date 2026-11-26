@@ -1,6 +1,6 @@
 {
   "next_index": 17,
-  "last_published_date": "2026-11-26",
+  "last_published_date": "2026-11-27",
   "history": [
     {
       "date": "2026-10-14",
@@ -436,6 +436,14 @@
       "kind": "carousel",
       "series": "System Design",
       "part": 22
+    },
+    {
+      "date": "2026-11-27",
+      "title": "Consensus Algorithms: Making Systems Agree",
+      "media_id": "18093892640220461",
+      "kind": "carousel",
+      "series": "System Design",
+      "part": 23
     }
   ]
 }
